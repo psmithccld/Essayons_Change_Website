@@ -1,0 +1,21 @@
+{
+  "name": "essayons-web-monorepo",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm --workspace client run dev\" \"npm --workspace server run dev\"",
+    "build": "npm run build --workspaces",
+    "start": "npm --workspace server run start",
+    "check": "npm --workspace server run check && npm --workspace client run check"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
