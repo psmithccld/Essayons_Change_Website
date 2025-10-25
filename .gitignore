@@ -1,0 +1,16 @@
+# Node, build artifacts
+node_modules/
+dist/
+build/
+client/dist/
+server/dist/
+*.log
+.env
+.env.local
+.DS_Store
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db

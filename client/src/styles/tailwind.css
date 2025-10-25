@@ -2,7 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Small utility button style */
-.btn {
-  @apply inline-flex items-center justify-center;
+/* Base typography tweaks */
+html {
+  color-scheme: light;
+}
+
+:root {
+  --essayons-primary: #9a1f26;
+  --essayons-text: #243238;
+  --essayons-muted: #d8d6c8;
+  --essayons-accent: #3d5b5b;
+}
+
+/* Small design system helpers */
+.btn-primary {
+  @apply bg-essayons-primary text-white hover:bg-essayons-primary-700;
+}
+
+.btn-ghost {
+  @apply bg-transparent border border-transparent hover:border-essayons-muted/20;
+}
+
+/* Header link utilities */
+.header-link {
+  @apply px-3 py-2 rounded-md text-sm font-medium;
+}
+
+/* Container for content areas (optional) */
+.page-container {
+  @apply container mx-auto px-4;
+}
+
+/* Accessibility: focus outlines */
+:focus {
+  outline: 3px solid rgba(24, 144, 255, 0.15);
+  outline-offset: 2px;
 }
