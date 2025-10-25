@@ -3,12 +3,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Sampled from the provided logo (image1). Adjust if you want further tuning.
-        'essayons-primary': '#9a1f26',   // deep logo red
-        'essayons-primary-700': '#7a181d',
-        'essayons-text': '#243238',      // teal/charcoal text
-        'essayons-muted': '#d8d6c8',     // beige background
-        'essayons-accent': '#3d5b5b'     // muted teal accent
+        // Exact sampled palette (from your uploaded logo image)
+        'essayons-primary': '#9b1e24',      // primary red (logo circle)
+        'essayons-primary-700': '#6e1519',  // darker red
+        'essayons-text': '#243236',         // dark teal/charcoal for text
+        'essayons-muted': '#d7d5c7',        // muted beige background
+        'essayons-accent': '#314d4d'        // muted teal accent
       },
       container: {
         center: true,
