@@ -8,10 +8,10 @@ html {
 }
 
 :root {
-  --essayons-primary: #9a1f26;
-  --essayons-text: #243238;
-  --essayons-muted: #d8d6c8;
-  --essayons-accent: #3d5b5b;
+  --essayons-primary: #9b1e24;
+  --essayons-text: #243236;
+  --essayons-muted: #d7d5c7;
+  --essayons-accent: #314d4d;
 }
 
 /* Small design system helpers */
@@ -37,4 +37,24 @@ html {
 :focus {
   outline: 3px solid rgba(24, 144, 255, 0.15);
   outline-offset: 2px;
+}
+
+/* Mobile panel animation (slide down + fade) */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-slideDown {
+  animation: slideDown 180ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+/* Slight header elevation when scrolled (class set by Header.tsx) */
+.header-elevated {
+  box-shadow: 0 4px 18px rgba(12, 20, 22, 0.06);
 }
