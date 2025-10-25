@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 
@@ -33,7 +33,7 @@ export default function Header() {
   // Close menu on outside click or on resize > md
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      if (open && menuRef.current && !menuRef.current.contains(e.target as Node)) {
+      if (open && menuRef.current && e.target && !menuRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }
