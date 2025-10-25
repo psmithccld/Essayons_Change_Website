@@ -28,12 +28,13 @@ function NavLinkItem({ to, children }: { to: string; children: React.ReactNode }
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   // Close menu on outside click or on resize > md
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      if (open && menuRef.current && e.target && !menuRef.current.contains(e.target as Node)) {
+      if (open && menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }
@@ -48,8 +49,23 @@ export default function Header() {
     };
   }, [open]);
 
+  // Track scroll to add subtle shadow / background for the sticky header
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 8);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className="w-full bg-transparent border-b border-essayons-muted/20 sticky top-0 z-40 backdrop-blur-sm">
+    <header
+      className={
+        'w-full bg-transparent border-b transition-shadow transition-colors duration-200 sticky top-0 z-40 backdrop-blur-sm ' +
+        (scrolled ? 'bg-white/60 shadow-sm border-essayons-muted/10' : 'bg-transparent border-transparent')
+      }
+    >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-3">
@@ -63,7 +79,9 @@ export default function Header() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-2">
           {NAV_ITEMS.map((it) => (
-            <NavLinkItem key={it.to} to={it.to}>{it.label}</NavLinkItem>
+            <NavLinkItem key={it.to} to={it.to}>
+              {it.label}
+            </NavLinkItem>
           ))}
         </nav>
 
@@ -92,10 +110,10 @@ export default function Header() {
               </svg>
             </button>
 
-            {/* Mobile panel */}
+            {/* Mobile panel with slide/opacity animation */}
             <div
-              className={`absolute right-4 top-16 w-56 bg-white/95 backdrop-blur-sm border border-essayons-muted/10 rounded-md shadow-lg transform transition-all origin-top-right ${
-                open ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'
+              className={`absolute right-4 top-16 w-56 bg-white/95 backdrop-blur-sm border border-essayons-muted/10 rounded-md shadow-lg transform transition-all duration-200 origin-top-right ${
+                open ? 'translate-y-0 opacity-100 pointer-events-auto animate-slideDown' : '-translate-y-2 opacity-0 pointer-events-none'
               }`}
             >
               <div className="flex flex-col p-2">
