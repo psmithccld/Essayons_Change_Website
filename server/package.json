@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --outfile=dist/index.js --format=esm",
-    "start": "node dist/index.js",
+    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --outfile=dist/index.cjs --format=cjs",
+    "start": "node dist/index.cjs",
     "check": "tsc -p ../tsconfig.json --noEmit"
   },
   "dependencies": {
