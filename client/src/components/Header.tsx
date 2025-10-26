@@ -62,9 +62,10 @@ export default function Header() {
   return (
     <header
       className={
-        'w-full bg-transparent border-b transition-shadow transition-colors duration-200 sticky top-0 z-40 backdrop-blur-sm ' +
-        (scrolled ? 'bg-white/60 shadow-sm border-essayons-muted/10' : 'bg-transparent border-transparent')
+        'w-full transition-shadow transition-colors duration-200 sticky top-0 z-40 bg-gray-100 border-b border-gray-200 ' +
+        (scrolled ? 'shadow-sm' : '')
       }
+      role="banner"
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -76,8 +77,7 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="hidden md:flex items-center gap-2" aria-label="Primary navigation">
           {NAV_ITEMS.map((it) => (
             <NavLinkItem key={it.to} to={it.to}>
               {it.label}
@@ -101,7 +101,7 @@ export default function Header() {
               onClick={() => setOpen((v) => !v)}
               className="btn-ghost p-2 rounded-md text-essayons-text/90 hover:bg-essayons-muted/10"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
                 {open ? (
                   <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 ) : (
