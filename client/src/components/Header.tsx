@@ -101,7 +101,7 @@ export default function Header() {
               onClick={() => setOpen((v) => !v)}
               className="btn-ghost p-2 rounded-md text-essayons-text/90 hover:bg-essayons-muted/10"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden={true}>
                 {open ? (
                   <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 ) : (

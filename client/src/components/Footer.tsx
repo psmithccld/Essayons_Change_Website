@@ -57,13 +57,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-gray-200 pt-4 text-sm text-gray-600 flex flex-col md:flex-row items-center justify-between">
+        <div className="mt-8 border-t border-gray-200 pt-4 text-sm text-gray-600">
           <div>© 2025 Essayons Change LLC. All rights reserved.</div>
-          <div className="mt-3 md:mt-0">
-            <span className="mr-3">Privacy Policy</span>
-            <span className="mr-3">|</span>
-            <span className="ml-3">Terms of Use</span>
-          </div>
         </div>
       </div>
     </footer>
