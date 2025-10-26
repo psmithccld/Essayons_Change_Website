@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from '@/assets/logo.png';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
@@ -31,7 +30,6 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  // Close menu on outside click or on resize > md
   useEffect(() => {
     function onClick(e: MouseEvent) {
       if (open && menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -49,7 +47,6 @@ export default function Header() {
     };
   }, [open]);
 
-  // Track scroll to add subtle shadow / background for the sticky header
   useEffect(() => {
     function onScroll() {
       setScrolled(window.scrollY > 8);
@@ -70,7 +67,8 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Essayons logo" className="h-10 w-10 object-contain" />
+            {/* use public asset path so header and footer use the same file */}
+            <img src="/assets/logo.png" alt="Essayons logo" className="h-10 w-10 object-contain" />
             <span className="hidden sm:inline-block text-2xl font-semibold text-essayons-text tracking-wider">
               Essayons
             </span>
@@ -94,14 +92,13 @@ export default function Header() {
             Existing users
           </a>
 
-          {/* Mobile menu button */}
           <div className="md:hidden" ref={menuRef}>
             <button
               aria-label={open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen((v) => !v)}
               className="btn-ghost p-2 rounded-md text-essayons-text/90 hover:bg-essayons-muted/10"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden={true}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden>
                 {open ? (
                   <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 ) : (
@@ -110,7 +107,6 @@ export default function Header() {
               </svg>
             </button>
 
-            {/* Mobile panel with slide/opacity animation */}
             <div
               className={`absolute right-4 top-16 w-56 bg-white/95 backdrop-blur-sm border border-essayons-muted/10 rounded-md shadow-lg transform transition-all duration-200 origin-top-right ${
                 open ? 'translate-y-0 opacity-100 pointer-events-auto animate-slideDown' : '-translate-y-2 opacity-0 pointer-events-none'
