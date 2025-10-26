@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: essayons-web-service-node
+    env: node
+    region: oregon
+    branch: main
+    plan: starter
+    buildCommand: NPM_CONFIG_PRODUCTION=false npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
