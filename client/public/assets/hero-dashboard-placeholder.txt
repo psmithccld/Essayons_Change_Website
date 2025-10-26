@@ -1,0 +1,2 @@
+Note: Place your hero dashboard screenshot here as hero-dashboard.png
+This is a placeholder file. The actual image should be a screenshot of the dashboard.
