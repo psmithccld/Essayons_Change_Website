@@ -70,29 +70,36 @@ export default function About() {
       <section>
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Our Team</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Led by experienced professionals with deep expertise in change management, organizational development, and technology.
-          </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          <TeamMember
-            name="Dr. Patricia Smith"
-            role="Founder & CEO"
-            bio="Former Army Engineer with 20+ years of experience in organizational change and leadership development."
-            initials="PS"
-          />
-          <TeamMember
-            name="Michael Johnson"
-            role="Chief Technology Officer"
-            bio="Technology leader specializing in enterprise software and data analytics for change management."
-            initials="MJ"
-          />
-          <TeamMember
-            name="Sarah Williams"
-            role="Head of Client Success"
-            bio="Dedicated to ensuring organizations achieve transformational results through our platform."
-            initials="SW"
-          />
+        <div className="max-w-3xl mx-auto">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                <Avatar className="h-32 w-32 flex-shrink-0">
+                  <AvatarImage src={philSmithImage} alt="Phil Smith" />
+                  <AvatarFallback>PS</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 space-y-4 text-center md:text-left">
+                  <div>
+                    <h3 className="text-2xl font-bold" data-testid="text-team-member-name">
+                      Phil Smith, PMP, Ph.D. Candidate
+                    </h3>
+                    <p className="text-lg text-muted-foreground" data-testid="text-team-member-role">
+                      Founder & President
+                    </p>
+                  </div>
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>
+                      Phil Smith is a leadership consultant, educator, and doctoral researcher focused on organizational readiness for change. A U.S. Army veteran with over 20 years of experience in project and organizational leadership, he brings a unique perspective that integrates military precision, academic research, and practical management application.
+                    </p>
+                    <p>
+                      His work bridges theory and practice — developing frameworks and systems that help leaders design, measure, and sustain transformational change.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>
