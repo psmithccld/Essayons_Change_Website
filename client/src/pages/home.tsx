@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import HeroCarousel from "@/components/HeroCarousel";
 import FeatureGrid from "@/components/FeatureGrid";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -13,7 +13,7 @@ export default function Home() {
         </p>
       </section>
       
-      <Hero />
+      <HeroCarousel />
       
       <section className="bg-primary/5 border-y py-8">
         <div className="container">
