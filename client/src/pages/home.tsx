@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <div>
-      <section className="container py-6">
+      <section className="container pt-6 pb-3">
         <p className="text-center text-base text-muted-foreground max-w-4xl mx-auto">
           Essayons Change provides organizational change management software and consulting services designed to improve readiness, communication, and leadership performance.
         </p>
