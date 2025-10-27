@@ -87,7 +87,7 @@ export default function HeroCarousel() {
   const slide = slides[currentSlide];
 
   return (
-    <section className="container py-16 md:py-24">
+    <section className="container pt-8 pb-16 md:pt-12 md:pb-24">
       <div className="relative">
         <div className={`transition-opacity duration-500 ${fadeClass}`}>
           <div className="space-y-8">
