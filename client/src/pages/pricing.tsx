@@ -33,10 +33,9 @@ export default function Pricing() {
           title="Professional"
           price="$50.00"
           period="seat/month"
-          seats="50 seats"
+          seats="20+ seats"
           fileSize="10 MB files"
           storage="5 GB"
-          orgs="0 orgs"
           minSeats="20 seat minimum • Sold in blocks of 5"
           specs={[
             { label: "Individual File Size", value: "10 MB" },
@@ -54,7 +53,6 @@ export default function Pricing() {
           seats="10 seats"
           fileSize="10 MB files"
           storage="5 GB"
-          orgs="0 orgs"
           specs={[
             { label: "Individual File Size", value: "10 MB" },
             { label: "Storage", value: "5 GB" },

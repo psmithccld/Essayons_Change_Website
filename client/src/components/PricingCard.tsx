@@ -16,7 +16,7 @@ interface PricingCardProps {
   seats: string;
   fileSize: string;
   storage: string;
-  orgs: string;
+  orgs?: string;
   specs: { label: string; value: string }[];
   features: PricingFeature[];
   highlighted?: boolean;
@@ -48,7 +48,7 @@ export default function PricingCard({
           <Badge variant="destructive">Active</Badge>
           <Badge variant="secondary">{seats}</Badge>
           <Badge variant="secondary">{fileSize}</Badge>
-          <Badge variant="secondary">{orgs}</Badge>
+          <Badge variant="secondary">{storage}</Badge>
         </div>
         {minSeats && (
           <p className="text-xs text-muted-foreground mt-2">{minSeats}</p>
