@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import logoImage from "@assets/image_1758211685824_1761593188026.png";
 
 export default function Footer() {
   return (
@@ -7,14 +8,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-3">
-              <img src="/assets/logo.png" alt="Essayons logo" className="h-10 w-10 object-contain" />
-              <div>
-                <div className="text-lg font-semibold">Essayons Change, LLC</div>
-                <div className="text-sm text-muted-foreground">Emmitsburg, MD 21727</div>
-              </div>
+              <img src={logoImage} alt="Essayons Change logo" className="h-10 object-contain" />
             </div>
-            <div className="mt-4 text-sm text-muted-foreground">
-              <div>psmith@essayonschange.com</div>
+            <div className="mt-4 text-sm font-medium">
+              Essayons Change, LLC
+            </div>
+            <div className="mt-2 text-sm text-muted-foreground">
+              <div>Emmitsburg, MD 21727</div>
+              <div className="mt-2">psmith@essayonschange.com</div>
               <div>240-446-1093</div>
             </div>
           </div>

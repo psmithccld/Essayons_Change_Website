@@ -2,6 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import logoImage from "@assets/image_1758211685824_1761593188026.png";
 
 const navItems = [
   { path: "/", label: "Home" },
@@ -21,8 +22,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-3" data-testid="link-home">
-          <img src="/assets/logo.png" alt="Essayons logo" className="h-10 w-10 object-contain" />
-          <span className="hidden text-xl font-semibold sm:inline-block">Essayons</span>
+          <img src={logoImage} alt="Essayons Change logo" className="h-10 object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

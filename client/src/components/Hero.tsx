@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import heroImage from "@assets/generated_images/Change_management_dashboard_interface_dd84b6e4.png";
+import heroImage from "@assets/image_1761593182537.png";
 
 export default function Hero() {
   return (
@@ -37,7 +37,7 @@ export default function Hero() {
           <div className="w-full overflow-hidden rounded-lg border shadow-lg">
             <img
               src={heroImage}
-              alt="Essayons Change dashboard preview"
+              alt="Essayons Change Process Flow Dashboard"
               className="h-auto w-full object-cover"
             />
           </div>
