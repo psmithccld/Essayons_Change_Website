@@ -43,17 +43,25 @@ export default function About() {
         </div>
       </section>
 
-      <section>
+      <section className="grid gap-6 md:grid-cols-2">
         <Card className="bg-muted/30">
           <CardHeader>
-            <CardTitle className="text-2xl">Our Philosophy</CardTitle>
+            <CardTitle className="text-2xl">Mission Statement</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent>
             <p className="text-muted-foreground">
-              Change management is both an art and a science. We combine evidence-based research with practical, battle-tested methodologies to help organizations navigate complexity and achieve lasting transformation.
+              To empower leaders and organizations to design, measure, and sustain transformational change through research-driven tools, practical frameworks, and integrated systems that connect individual understanding with organizational intent.
             </p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-muted/30">
+          <CardHeader>
+            <CardTitle className="text-2xl">Vision Statement</CardTitle>
+          </CardHeader>
+          <CardContent>
             <p className="text-muted-foreground">
-              Through our Change Management Information System (CMIS), we provide integrated tools for planning, measurement, and sustainment — ensuring that change initiatives don't just launch, but succeed and endure.
+              To redefine how organizations manage change, creating a world where leaders and teams embrace transformation with clarity, confidence, and shared purpose.
             </p>
           </CardContent>
         </Card>
