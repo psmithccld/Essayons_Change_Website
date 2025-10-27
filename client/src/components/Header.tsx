@@ -22,7 +22,10 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-gray-100">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-3" data-testid="link-home">
-          <img src={logoImage} alt="Essayons Change logo" className="h-10 object-contain" />
+          <div className="flex flex-col">
+            <img src={logoImage} alt="Essayons Change logo" className="h-10 object-contain" />
+            <span className="hidden sm:block text-xs font-medium text-muted-foreground tracking-wide mt-0.5">Research-Driven Change Management</span>
+          </div>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
