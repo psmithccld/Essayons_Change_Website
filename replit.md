@@ -87,13 +87,20 @@ npm --workspace server run start  # Production server
 
 ### Authentication & Authorization
 
-**Current Implementation**: None (public marketing site)
-- **App Access**: `/app` route redirects to external CMIS application for authentication
-- **Future Consideration**: May add contact form submission, newsletter signup requiring basic validation
+**Admin CMS System** (October 2025): Session-based authentication for content management
+- **Implementation**: bcryptjs for password hashing, express-session with secure cookies
+- **Security**: Same-site strict cookies for CSRF protection, HTTP-only cookies
+- **Admin Routes**: `/admin/login`, `/admin/dashboard`, `/admin/content/:id`
+- **API Endpoints**: 
+  - Authentication: `/api/auth/login`, `/api/auth/logout`, `/api/auth/me`
+  - Content CRUD: `/api/admin/content` (protected with requireAuth middleware)
+  - Attachments: `/api/admin/attachments` (protected)
+  - Public content: `/api/content`, `/api/content/:slug` (no auth required)
+- **Default Credentials** (development): username=admin, password=admin123
+- **Storage**: In-memory storage (MemStorage) pending drizzle-orm dependency resolution
 
-**Design Decision**: Delegate authentication to main CMIS app
-- **Rationale**: Keeps public site stateless and simple, avoids session management complexity
-- **Alternative**: Could add NextAuth/Passport for unified authentication (deferred)
+**Public Site**: No authentication required
+- **App Access**: `/app` route redirects to external CMIS application for authentication
 
 ## External Dependencies
 
