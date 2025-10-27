@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Pause, Play, ChevronLeft, ChevronRight } from "lucide-react";
@@ -44,20 +44,29 @@ export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [fadeClass, setFadeClass] = useState("opacity-100");
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      return;
+    }
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setFadeClass("opacity-0");
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
         setFadeClass("opacity-100");
       }, 500);
     }, 4500);
 
-    return () => clearInterval(interval);
-  }, [isPlaying]);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [isPlaying, currentSlide]);
 
   const goToSlide = (index: number) => {
     setFadeClass("opacity-0");
