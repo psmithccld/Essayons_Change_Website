@@ -76,7 +76,11 @@ export default function About() {
             <CardContent className="pt-6">
               <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
                 <Avatar className="h-32 w-32 flex-shrink-0">
-                  <AvatarImage src={philSmithImage} alt="Phil Smith" />
+                  <AvatarImage 
+                    src={philSmithImage} 
+                    alt="Phil Smith"
+                    className="object-cover object-center"
+                  />
                   <AvatarFallback>PS</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 space-y-4 text-center md:text-left">
