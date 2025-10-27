@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import abstractImage from "@assets/generated_images/Organizational_change_abstract_illustration_cfc71091.png";
+import abstractImage from "@assets/image_1761605800665.png";
 import philSmithImage from "@assets/Author Picture_1761601756882.jpg";
 
 export default function About() {
@@ -35,7 +35,7 @@ export default function About() {
             <div className="w-full overflow-hidden rounded-lg border shadow-lg">
               <img
                 src={abstractImage}
-                alt="Organizational change visualization"
+                alt="Puzzle pieces representing organizational integration and change"
                 className="h-auto w-full object-cover"
               />
             </div>
