@@ -1,6 +1,7 @@
-import TeamMember from "@/components/TeamMember";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import abstractImage from "@assets/generated_images/Organizational_change_abstract_illustration_cfc71091.png";
+import philSmithImage from "@assets/Author Picture_1761601756882.jpg";
 
 export default function About() {
   return (
@@ -11,11 +12,23 @@ export default function About() {
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
               About Essayons Change
             </h1>
-            <p className="text-lg text-muted-foreground">
-              Founded on the Army Engineer Corps' motto "Essayons" (Let Us Try), we believe in bridging the gap between research and practice in organizational change management.
+            <p className="text-base text-muted-foreground">
+              In researching change management, our founder identified a critical gap.
             </p>
             <p className="text-base text-muted-foreground">
-              Our mission is to empower leaders with the tools, frameworks, and insights they need to design, implement, and sustain transformational change in their organizations.
+              Most change models focus on either the organization or the individual. Experience in the U.S. Army provided a key insight; everyone must understand what, why, and how change is occurring.
+            </p>
+            <p className="text-base text-muted-foreground">
+              No existing framework effectively integrated the individual into the organization's broader change process. Yet it's within this nexus, where individual understanding meets organizational intent, that real transformation happens.
+            </p>
+            <p className="text-base text-muted-foreground">
+              Essayons Change was created to bridge that gap.
+            </p>
+            <p className="text-base text-muted-foreground">
+              Leveraging principles from Project Management Information Systems (PMIS), the Change Management Information System (CMIS) connects people, purpose, and performance. CMIS integrates those affected by change as active stakeholders in each initiative — ensuring alignment, engagement, and measurable progress.
+            </p>
+            <p className="text-base text-muted-foreground">
+              Our name, drawn from the Army Engineer Corps' motto "Essayons" — Let Us Try, reflects our philosophy of adaptive, evidence-based leadership and the relentless pursuit of improvement through understanding.
             </p>
           </div>
           <div className="flex items-center justify-center">
