@@ -1,6 +1,22 @@
 import PricingCard from "@/components/PricingCard";
 
 export default function Pricing() {
+  const professionalFeatures = [
+    { name: "Communications", included: true },
+    { name: "Reporting", included: true },
+    { name: "GPT Integration", included: true },
+    { name: "Surveys", included: true },
+    { name: "Change Artifacts", included: true },
+  ];
+
+  const basicFeatures = [
+    { name: "Communications", included: false },
+    { name: "Reporting", included: false },
+    { name: "GPT Integration", included: false },
+    { name: "Surveys", included: false },
+    { name: "Change Artifacts", included: false },
+  ];
+
   return (
     <div className="container py-12 space-y-12">
       <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -8,60 +24,53 @@ export default function Pricing() {
           Simple, Transparent Pricing
         </h1>
         <p className="text-lg text-muted-foreground">
-          Choose the plan that's right for your organization. All plans include our core change management features.
+          Choose the plan that's right for your organization. All plans include secure access to the Change Management Information System (CMIS).
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-        <PricingCard
-          title="Starter"
-          price="$499"
-          period="month"
-          description="Perfect for small teams getting started with change management"
-          features={[
-            "Up to 10 users",
-            "Basic change initiatives",
-            "Email support",
-            "Monthly reports",
-            "Readiness surveys",
-          ]}
-        />
+      <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
         <PricingCard
           title="Professional"
-          price="$999"
-          period="month"
-          description="For growing organizations with complex change needs"
-          features={[
-            "Up to 50 users",
-            "Advanced analytics dashboard",
-            "Priority support",
-            "Custom reports & dashboards",
-            "API access",
-            "Stakeholder mapping",
-            "RAID log management",
+          price="$50.00"
+          period="seat/month"
+          seats="50 seats"
+          fileSize="10 MB files"
+          storage="5 GB"
+          orgs="0 orgs"
+          minSeats="20 seat minimum • Sold in blocks of 5"
+          specs={[
+            { label: "Individual File Size", value: "10 MB" },
+            { label: "Storage", value: "5 GB" },
+            { label: "Currency", value: "USD" },
+            { label: "Billing Interval", value: "month" },
           ]}
+          features={professionalFeatures}
           highlighted
         />
         <PricingCard
-          title="Enterprise"
-          price="Custom"
-          period="contact us"
-          description="For large-scale organizational transformation"
-          features={[
-            "Unlimited users",
-            "Dedicated success manager",
-            "Custom integrations",
-            "On-premise deployment option",
-            "24/7 priority support",
-            "Advanced security features",
-            "Custom training programs",
+          title="Basic"
+          price="$299.00"
+          period="month"
+          seats="10 seats"
+          fileSize="10 MB files"
+          storage="5 GB"
+          orgs="0 orgs"
+          specs={[
+            { label: "Individual File Size", value: "10 MB" },
+            { label: "Storage", value: "5 GB" },
+            { label: "Currency", value: "USD" },
+            { label: "Billing Interval", value: "month" },
           ]}
+          features={basicFeatures}
         />
       </div>
 
-      <div className="text-center mt-12 space-y-4">
+      <div className="text-center mt-12 space-y-4 max-w-2xl mx-auto">
         <p className="text-muted-foreground">
-          All plans include a 30-day money-back guarantee. Need help choosing? <a href="/contact" className="text-primary hover:underline">Contact us</a> for a personalized demo.
+          Custom solutions are available for organizations with unique requirements.
+        </p>
+        <p className="text-muted-foreground">
+          Discounts may be available for longer contract terms. <a href="/contact" className="text-primary hover:underline">Contact our sales team</a> to discuss your needs.
         </p>
       </div>
     </div>
