@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base typography tweaks */
+html {
+  color-scheme: light;
+}
+
+:root {
+  --essayons-primary: #9b1e24;
+  --essayons-text: #243236;
+  --essayons-muted: #d7d5c7;
+  --essayons-accent: #314d4d;
+}
+
+/* Small design system helpers */
+.btn-primary {
+  @apply bg-essayons-primary text-white hover:bg-essayons-primary-700;
+}
+
+.btn-ghost {
+  @apply bg-transparent border border-transparent hover:border-essayons-muted/20;
+}
+
+/* Header link utilities */
+.header-link {
+  @apply px-3 py-2 rounded-md text-sm font-medium;
+}
+
+/* Container for content areas (optional) */
+.page-container {
+  @apply container mx-auto px-4;
+}
+
+/* Accessibility: focus outlines */
+:focus {
+  outline: 3px solid rgba(24, 144, 255, 0.15);
+  outline-offset: 2px;
+}
+
+/* Mobile panel animation (slide down + fade) */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-slideDown {
+  animation: slideDown 180ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+/* Slight header elevation when scrolled (class set by Header.tsx) */
+.header-elevated {
+  box-shadow: 0 4px 18px rgba(12, 20, 22, 0.06);
+}
