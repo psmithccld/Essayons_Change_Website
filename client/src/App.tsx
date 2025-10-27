@@ -15,27 +15,42 @@ import Games from "@/pages/games";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
+import AdminLogin from "@/pages/admin-login";
+import AdminDashboard from "@/pages/admin-dashboard";
+import AdminContentEditor from "@/pages/admin-content-editor";
 
 function Router() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1">
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/pricing" component={Pricing} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/tutorials" component={Tutorials} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/games" component={Games} />
-          <Route path="/privacy" component={Privacy} />
-          <Route path="/terms" component={Terms} />
-          <Route component={NotFound} />
-        </Switch>
-      </main>
-      <Footer />
-    </div>
+    <Switch>
+      {/* Admin routes (no header/footer) */}
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
+      <Route path="/admin/content/:id" component={AdminContentEditor} />
+      
+      {/* Public routes (with header/footer) */}
+      <Route path="*">
+        {() => (
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">
+              <Switch>
+                <Route path="/" component={Home} />
+                <Route path="/about" component={About} />
+                <Route path="/pricing" component={Pricing} />
+                <Route path="/blog" component={Blog} />
+                <Route path="/tutorials" component={Tutorials} />
+                <Route path="/contact" component={Contact} />
+                <Route path="/games" component={Games} />
+                <Route path="/privacy" component={Privacy} />
+                <Route path="/terms" component={Terms} />
+                <Route component={NotFound} />
+              </Switch>
+            </main>
+            <Footer />
+          </div>
+        )}
+      </Route>
+    </Switch>
   );
 }
 

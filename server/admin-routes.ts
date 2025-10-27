@@ -9,7 +9,7 @@ const insertContentSchema = z.object({
   summary: z.string().optional(),
   body: z.string(),
   status: z.string().default("draft"),
-  publishedAt: z.date().optional().nullable(),
+  publishedAt: z.string().optional().nullable().transform((val) => val ? new Date(val) : null),
   heroImageUrl: z.string().optional().nullable(),
   authorId: z.number().optional().nullable(),
 });
@@ -62,7 +62,7 @@ export async function createContentHandler(req: Request, res: Response) {
     return res.status(201).json(item);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: "Invalid input", details: error.errors });
+      return res.status(400).json({ error: "Invalid input", details: error.issues });
     }
     console.error("Create content error:", error);
     return res.status(500).json({ error: "Failed to create content" });
@@ -82,7 +82,7 @@ export async function updateContentHandler(req: Request, res: Response) {
     return res.json(updated);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: "Invalid input", details: error.errors });
+      return res.status(400).json({ error: "Invalid input", details: error.issues });
     }
     console.error("Update content error:", error);
     return res.status(500).json({ error: "Failed to update content" });
@@ -112,7 +112,7 @@ export async function createAttachmentHandler(req: Request, res: Response) {
     return res.status(201).json(attachment);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: "Invalid input", details: error.errors });
+      return res.status(400).json({ error: "Invalid input", details: error.issues });
     }
     console.error("Create attachment error:", error);
     return res.status(500).json({ error: "Failed to create attachment" });
