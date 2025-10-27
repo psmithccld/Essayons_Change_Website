@@ -1,39 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "wouter";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200 mt-12" role="contentinfo">
-      <div className="container mx-auto px-4 py-10 text-gray-700">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <footer className="border-t bg-muted/30 mt-16">
+      <div className="container py-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-3">
-              <img src="/assets/logo.png" alt="Essayons Change logo" className="h-10 w-10 object-contain" />
+              <img src="/assets/logo.png" alt="Essayons logo" className="h-10 w-10 object-contain" />
               <div>
-                <div className="text-lg font-semibold text-essayons-text">Essayons Change, LLC</div>
-                <div className="text-sm text-gray-600">Emmitsburg, MD 21727</div>
+                <div className="text-lg font-semibold">Essayons Change, LLC</div>
+                <div className="text-sm text-muted-foreground">Emmitsburg, MD 21727</div>
               </div>
             </div>
-            <div className="mt-4 text-sm">
-              <div>psmith@essayonschange.com | 240-446-1093</div>
+            <div className="mt-4 text-sm text-muted-foreground">
+              <div>psmith@essayonschange.com</div>
+              <div>240-446-1093</div>
             </div>
           </div>
 
           <div>
-            <h4 className="font-semibold text-essayons-text mb-2">Connect</h4>
-            <ul className="text-sm space-y-1">
+            <h4 className="font-semibold mb-3">Connect</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-linkedin">
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-youtube">
                   YouTube
                 </a>
               </li>
               <li>
-                <Link to="/contact" className="hover:underline">
+                <Link href="/contact" className="hover:text-foreground transition-colors" data-testid="link-contact-footer">
                   Contact Us
                 </Link>
               </li>
@@ -41,15 +41,15 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-essayons-text mb-2">Legal</h4>
-            <ul className="text-sm space-y-1">
+            <h4 className="font-semibold mb-3">Legal</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link to="/privacy" className="hover:underline">
+                <Link href="/privacy" className="hover:text-foreground transition-colors" data-testid="link-privacy">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="hover:underline">
+                <Link href="/terms" className="hover:text-foreground transition-colors" data-testid="link-terms">
                   Terms of Use
                 </Link>
               </li>
@@ -57,8 +57,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-gray-200 pt-4 text-sm text-gray-600">
-          <div>© 2025 Essayons Change LLC. All rights reserved.</div>
+        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
+          © {new Date().getFullYear()} Essayons Change LLC. All rights reserved.
         </div>
       </div>
     </footer>
