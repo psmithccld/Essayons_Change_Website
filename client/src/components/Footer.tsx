@@ -3,7 +3,7 @@ import logoImage from "@assets/image_1758211685824_1761593188026.png";
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-muted/30 mt-16">
+    <footer className="border-t bg-gray-100 mt-16">
       <div className="container py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
