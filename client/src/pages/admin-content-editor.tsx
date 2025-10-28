@@ -9,7 +9,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Plus, Trash2, Video } from "lucide-react";
+import { isYouTubeUrl } from "@/lib/youtube";
+
+interface Attachment {
+  id: number;
+  contentId: number;
+  kind: string;
+  url: string;
+  title?: string | null;
+  description?: string | null;
+  order: number;
+}
 
 interface Content {
   id: number;
@@ -24,6 +35,7 @@ interface Content {
   authorId?: number | null;
   createdAt: string;
   updatedAt: string;
+  attachments?: Attachment[];
 }
 
 export default function AdminContentEditor() {
@@ -43,7 +55,13 @@ export default function AdminContentEditor() {
     heroImageUrl: "",
   });
 
-  const { data: existingContent, isLoading } = useQuery<Content & { attachments?: any[] }>({
+  const [newVideo, setNewVideo] = useState({
+    url: "",
+    title: "",
+    description: "",
+  });
+
+  const { data: existingContent, isLoading } = useQuery<Content>({
     queryKey: ["/api/admin/content", contentId],
     enabled: !isNewContent && !!contentId,
   });
@@ -116,6 +134,55 @@ export default function AdminContentEditor() {
     saveMutation.mutate(formData);
   };
 
+  const createAttachmentMutation = useMutation({
+    mutationFn: async (data: { contentId: number; kind: string; url: string; title?: string; description?: string; order: number }) => {
+      return await apiRequest("/api/admin/attachments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        credentials: "include",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/content", contentId] });
+      setNewVideo({ url: "", title: "", description: "" });
+      toast({
+        title: "Video added",
+        description: "The video has been added successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to add video",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteAttachmentMutation = useMutation({
+    mutationFn: async (attachmentId: number) => {
+      return await apiRequest(`/api/admin/attachments/${attachmentId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/content", contentId] });
+      toast({
+        title: "Video deleted",
+        description: "The video has been deleted successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete video",
+        variant: "destructive",
+      });
+    },
+  });
+
   const generateSlug = (title: string) => {
     return title
       .toLowerCase()
@@ -129,6 +196,51 @@ export default function AdminContentEditor() {
       title,
       slug: isNewContent ? generateSlug(title) : prev.slug,
     }));
+  };
+
+  const handleAddVideo = () => {
+    if (!newVideo.url) {
+      toast({
+        title: "Validation error",
+        description: "Please enter a YouTube URL",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!isYouTubeUrl(newVideo.url)) {
+      toast({
+        title: "Invalid URL",
+        description: "Please enter a valid YouTube URL",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!contentId) {
+      toast({
+        title: "Save content first",
+        description: "Please save the content before adding videos",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const nextOrder = (existingContent?.attachments?.length || 0);
+    createAttachmentMutation.mutate({
+      contentId: parseInt(contentId),
+      kind: "video",
+      url: newVideo.url,
+      title: newVideo.title || null,
+      description: newVideo.description || null,
+      order: nextOrder,
+    });
+  };
+
+  const handleDeleteVideo = (attachmentId: number) => {
+    if (confirm("Are you sure you want to delete this video?")) {
+      deleteAttachmentMutation.mutate(attachmentId);
+    }
   };
 
   if (isLoading) {
@@ -286,6 +398,112 @@ export default function AdminContentEditor() {
             </form>
           </CardContent>
         </Card>
+
+        {/* Video Attachments Section - Only show for existing content */}
+        {!isNewContent && contentId && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Video className="w-5 h-5" />
+                YouTube Videos
+              </CardTitle>
+              <CardDescription>
+                Add YouTube tutorial videos to this {formData.type}. You can also use [video:URL] syntax in the content body for inline embedding.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Existing videos list */}
+              {existingContent?.attachments && existingContent.attachments.filter((a: Attachment) => a.kind === 'video').length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium">Current Videos</h3>
+                  {existingContent.attachments
+                    .filter((a: Attachment) => a.kind === 'video')
+                    .map((attachment: Attachment) => (
+                      <div
+                        key={attachment.id}
+                        className="flex gap-4 p-4 border rounded-lg"
+                        data-testid={`video-item-${attachment.id}`}
+                      >
+                        <div className="flex-1 space-y-1">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              {attachment.title && (
+                                <h4 className="font-medium">{attachment.title}</h4>
+                              )}
+                              <p className="text-sm text-muted-foreground font-mono break-all">
+                                {attachment.url}
+                              </p>
+                              {attachment.description && (
+                                <p className="text-sm text-muted-foreground mt-1">
+                                  {attachment.description}
+                                </p>
+                              )}
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteVideo(attachment.id)}
+                              disabled={deleteAttachmentMutation.isPending}
+                              data-testid={`button-delete-video-${attachment.id}`}
+                            >
+                              <Trash2 className="w-4 h-4 text-destructive" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+
+              {/* Add new video form */}
+              <div className="space-y-4 pt-4 border-t">
+                <h3 className="text-sm font-medium">Add New Video</h3>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="video-url">YouTube URL *</Label>
+                    <Input
+                      id="video-url"
+                      data-testid="input-video-url"
+                      value={newVideo.url}
+                      onChange={(e) => setNewVideo((prev) => ({ ...prev, url: e.target.value }))}
+                      placeholder="https://www.youtube.com/watch?v=..."
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="video-title">Video Title (optional)</Label>
+                    <Input
+                      id="video-title"
+                      data-testid="input-video-title"
+                      value={newVideo.title}
+                      onChange={(e) => setNewVideo((prev) => ({ ...prev, title: e.target.value }))}
+                      placeholder="e.g., Introduction to CMIS"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="video-description">Description (optional)</Label>
+                    <Textarea
+                      id="video-description"
+                      data-testid="input-video-description"
+                      value={newVideo.description}
+                      onChange={(e) => setNewVideo((prev) => ({ ...prev, description: e.target.value }))}
+                      placeholder="Brief description of the video content"
+                      rows={2}
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={handleAddVideo}
+                    disabled={createAttachmentMutation.isPending || !newVideo.url}
+                    data-testid="button-add-video"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    {createAttachmentMutation.isPending ? "Adding..." : "Add Video"}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </main>
     </div>
   );
