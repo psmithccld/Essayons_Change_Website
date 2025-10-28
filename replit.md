@@ -195,3 +195,34 @@ npm --workspace server run start  # Production server
 - **Modal System**: State-driven rendering prevents closure stale-state bugs
 
 **File Location**: `client/src/components/LeadershipToolboxGame.tsx`
+
+### Leadership Readiness Quiz (October 2025)
+
+**Implementation**: 10-question self-assessment based on the 5 Ws of Leadership
+- **Technology**: React component with shadcn/ui (Button, Card, Progress)
+- **Assessment Structure**:
+  - 10 questions across 5 categories: WHO, WHAT, WHEN, WHERE, WHY
+  - 2 questions per category
+  - Rating scale: 1 (Strongly Disagree) to 5 (Strongly Agree)
+  - Real-time progress tracking with visual progress bar
+  - Results calculation and personalized feedback
+
+**Features**:
+- **Progress Tracking**: Visual progress bar showing completion percentage
+- **Interactive Rating**: Clear selection feedback with filled background and ring effect
+- **Results Dashboard**: 
+  - Overall readiness score (average of all categories)
+  - Individual category scores with progress bars
+  - Tiered feedback (High ≥4.2, Medium ≥3.2, Low <3.2)
+  - Actionable tips for each dimension
+- **Reset Functionality**: Option to retake the quiz
+- **Responsive Design**: Works on mobile and desktop
+
+**The 5 Ws Framework**:
+1. **WHO** - People & Stakeholders: Understanding team members and stakeholders
+2. **WHAT** - Outcomes & Intent: Defining clear success criteria
+3. **WHEN** - Cadence & Timing: Managing milestones and decision gates
+4. **WHERE** - Channels & Environment: Creating effective communication channels
+5. **WHY** - Purpose & Meaning: Expressing purpose and commander's intent
+
+**File Location**: `client/src/components/LeadershipReadinessQuiz.tsx`
