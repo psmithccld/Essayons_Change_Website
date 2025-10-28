@@ -179,12 +179,14 @@ npm --workspace server run start  # Production server
   - Win condition: Reach FINISH tile with 15+ points
   - If player reaches FINISH with <15 points, they continue playing
 
-**Recent Bug Fixes** (October 2025):
+**Recent Updates** (October 2025):
 - **State-Driven Modal Rendering**: Refactored from modal-as-React-node pattern to state-driven rendering to eliminate closure stale-state issues
 - **Multi-Card Draw Fix**: Cards that draw multiple cards (e.g., "Draw 2 Cards") now show all cards sequentially to the current player
 - **Card Queue Management**: New cards drawn by queued cards append to queue instead of replacing it, preventing card loss
 - **Win Condition Enforcement**: Game now properly stops when a player wins (≥15 points at FINISH), preventing further turns
 - **Game State Reset**: Starting a new game after someone wins now properly resets all state (winner, cardQueue, rolled, etc.)
+- **Modal Opacity Enhancement**: Changed modal background to use inline styles with dark overlay (rgba(0, 0, 0, 0.6)) and Tailwind bg-card for content, ensuring optimal readability
+- **Board Layout Redesign**: Changed from grid layout to box-shaped perimeter path with 30 tiles flowing sequentially around rectangular border (top: 0-9, right: 10-14, bottom: 15-24, left: 25-29) with card deck information displayed in center area
 
 **Technical Architecture**:
 - **State Management**: useState for game state, useEffect for AI auto-play and card queue processing
