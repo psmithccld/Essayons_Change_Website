@@ -125,30 +125,6 @@ export default function Offerings() {
         </CardContent>
       </Card>
 
-      <div className="border-t border-border" />
-
-      {/* Looking Ahead */}
-      <Card className="max-w-4xl mx-auto" data-testid="card-future-offerings">
-        <CardHeader>
-          <CardTitle className="text-xl">Looking Ahead</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-            <li>
-              <strong>Project Manager's Toolbox</strong> (Summer 2026)
-            </li>
-            <li>
-              <strong>Change Management Toolbox</strong> (Winter 2026)
-            </li>
-            <li>
-              <strong>CMIS (Change Management Information System)</strong> — a digital platform empowering organizations to plan, measure, and sustain change.
-            </li>
-          </ul>
-          <p className="text-base font-medium text-foreground pt-4">
-            Our mission is to help leaders and teams turn intent into action through integrated tools and shared understanding.
-          </p>
-        </CardContent>
-      </Card>
     </div>
   );
 }
