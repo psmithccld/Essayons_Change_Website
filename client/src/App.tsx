@@ -13,6 +13,7 @@ import Blog from "@/pages/blog";
 import Tutorials from "@/pages/tutorials";
 import Contact from "@/pages/contact";
 import Games from "@/pages/games";
+import Offerings from "@/pages/offerings";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
@@ -37,11 +38,12 @@ function Router() {
               <Switch>
                 <Route path="/" component={Home} />
                 <Route path="/about" component={About} />
-                <Route path="/pricing" component={Pricing} />
                 <Route path="/blog" component={Blog} />
                 <Route path="/tutorials" component={Tutorials} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/games" component={Games} />
+                <Route path="/offerings" component={Offerings} />
+                <Route path="/pricing" component={Pricing} />
                 <Route path="/privacy" component={Privacy} />
                 <Route path="/terms" component={Terms} />
                 <Route component={NotFound} />
