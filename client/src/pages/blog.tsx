@@ -1,58 +1,12 @@
 import BlogCard from "@/components/BlogCard";
-
-// TODO: Remove mock functionality - Replace with actual blog data from CMS or database
-const blogPosts = [
-  {
-    title: "Understanding Change Readiness in Organizations",
-    excerpt: "Learn how to assess and improve your organization's readiness for transformational change through proven frameworks and methodologies.",
-    category: "Change Management",
-    date: "Oct 20, 2024",
-    readTime: "5 min read",
-    slug: "understanding-change-readiness",
-  },
-  {
-    title: "The Role of Leadership in Successful Change",
-    excerpt: "Discover how effective leadership drives change adoption and creates sustainable transformation in complex organizations.",
-    category: "Leadership",
-    date: "Oct 15, 2024",
-    readTime: "7 min read",
-    slug: "leadership-in-change",
-  },
-  {
-    title: "Measuring Change Impact: Metrics That Matter",
-    excerpt: "Explore key performance indicators and measurement frameworks to track the success of your change initiatives.",
-    category: "Analytics",
-    date: "Oct 10, 2024",
-    readTime: "6 min read",
-    slug: "measuring-change-impact",
-  },
-  {
-    title: "Stakeholder Engagement Best Practices",
-    excerpt: "Master the art of identifying, analyzing, and engaging stakeholders throughout your change journey.",
-    category: "Strategy",
-    date: "Oct 5, 2024",
-    readTime: "6 min read",
-    slug: "stakeholder-engagement",
-  },
-  {
-    title: "Building a Culture of Continuous Improvement",
-    excerpt: "Learn how to embed change management practices into your organization's DNA for lasting results.",
-    category: "Culture",
-    date: "Sep 28, 2024",
-    readTime: "8 min read",
-    slug: "continuous-improvement-culture",
-  },
-  {
-    title: "Change Communication Strategies That Work",
-    excerpt: "Effective communication is the cornerstone of successful change. Discover proven strategies to engage your teams.",
-    category: "Communication",
-    date: "Sep 20, 2024",
-    readTime: "5 min read",
-    slug: "change-communication-strategies",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import type { SelectContent } from "@shared/schema";
 
 export default function Blog() {
+  const { data: blogPosts, isLoading } = useQuery<SelectContent[]>({
+    queryKey: ["/api/content?type=blog&status=published"],
+  });
+
   return (
     <div className="container py-12 space-y-12">
       <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -64,11 +18,33 @@ export default function Blog() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.map((post) => (
-          <BlogCard key={post.slug} {...post} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">Loading blog posts...</p>
+        </div>
+      ) : !blogPosts || blogPosts.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">No blog posts available yet. Check back soon!</p>
+        </div>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {blogPosts.map((post) => (
+            <BlogCard
+              key={post.slug}
+              title={post.title}
+              excerpt={post.summary || ""}
+              category="Blog Post"
+              date={new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+              })}
+              readTime="5 min read"
+              slug={post.slug}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

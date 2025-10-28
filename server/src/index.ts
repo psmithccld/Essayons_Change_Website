@@ -17,6 +17,8 @@ import {
 } from '../admin-routes';
 import { storage } from '../mem-storage';
 import { seedAdminUser } from '../seed';
+import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
+import { ObjectPermission } from '../objectAcl';
 
 dotenv.config();
 
@@ -85,6 +87,91 @@ app.get('/api/content/:slug', async (req, res) => {
   } catch (error) {
     console.error('Get content by slug error:', error);
     return res.status(500).json({ error: 'Failed to get content' });
+  }
+});
+
+// Object storage endpoints (admin only - protected file uploading)
+// Get upload URL for file upload
+app.post('/api/objects/upload', requireAuth, async (req, res) => {
+  try {
+    const objectStorageService = new ObjectStorageService();
+    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+    res.json({ uploadURL });
+  } catch (error) {
+    console.error('Error getting upload URL:', error);
+    return res.status(500).json({ error: 'Failed to get upload URL' });
+  }
+});
+
+// Update file metadata after upload (set ACL policy)
+app.put('/api/objects/confirm', requireAuth, async (req, res) => {
+  try {
+    const { fileURL } = req.body;
+    if (!fileURL) {
+      return res.status(400).json({ error: 'fileURL is required' });
+    }
+
+    const userId = (req.session as any).userId?.toString() || 'admin';
+    
+    const objectStorageService = new ObjectStorageService();
+    const objectPath = await objectStorageService.trySetObjectEntityAclPolicy(
+      fileURL,
+      {
+        owner: userId,
+        visibility: "public",
+      },
+    );
+
+    res.status(200).json({ objectPath });
+  } catch (error) {
+    console.error('Error confirming file upload:', error);
+    res.status(500).json({ error: 'Failed to confirm upload' });
+  }
+});
+
+// Serve objects with ACL enforcement
+app.get('/objects/:objectPath(*)', async (req, res) => {
+  try {
+    const objectStorageService = new ObjectStorageService();
+    const objectFile = await objectStorageService.getObjectEntityFile(req.path);
+    
+    // Get user ID from session if authenticated
+    const userId = (req.session as any).userId?.toString();
+    
+    // Check if user can access this object
+    const canAccess = await objectStorageService.canAccessObjectEntity({
+      objectFile,
+      userId,
+      requestedPermission: ObjectPermission.READ,
+    });
+    
+    if (!canAccess) {
+      return res.sendStatus(403);
+    }
+    
+    objectStorageService.downloadObject(objectFile, res);
+  } catch (error) {
+    console.error('Error serving object:', error);
+    if (error instanceof ObjectNotFoundError) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(500);
+  }
+});
+
+// Serve public assets from object storage
+app.get('/public-objects/:filePath(*)', async (req, res) => {
+  try {
+    const filePath = req.params.filePath;
+    const objectStorageService = new ObjectStorageService();
+    const file = await objectStorageService.searchPublicObject(filePath);
+    if (!file) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+    objectStorageService.downloadObject(file, res);
+  } catch (error) {
+    console.error('Error serving public object:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
