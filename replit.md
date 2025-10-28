@@ -183,16 +183,22 @@ npm --workspace server run start  # Production server
 - **State-Driven Modal Rendering**: Refactored from modal-as-React-node pattern to state-driven rendering to eliminate closure stale-state issues
 - **Multi-Card Draw Fix**: Cards that draw multiple cards (e.g., "Draw 2 Cards") now show all cards sequentially to the current player
 - **Card Queue Management**: New cards drawn by queued cards append to queue instead of replacing it, preventing card loss
-- **Win Condition Enforcement**: Game now properly stops when a player wins (≥15 points at FINISH), preventing further turns
+- **Win Condition Enforcement**: Game now properly stops when a player wins (≥15 points at tile 29), checking within functional updater to prevent stale state issues
 - **Game State Reset**: Starting a new game after someone wins now properly resets all state (winner, cardQueue, rolled, etc.)
 - **Modal Opacity Enhancement**: Changed modal background to use inline styles with dark overlay (rgba(0, 0, 0, 0.6)) and Tailwind bg-card for content, ensuring optimal readability
 - **Board Layout Redesign**: Changed from grid layout to box-shaped perimeter path with 30 tiles flowing sequentially around rectangular border (top: 0-9, right: 10-14, bottom: 15-24, left: 25-29) with card deck information displayed in center area
+- **Clickable Skill Badges**: Players can click on skill badges to view a modal showing all cards that contributed to that skill, including card title, category, and description
+- **Card History Tracking**: System tracks which cards contributed to each skill increment, storing card details in player.cardHistory object
+- **Event Tile Replacement**: Tile 0 (Welcome Orientation) and tile 29 (Leadership Summit) are now Event tiles instead of START/FINISH, making the board more immersive
+- **Increased Challenge/Event Distribution**: Board now has ~45% Challenge and Event tiles (up from ~20%), making gameplay more dynamic and engaging
 
 **Technical Architecture**:
 - **State Management**: useState for game state, useEffect for AI auto-play and card queue processing
 - **Card Queue**: Sequential card processing via `currentCard` state and `cardQueue` array
 - **AI Behavior**: Automated turn-taking with 1.5-second think delay, auto-closes most cards except win modal
 - **Modal System**: State-driven rendering prevents closure stale-state bugs
+- **Win Condition Check**: Performed inside updatePlayer functional updater when points are added to ensure updated state is checked before nextTurn()
+- **Card History**: Each player maintains cardHistory object mapping skill keys to arrays of card objects
 
 **File Location**: `client/src/components/LeadershipToolboxGame.tsx`
 
