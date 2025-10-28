@@ -83,24 +83,14 @@ export default function AdminContentEditor() {
   const saveMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
       if (isNewContent) {
-        return await apiRequest("/api/admin/content", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...data,
-            publishedAt: data.status === "published" ? new Date().toISOString() : null,
-          }),
-          credentials: "include",
+        return await apiRequest("POST", "/api/admin/content", {
+          ...data,
+          publishedAt: data.status === "published" ? new Date().toISOString() : null,
         });
       } else {
-        return await apiRequest(`/api/admin/content/${contentId}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...data,
-            publishedAt: data.status === "published" ? new Date().toISOString() : null,
-          }),
-          credentials: "include",
+        return await apiRequest("PATCH", `/api/admin/content/${contentId}`, {
+          ...data,
+          publishedAt: data.status === "published" ? new Date().toISOString() : null,
         });
       }
     },
@@ -135,13 +125,8 @@ export default function AdminContentEditor() {
   };
 
   const createAttachmentMutation = useMutation({
-    mutationFn: async (data: { contentId: number; kind: string; url: string; title?: string; description?: string; order: number }) => {
-      return await apiRequest("/api/admin/attachments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        credentials: "include",
-      });
+    mutationFn: async (data: { contentId: number; kind: string; url: string; title?: string | null; description?: string | null; order: number }) => {
+      return await apiRequest("POST", "/api/admin/attachments", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/content", contentId] });
@@ -162,10 +147,7 @@ export default function AdminContentEditor() {
 
   const deleteAttachmentMutation = useMutation({
     mutationFn: async (attachmentId: number) => {
-      return await apiRequest(`/api/admin/attachments/${attachmentId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      return await apiRequest("DELETE", `/api/admin/attachments/${attachmentId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/content", contentId] });

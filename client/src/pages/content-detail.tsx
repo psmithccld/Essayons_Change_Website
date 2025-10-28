@@ -36,8 +36,8 @@ export default function ContentDetail({ contentType }: ContentDetailProps) {
   const [, params] = useRoute(`/${contentType}/:slug`);
   const slug = params?.slug;
 
-  const { data: content, isLoading, error } = useQuery<Content>({
-    queryKey: ["/api/content", slug],
+  const { data: content, isLoading, error} = useQuery<Content>({
+    queryKey: [`/api/content/${slug}`],
     enabled: !!slug,
   });
 

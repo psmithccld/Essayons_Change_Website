@@ -40,16 +40,13 @@ export default function AdminDashboard() {
   });
 
   const { data: content = [], isLoading: contentLoading, refetch } = useQuery<Content[]>({
-    queryKey: ["/api/admin/content", filter],
+    queryKey: ["/api/admin/content"],
     enabled: !!currentUser,
   });
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      return await apiRequest("/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      return await apiRequest("POST", "/api/auth/logout");
     },
     onSuccess: () => {
       setLocation("/admin/login");
@@ -62,10 +59,7 @@ export default function AdminDashboard() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: number) => {
-      return await apiRequest(`/api/admin/content/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      return await apiRequest("DELETE", `/api/admin/content/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/content"] });
