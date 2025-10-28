@@ -2,7 +2,8 @@ import { useState } from "react";
 import GameCard from "@/components/GameCard";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
 import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
-import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play, ClipboardCheck } from "lucide-react";
+import LeadershipStyleQuiz from "@/components/LeadershipStyleQuiz";
+import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play, ClipboardCheck, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -39,7 +40,7 @@ const upcomingGames = [
   },
 ];
 
-type ActiveView = "list" | "board-game" | "quiz";
+type ActiveView = "list" | "board-game" | "quiz" | "style-quiz";
 
 export default function Games() {
   const [activeView, setActiveView] = useState<ActiveView>("list");
@@ -76,6 +77,22 @@ export default function Games() {
     );
   }
 
+  if (activeView === "style-quiz") {
+    return (
+      <div className="container py-8">
+        <Button
+          variant="outline"
+          onClick={() => setActiveView("list")}
+          className="mb-4"
+          data-testid="button-back-to-games"
+        >
+          ← Back to Games
+        </Button>
+        <LeadershipStyleQuiz />
+      </div>
+    );
+  }
+
   return (
     <div className="container py-12 space-y-12">
       <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -92,7 +109,7 @@ export default function Games() {
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold">Featured Experiences</h2>
         
-        <div className="grid gap-6 lg:grid-cols-2 max-w-6xl mx-auto">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
           <Card>
             <CardHeader>
               <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
@@ -155,6 +172,39 @@ export default function Games() {
               >
                 <ClipboardCheck className="w-5 h-5" />
                 Take Quiz
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
+                <Compass className="w-6 h-6" />
+                Leadership Style Quiz
+              </CardTitle>
+              <CardDescription>
+                Discover your dominant leadership style and understand your unique strengths as a leader
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-sm">What You'll Learn:</h3>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Identify your primary leadership style from 7 models</li>
+                  <li>Understand your secondary style influence</li>
+                  <li>Discover key strengths and approaches</li>
+                  <li>14 questions, 5 minutes to complete</li>
+                </ul>
+              </div>
+
+              <Button
+                onClick={() => setActiveView("style-quiz")}
+                size="lg"
+                className="w-full gap-2"
+                data-testid="button-take-style-quiz"
+              >
+                <Compass className="w-5 h-5" />
+                Discover Your Style
               </Button>
             </CardContent>
           </Card>

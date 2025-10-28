@@ -232,3 +232,36 @@ npm --workspace server run start  # Production server
 5. **WHY** - Purpose & Meaning: Expressing purpose and commander's intent
 
 **File Location**: `client/src/components/LeadershipReadinessQuiz.tsx`
+
+### Leadership Style Quiz (October 2025)
+
+**Implementation**: 14-question assessment to identify dominant leadership style from 7 leadership models
+- **Technology**: React component with shadcn/ui (Button, Card, Progress)
+- **Assessment Structure**:
+  - 14 questions across 7 leadership styles: Authentic, Servant, Transformational, Transactional, Democratic, Authoritarian, Laissez-Faire
+  - 2 questions per style
+  - Rating scale: 1 (Strongly Disagree) to 5 (Strongly Agree)
+  - Real-time progress tracking with visual progress bar
+  - Calculates average scores for all 7 styles
+
+**Features**:
+- **Progress Tracking**: Visual progress bar showing completion percentage
+- **Interactive Rating**: Clear selection feedback with primary color for selected rating
+- **Results Dashboard**: 
+  - Primary leadership style with detailed description and strengths
+  - Secondary style influence with summary
+  - Complete breakdown of all 7 style scores with progress bars
+  - Individual scores displayed as X.XX / 5.00 format
+- **Reset Functionality**: Option to retake the quiz
+- **Responsive Design**: Works on mobile and desktop
+
+**The 7 Leadership Styles**:
+1. **Authentic** - Self-aware, transparent leaders guided by integrity
+2. **Servant** - Leaders who prioritize team needs and development
+3. **Transformational** - Visionaries who inspire innovation and change
+4. **Transactional** - Structure-oriented leaders focused on measurable results
+5. **Democratic** - Collaborative leaders who value team input
+6. **Authoritarian** - Decisive leaders who provide strong direction
+7. **Laissez-Faire** - Empowering leaders who trust team autonomy
+
+**File Location**: `client/src/components/LeadershipStyleQuiz.tsx`
