@@ -201,6 +201,23 @@ export default function LeadershipToolboxGame() {
 
   const active = players[current];
 
+  // Check win condition whenever players state changes
+  useEffect(() => {
+    if (!gameStarted || winner || !players[current]) return;
+    const player = players[current];
+    if (player.position === 29 && player.points >= 15) {
+      setWinner(player.name);
+      setAiThinking(false);
+      setCurrentCard({
+        id: "win",
+        title: "🎉 Victory!",
+        category: "Game Over",
+        body: `${player.name} wins with ${player.points} points at the Leadership Summit! Congratulations!`,
+        effect: { type: "win" },
+      });
+    }
+  }, [players, current, gameStarted, winner]);
+
   // Process card queue when it changes
   useEffect(() => {
     if (cardQueue.length > 0 && !currentCard) {
@@ -349,17 +366,35 @@ export default function LeadershipToolboxGame() {
     // Now currentCard is closed, read the LATEST cardQueue state
     switch (effect?.type) {
       case "points":
-        updatePlayer(current, (p) => ({ ...p, points: p.points + (effect.amount || 0) }));
-        // Check if there are more cards in queue before ending turn
-        if (cardQueue.length === 0) {
-          nextTurn();
-        }
+        updatePlayer(current, (p) => {
+          const updated = { ...p, points: p.points + (effect.amount || 0) };
+          // Check win condition immediately after point update
+          if (updated.position === 29 && updated.points >= 15 && !winner) {
+            setTimeout(() => {
+              setWinner(updated.name);
+              setAiThinking(false);
+              setCurrentCard({
+                id: "win",
+                title: "🎉 Victory!",
+                category: "Game Over",
+                body: `${updated.name} wins with ${updated.points} points at the Leadership Summit! Congratulations!`,
+                effect: { type: "win" },
+              });
+            }, 10);
+          } else if (cardQueue.length === 0) {
+            setTimeout(() => nextTurn(), 10);
+          }
+          return updated;
+        });
         break;
       case "skill":
         bumpSkill(current, effect.skillKey, effect.amount || 1, card);
         // Check if there are more cards in queue before ending turn
         if (cardQueue.length === 0) {
-          nextTurn();
+          // Give useEffect time to run
+          setTimeout(() => {
+            if (!winner) nextTurn();
+          }, 10);
         }
         break;
       case "draw": {
@@ -368,7 +403,9 @@ export default function LeadershipToolboxGame() {
           // Append to existing queue (don't replace it)
           setCardQueue(prev => [...prev, ...cards]);
         } else if (cardQueue.length === 0) {
-          nextTurn();
+          setTimeout(() => {
+            if (!winner) nextTurn();
+          }, 10);
         }
         break;
       }
@@ -378,7 +415,9 @@ export default function LeadershipToolboxGame() {
       case "skip":
         updatePlayer(current, (p) => ({ ...p, skipTurns: (p.skipTurns || 0) + (effect.turns || 1) }));
         if (cardQueue.length === 0) {
-          nextTurn();
+          setTimeout(() => {
+            if (!winner) nextTurn();
+          }, 10);
         }
         break;
       case "win":
@@ -386,11 +425,15 @@ export default function LeadershipToolboxGame() {
         break;
       case "continue":
         // Finish without winning, continue playing
-        nextTurn();
+        setTimeout(() => {
+          if (!winner) nextTurn();
+        }, 10);
         break;
       default:
         if (cardQueue.length === 0) {
-          nextTurn();
+          setTimeout(() => {
+            if (!winner) nextTurn();
+          }, 10);
         }
         break;
     }
