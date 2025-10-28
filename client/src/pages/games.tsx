@@ -1,7 +1,8 @@
 import { useState } from "react";
 import GameCard from "@/components/GameCard";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
-import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play } from "lucide-react";
+import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
+import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -38,21 +39,39 @@ const upcomingGames = [
   },
 ];
 
-export default function Games() {
-  const [showGame, setShowGame] = useState(false);
+type ActiveView = "list" | "board-game" | "quiz";
 
-  if (showGame) {
+export default function Games() {
+  const [activeView, setActiveView] = useState<ActiveView>("list");
+
+  if (activeView === "board-game") {
     return (
       <div className="container py-8">
         <Button
           variant="outline"
-          onClick={() => setShowGame(false)}
+          onClick={() => setActiveView("list")}
           className="mb-4"
           data-testid="button-back-to-games"
         >
           ← Back to Games
         </Button>
         <LeadershipToolboxGame />
+      </div>
+    );
+  }
+
+  if (activeView === "quiz") {
+    return (
+      <div className="container py-8">
+        <Button
+          variant="outline"
+          onClick={() => setActiveView("list")}
+          className="mb-4"
+          data-testid="button-back-to-games"
+        >
+          ← Back to Games
+        </Button>
+        <LeadershipReadinessQuiz />
       </div>
     );
   }
@@ -71,50 +90,75 @@ export default function Games() {
       <div className="border-t border-border" />
 
       <section className="space-y-6">
-        <h2 className="text-2xl font-semibold">Featured Game</h2>
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
-              <Gamepad2 className="w-6 h-6" />
-              Leadership Toolbox – Board Game
-            </CardTitle>
-            <CardDescription className="text-base">
-              Play an interactive board game to build leadership skills and practice change management concepts
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <h3 className="font-semibold">How to Play:</h3>
-              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>Play solo or against up to 3 AI opponents</li>
-                <li>Roll the dice to navigate a 30-tile board</li>
-                <li>Draw cards to earn skills and points</li>
-                <li>Pass challenges by building required skill levels</li>
-                <li>First to finish with 15+ points wins!</li>
-              </ul>
-            </div>
+        <h2 className="text-2xl font-semibold">Featured Experiences</h2>
+        
+        <div className="grid gap-6 lg:grid-cols-2 max-w-6xl mx-auto">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
+                <Gamepad2 className="w-6 h-6" />
+                Leadership Toolbox – Board Game
+              </CardTitle>
+              <CardDescription>
+                Play an interactive board game to build leadership skills and practice change management concepts
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-sm">How to Play:</h3>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Play solo or against up to 3 AI opponents</li>
+                  <li>Roll the dice to navigate a 30-tile board</li>
+                  <li>Draw cards to earn skills and points</li>
+                  <li>First to finish with 15+ points wins!</li>
+                </ul>
+              </div>
 
-            <div className="space-y-2">
-              <h3 className="font-semibold">What You'll Learn:</h3>
-              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>Emotional intelligence skills (active listening, empathy, validation)</li>
-                <li>Technical and presentation skills</li>
-                <li>Job cost management and motivation strategies</li>
-                <li>Relationship awareness and self-control</li>
-              </ul>
-            </div>
+              <Button
+                onClick={() => setActiveView("board-game")}
+                size="lg"
+                className="w-full gap-2"
+                data-testid="button-play-game"
+              >
+                <Play className="w-5 h-5" />
+                Play Now
+              </Button>
+            </CardContent>
+          </Card>
 
-            <Button
-              onClick={() => setShowGame(true)}
-              size="lg"
-              className="w-full gap-2"
-              data-testid="button-play-game"
-            >
-              <Play className="w-5 h-5" />
-              Play Now
-            </Button>
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
+                <ClipboardCheck className="w-6 h-6" />
+                Leadership Readiness Quiz
+              </CardTitle>
+              <CardDescription>
+                Self-assessment based on the 5 Ws of Leadership to evaluate your readiness and identify growth areas
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-sm">What You'll Discover:</h3>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Evaluate Who, What, When, Where, and Why dimensions</li>
+                  <li>Get personalized feedback on each category</li>
+                  <li>Receive actionable tips to strengthen your leadership</li>
+                  <li>10 questions, 5 minutes to complete</li>
+                </ul>
+              </div>
+
+              <Button
+                onClick={() => setActiveView("quiz")}
+                size="lg"
+                className="w-full gap-2"
+                data-testid="button-take-quiz"
+              >
+                <ClipboardCheck className="w-5 h-5" />
+                Take Quiz
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       <div className="border-t border-border" />
