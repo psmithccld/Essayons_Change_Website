@@ -164,3 +164,32 @@ npm --workspace server run start  # Production server
 - `SESSION_SECRET` - Session encryption key (for future use)
 
 **Security**: No secrets in repository, .env excluded from git, Render dashboard manages production secrets
+
+## Games & Interactive Features
+
+### Leadership Toolbox Board Game (October 2025)
+
+**Implementation**: Interactive 30-tile board game with human and AI players
+- **Technology**: React component with Framer Motion animations
+- **Game Rules**:
+  - 2-6 players (mix of human and AI)
+  - Roll dice to move along 30-tile board
+  - Draw cards from 4 categories (Leadership, Communication, Problem-Solving, Well-being)
+  - Build 5 skills (Self Awareness, Emotional Intelligence, Communication, Delegation, Strategic Thinking)
+  - Win condition: Reach FINISH tile with 15+ points
+  - If player reaches FINISH with <15 points, they continue playing
+
+**Recent Bug Fixes** (October 2025):
+- **State-Driven Modal Rendering**: Refactored from modal-as-React-node pattern to state-driven rendering to eliminate closure stale-state issues
+- **Multi-Card Draw Fix**: Cards that draw multiple cards (e.g., "Draw 2 Cards") now show all cards sequentially to the current player
+- **Card Queue Management**: New cards drawn by queued cards append to queue instead of replacing it, preventing card loss
+- **Win Condition Enforcement**: Game now properly stops when a player wins (≥15 points at FINISH), preventing further turns
+- **Game State Reset**: Starting a new game after someone wins now properly resets all state (winner, cardQueue, rolled, etc.)
+
+**Technical Architecture**:
+- **State Management**: useState for game state, useEffect for AI auto-play and card queue processing
+- **Card Queue**: Sequential card processing via `currentCard` state and `cardQueue` array
+- **AI Behavior**: Automated turn-taking with 1.5-second think delay, auto-closes most cards except win modal
+- **Modal System**: State-driven rendering prevents closure stale-state bugs
+
+**File Location**: `client/src/components/LeadershipToolboxGame.tsx`
