@@ -672,16 +672,19 @@ function tileBg(type: TileType) {
 function Modal({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: 0.15 }}
     >
       <motion.div
-        className="bg-background border border-border rounded-lg shadow-xl w-[92vw] max-w-md p-6"
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
+        className="bg-card text-card-foreground border border-border rounded-lg shadow-xl w-[92vw] max-w-md p-6"
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.95 }}
+        transition={{ duration: 0.15 }}
       >
         {children}
       </motion.div>
