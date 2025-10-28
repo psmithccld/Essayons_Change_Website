@@ -29,17 +29,28 @@ export default function ContactForm() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to send message');
-      }
+      const data = await response.json();
 
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
-      });
-      
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      if (!response.ok) {
+        // Handle partial failure (502) differently from other errors
+        if (response.status === 502 && data.details) {
+          toast({
+            title: "Partial Success",
+            description: data.details,
+            variant: "default", // Use default instead of destructive for partial success
+          });
+          // Clear form even on partial success since message was saved
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        } else {
+          throw new Error(data.error || 'Failed to send message');
+        }
+      } else {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }
     } catch (error) {
       console.error('Contact form error:', error);
       toast({

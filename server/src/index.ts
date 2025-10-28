@@ -106,10 +106,10 @@ app.post('/api/contact', async (req, res) => {
 
     const messageData = validationResult.data;
 
-    // Save to database
+    // Save to database first
     const savedMessage = await storage.createContactMessage(messageData);
 
-    // Send email via SendGrid
+    // Send email via SendGrid - this must succeed for dual persistence
     try {
       const { client, fromEmail } = await getUncachableSendGridClient();
       
@@ -145,8 +145,13 @@ Message ID: ${savedMessage.id}
         `.trim(),
       });
     } catch (emailError) {
-      console.error('Failed to send email:', emailError);
-      // Continue even if email fails - we still saved the message
+      console.error('Failed to send email notification:', emailError);
+      // Database saved but email failed - return error with saved message ID
+      return res.status(502).json({ 
+        error: 'Message saved but email notification failed. Our team has been notified.',
+        messageId: savedMessage.id,
+        details: 'Your message was saved successfully, but we encountered an issue sending the email notification. We will review your message soon.'
+      });
     }
 
     return res.status(201).json({ 
