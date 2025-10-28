@@ -1,0 +1,344 @@
+// LeadershipReadinessQuiz.jsx
+import React, { useMemo, useState } from "react";
+
+/**
+ * LeadershipReadinessQuiz
+ * 10-question self-assessment based on the 5 Ws of Leadership:
+ *  - WHO, WHAT, WHEN, WHERE, WHY
+ * Users rate 1–5. Results show category scores with short feedback.
+ */
+
+const CATS = ["WHO", "WHAT", "WHEN", "WHERE", "WHY"];
+
+const QUESTIONS = [
+  // WHO (1–2)
+  {
+    id: "q1",
+    cat: "WHO",
+    text:
+      "I understand the strengths, motivations, and constraints of the people involved in my work.",
+  },
+  {
+    id: "q2",
+    cat: "WHO",
+    text:
+      "Before delegating, I confirm shared understanding by asking others to restate the outcome in their own words.",
+  },
+
+  // WHAT (3–4)
+  {
+    id: "q3",
+    cat: "WHAT",
+    text:
+      "My team has a clear definition of success (outcomes, not tasks) for our current effort.",
+  },
+  {
+    id: "q4",
+    cat: "WHAT",
+    text:
+      "I routinely connect tasks to the bigger mission so people know why their work matters.",
+  },
+
+  // WHEN (5–6)
+  {
+    id: "q5",
+    cat: "WHEN",
+    text:
+      "We set milestone dates and decision gates that prevent last-minute surprises.",
+  },
+  {
+    id: "q6",
+    cat: "WHEN",
+    text:
+      "I adjust cadence (meetings, check-ins) to match project risk and urgency.",
+  },
+
+  // WHERE (7–8)
+  {
+    id: "q7",
+    cat: "WHERE",
+    text:
+      "The working environment (tools, access, channels) supports fast, clear communication.",
+  },
+  {
+    id: "q8",
+    cat: "WHERE",
+    text:
+      "Stakeholders know where to find single-source-of-truth information (docs, plans, dashboards).",
+  },
+
+  // WHY (9–10)
+  {
+    id: "q9",
+    cat: "WHY",
+    text:
+      "I can clearly express the purpose and intended end-state (commander’s intent) for our initiatives.",
+  },
+  {
+    id: "q10",
+    cat: "WHY",
+    text:
+      "When priorities shift, I communicate the reasoning so people can make aligned decisions.",
+  },
+];
+
+const FEEDBACK = {
+  high:
+    "Strong foundation—sustain by coaching others and stress-testing assumptions during change.",
+  medium:
+    "Solid base—identify 1–2 specific habits to sharpen this dimension over the next sprint.",
+  low:
+    "Growth opportunity—choose one small practice to apply this week to move the needle.",
+};
+
+function bucketFeedback(avg) {
+  if (avg >= 4.2) return FEEDBACK.high;
+  if (avg >= 3.2) return FEEDBACK.medium;
+  return FEEDBACK.low;
+}
+
+export default function LeadershipReadinessQuiz() {
+  const [answers, setAnswers] = useState(() =>
+    QUESTIONS.reduce((acc, q) => ({ ...acc, [q.id]: 0 }), {})
+  );
+  const [submitted, setSubmitted] = useState(false);
+
+  const totalAnswered = useMemo(
+    () => Object.values(answers).filter((v) => v > 0).length,
+    [answers]
+  );
+
+  const progress = Math.round((totalAnswered / QUESTIONS.length) * 100);
+
+  const canSubmit = totalAnswered === QUESTIONS.length;
+
+  const results = useMemo(() => {
+    if (!submitted) return null;
+
+    const sums = { WHO: 0, WHAT: 0, WHEN: 0, WHERE: 0, WHY: 0 };
+    const counts = { WHO: 0, WHAT: 0, WHEN: 0, WHERE: 0, WHY: 0 };
+
+    QUESTIONS.forEach((q) => {
+      const v = Number(answers[q.id] || 0);
+      sums[q.cat] += v;
+      counts[q.cat] += 1;
+    });
+
+    const avgs = Object.fromEntries(
+      CATS.map((c) => [c, sums[c] / (counts[c] || 1)])
+    );
+
+    const overall =
+      Object.values(avgs).reduce((a, b) => a + b, 0) / CATS.length;
+
+    return { sums, counts, avgs, overall };
+  }, [submitted, answers]);
+
+  function handleChange(qid, value) {
+    setAnswers((prev) => ({ ...prev, [qid]: Number(value) }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!canSubmit) return;
+    setSubmitted(true);
+  }
+
+  function handleReset() {
+    setAnswers(QUESTIONS.reduce((acc, q) => ({ ...acc, [q.id]: 0 }), {}));
+    setSubmitted(false);
+  }
+
+  return (
+    <div className="max-w-3xl mx-auto p-6">
+      <header className="mb-6">
+        <h1 className="text-2xl font-bold">Leadership Readiness Quiz</h1>
+        <p className="text-gray-600">
+          Rate each statement from <strong>1</strong> (Strongly Disagree) to{" "}
+          <strong>5</strong> (Strongly Agree). Based on the 5 Ws of Leadership:
+          Who, What, When, Where, and Why.
+        </p>
+      </header>
+
+      {!submitted ? (
+        <>
+          {/* Progress */}
+          <div className="mb-4">
+            <div className="flex justify-between text-sm text-gray-600 mb-1">
+              <span>Progress</span>
+              <span>
+                {totalAnswered}/{QUESTIONS.length} ({progress}%)
+              </span>
+            </div>
+            <div className="h-2 w-full bg-gray-200 rounded">
+              <div
+                className="h-2 bg-blue-600 rounded transition-all"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {QUESTIONS.map((q, idx) => (
+              <fieldset
+                key={q.id}
+                className="p-4 border rounded-lg bg-white/50"
+              >
+                <legend className="font-medium">
+                  {idx + 1}. <span className="text-gray-700">{q.text}</span>
+                </legend>
+                <div className="mt-3 grid grid-cols-5 gap-2 sm:gap-4">
+                  {[1, 2, 3, 4, 5].map((v) => (
+                    <label
+                      key={v}
+                      className={`flex flex-col items-center justify-center p-2 border rounded cursor-pointer text-sm ${
+                        answers[q.id] === v
+                          ? "bg-blue-600 text-white border-blue-600"
+                          : "hover:bg-gray-50"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name={q.id}
+                        value={v}
+                        className="sr-only"
+                        checked={answers[q.id] === v}
+                        onChange={(e) => handleChange(q.id, e.target.value)}
+                        aria-label={`Rate ${v} for question ${idx + 1}`}
+                      />
+                      <span>{v}</span>
+                    </label>
+                  ))}
+                </div>
+
+                <div className="mt-2 text-xs text-gray-500 flex justify-between">
+                  <span>1 = Strongly Disagree</span>
+                  <span>5 = Strongly Agree</span>
+                </div>
+                <div className="mt-1 text-[11px] text-gray-500">
+                  Category: <strong>{q.cat}</strong>
+                </div>
+              </fieldset>
+            ))}
+
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={!canSubmit}
+                className={`px-4 py-2 rounded text-white ${
+                  canSubmit
+                    ? "bg-blue-600 hover:bg-blue-700"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
+              >
+                See Results
+              </button>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="px-4 py-2 rounded border hover:bg-gray-50"
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+        </>
+      ) : (
+        <ResultsPanel results={results} onReset={handleReset} />
+      )}
+    </div>
+  );
+}
+
+function ResultsPanel({ results, onReset }) {
+  if (!results) return null;
+
+  const { avgs, overall } = results;
+
+  return (
+    <section className="space-y-6">
+      <div className="p-4 rounded-lg border bg-white/50">
+        <h2 className="text-xl font-semibold mb-1">Your Results</h2>
+        <p className="text-gray-600">
+          Scores are averages per dimension (max 5). Use the feedback to pick
+          one habit to practice this week.
+        </p>
+        <div className="mt-3 text-sm">
+          Overall Readiness:{" "}
+          <strong className="text-blue-700">
+            {overall.toFixed(2)} / 5
+          </strong>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        {CATS.map((cat) => (
+          <div key={cat} className="p-4 border rounded-lg bg-white/50">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-semibold">{labelFor(cat)}</h3>
+              <span className="text-blue-700 font-semibold">
+                {avgs[cat].toFixed(2)} / 5
+              </span>
+            </div>
+
+            {/* Mini bar */}
+            <div className="h-2 w-full bg-gray-200 rounded mb-3">
+              <div
+                className="h-2 bg-blue-600 rounded"
+                style={{ width: `${(avgs[cat] / 5) * 100}%` }}
+              />
+            </div>
+
+            <p className="text-sm text-gray-700">{bucketFeedback(avgs[cat])}</p>
+            <p className="mt-2 text-xs text-gray-500 italic">
+              Tip: {tipFor(cat)}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <button
+          onClick={onReset}
+          className="px-4 py-2 rounded border hover:bg-gray-50"
+        >
+          Take Again
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function labelFor(cat) {
+  switch (cat) {
+    case "WHO":
+      return "Who (People & Stakeholders)";
+    case "WHAT":
+      return "What (Outcomes & Intent)";
+    case "WHEN":
+      return "When (Cadence & Timing)";
+    case "WHERE":
+      return "Where (Channels & Environment)";
+    case "WHY":
+      return "Why (Purpose & Meaning)";
+    default:
+      return cat;
+  }
+}
+
+function tipFor(cat) {
+  switch (cat) {
+    case "WHO":
+      return "Run a quick stakeholder scan and note influence, interest, and preferred communication.";
+    case "WHAT":
+      return "Write a one-sentence outcome for your next task; ask a teammate to restate it.";
+    case "WHEN":
+      return "Add a decision gate and a short sync where risk is high; cancel a low-value meeting.";
+    case "WHERE":
+      return "Pick a single source of truth and link it in your meeting invites and signatures.";
+    case "WHY":
+      return "Open your next meeting with the purpose and end-state before diving into tasks.";
+    default:
+      return "";
+  }
+}
