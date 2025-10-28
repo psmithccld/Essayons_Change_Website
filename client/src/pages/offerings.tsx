@@ -104,7 +104,7 @@ export default function Offerings() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p>
-            Our founder, <strong>Dr. Philip Smith</strong>, brings together military decision-making principles and organizational leadership research to inspire leaders to act decisively and communicate effectively. Engagements range from academic seminars to executive briefings.
+            Our founder, <strong>Phil Smith</strong>, brings together military decision-making principles and organizational leadership research to inspire leaders to act decisively and communicate effectively. Engagements range from academic seminars to executive briefings.
           </p>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
             <li>Applying military principles to organizational change</li>
