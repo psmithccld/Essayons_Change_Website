@@ -20,7 +20,7 @@ import { seedAdminUser } from '../seed';
 import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
 import { ObjectPermission } from '../objectAcl';
 import { getUncachableSendGridClient } from '../sendgrid';
-import { insertContactMessageSchema } from '../../shared/schema';
+import { insertContactMessageSchema } from '../../shared/schema-types';
 
 dotenv.config();
 

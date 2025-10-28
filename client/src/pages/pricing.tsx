@@ -30,6 +30,21 @@ export default function Pricing() {
 
       <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
         <PricingCard
+          title="Basic"
+          price="$299.00"
+          period="month"
+          seats="10 seats"
+          fileSize="10 MB files"
+          storage="5 GB"
+          specs={[
+            { label: "Individual File Size", value: "10 MB" },
+            { label: "Storage", value: "5 GB" },
+            { label: "Currency", value: "USD" },
+            { label: "Billing Interval", value: "month" },
+          ]}
+          features={basicFeatures}
+        />
+        <PricingCard
           title="Professional"
           price="$50.00"
           period="seat/month"
@@ -45,21 +60,6 @@ export default function Pricing() {
           ]}
           features={professionalFeatures}
           highlighted
-        />
-        <PricingCard
-          title="Basic"
-          price="$299.00"
-          period="month"
-          seats="10 seats"
-          fileSize="10 MB files"
-          storage="5 GB"
-          specs={[
-            { label: "Individual File Size", value: "10 MB" },
-            { label: "Storage", value: "5 GB" },
-            { label: "Currency", value: "USD" },
-            { label: "Billing Interval", value: "month" },
-          ]}
-          features={basicFeatures}
         />
       </div>
 

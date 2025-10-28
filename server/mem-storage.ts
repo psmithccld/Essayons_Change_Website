@@ -4,8 +4,10 @@ import type {
   Content,
   InsertContent,
   Attachment,
-  InsertAttachment
-} from "../shared/schema";
+  InsertAttachment,
+  ContactMessage,
+  InsertContactMessage
+} from "../shared/schema-types";
 
 export interface IStorage {
   getAdminUserById(id: number): Promise<AdminUser | undefined>;
@@ -24,15 +26,21 @@ export interface IStorage {
   createAttachment(insertAttachment: InsertAttachment): Promise<Attachment>;
   deleteAttachment(id: number): Promise<boolean>;
   deleteAttachmentsByContentId(contentId: number): Promise<void>;
+
+  createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage>;
+  listContactMessages(): Promise<ContactMessage[]>;
+  updateContactMessageStatus(id: number, status: string): Promise<ContactMessage | undefined>;
 }
 
 export class MemStorage implements IStorage {
   private adminUsers: Map<number, AdminUser> = new Map();
   private content: Map<number, Content> = new Map();
   private attachments: Map<number, Attachment> = new Map();
+  private contactMessages: Map<number, ContactMessage> = new Map();
   private nextAdminUserId = 1;
   private nextContentId = 1;
   private nextAttachmentId = 1;
+  private nextContactMessageId = 1;
 
   async getAdminUserById(id: number): Promise<AdminUser | undefined> {
     return this.adminUsers.get(id);
@@ -134,6 +142,34 @@ export class MemStorage implements IStorage {
       .map(a => a.id);
     
     toDelete.forEach(id => this.attachments.delete(id));
+  }
+
+  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
+    const message: ContactMessage = {
+      id: this.nextContactMessageId++,
+      ...insertMessage,
+      status: 'new',
+      createdAt: new Date(),
+    };
+    this.contactMessages.set(message.id, message);
+    return message;
+  }
+
+  async listContactMessages(): Promise<ContactMessage[]> {
+    return Array.from(this.contactMessages.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async updateContactMessageStatus(id: number, status: string): Promise<ContactMessage | undefined> {
+    const existing = this.contactMessages.get(id);
+    if (!existing) return undefined;
+    
+    const updated: ContactMessage = {
+      ...existing,
+      status,
+    };
+    this.contactMessages.set(id, updated);
+    return updated;
   }
 }
 
