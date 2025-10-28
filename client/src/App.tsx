@@ -20,6 +20,7 @@ import NotFound from "@/pages/not-found";
 import AdminLogin from "@/pages/admin-login";
 import AdminDashboard from "@/pages/admin-dashboard";
 import AdminContentEditor from "@/pages/admin-content-editor";
+import ContentDetail from "@/pages/content-detail";
 
 function Router() {
   return (
@@ -39,7 +40,13 @@ function Router() {
                 <Route path="/" component={Home} />
                 <Route path="/about" component={About} />
                 <Route path="/blog" component={Blog} />
+                <Route path="/blog/:slug">
+                  {() => <ContentDetail contentType="blog" />}
+                </Route>
                 <Route path="/tutorials" component={Tutorials} />
+                <Route path="/tutorials/:slug">
+                  {() => <ContentDetail contentType="tutorial" />}
+                </Route>
                 <Route path="/contact" component={Contact} />
                 <Route path="/games" component={Games} />
                 <Route path="/offerings" component={Offerings} />
