@@ -1,0 +1,70 @@
+<section class="offerings hero">
+  <h1>Offerings</h1>
+  <p class="lead">
+    Empowering leaders and organizations to navigate change with confidence.
+  </p>
+  <p>
+    At <strong>Essayons Change</strong>, we combine evidence-based research with real-world leadership experience to help individuals and organizations succeed during transformation. Our offerings provide practical, scalable solutions for professionals seeking to strengthen leadership, communication, and change management capabilities.
+  </p>
+</section>
+
+<hr />
+
+<section class="offerings block">
+  <h2>🧰 Leadership Toolbox</h2>
+  <p class="subtitle"><em>Essential Skills and Strategies for Today’s Leaders</em></p>
+  <p>
+    Available in <strong>eBook, Paperback, and Hardcover</strong>, <em>Leadership Toolbox</em> equips leaders with actionable tools to strengthen emotional intelligence, communication, coaching, and motivation. Rooted in practical experience and supported by leadership research, the book serves as an accessible resource for professionals at every level.
+  </p>
+  <p>
+    <a class="btn btn-primary" href="https://www.amazon.com/dp/B0CTP624BK" target="_blank" rel="noopener">📖 View on Amazon</a>
+  </p>
+</section>
+
+<section class="offerings block">
+  <h2>🧭 Consulting &amp; Organizational Development</h2>
+  <p class="subtitle"><em>Guiding organizations through complex change.</em></p>
+  <p>
+    Essayons Change offers consulting services designed to help organizations assess, design, and sustain successful change initiatives. Our focus is on aligning people, processes, and purpose to create lasting impact.
+  </p>
+  <ul>
+    <li>Organizational change readiness assessments</li>
+    <li>Leadership alignment and coaching</li>
+    <li>Communication and stakeholder engagement strategies</li>
+    <li>Implementation and sustainment planning</li>
+  </ul>
+  <p><strong>Availability:</strong> Limited consulting engagements opening for 2026.</p>
+  <p>
+    <a class="btn btn-outline" href="mailto:psmith@essayonschange.com">📩 Contact Us to Learn More</a>
+  </p>
+</section>
+
+<section class="offerings block">
+  <h2>🎓 Speaking &amp; Education</h2>
+  <p class="subtitle"><em>Translating research into actionable insight.</em></p>
+  <p>
+    Our founder, <strong>Dr. Philip Smith</strong>, brings together military decision-making principles and organizational leadership research to inspire leaders to act decisively and communicate effectively. Engagements range from academic seminars to executive briefings.
+  </p>
+  <ul>
+    <li>Applying military principles to organizational change</li>
+    <li>Building shared understanding and intent in complex environments</li>
+    <li>Leading teams through disruption and uncertainty</li>
+  </ul>
+  <p>
+    <a class="btn btn-outline" href="mailto:psmith@essayonschange.com">🎙️ Inquire About Speaking Engagements</a>
+  </p>
+</section>
+
+<hr />
+
+<section class="offerings block">
+  <h3>Looking Ahead</h3>
+  <ul>
+    <li><strong>Project Manager’s Toolbox</strong> (Summer 2026)</li>
+    <li><strong>Change Management Toolbox</strong> (Winter 2026)</li>
+    <li><strong>CMIS (Change Management Information System)</strong> — a digital platform empowering organizations to plan, measure, and sustain change.</li>
+  </ul>
+  <p class="mission">
+    Our mission is to help leaders and teams turn intent into action through integrated tools and shared understanding.
+  </p>
+</section>
