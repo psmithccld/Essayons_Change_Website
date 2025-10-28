@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const SKILL_LABELS: Record<string, string> = {
   activeListening: "Active Listening",
@@ -91,18 +92,36 @@ const SAMPLE_CARDS = [
   },
 ];
 
-const TILE_TYPES = ["START", "LEARN", "CHALLENGE", "EVENT", "REST", "FINISH"] as const;
+const TILE_TYPES = ["EVENT", "LEARN", "CHALLENGE", "REST"] as const;
 type TileType = typeof TILE_TYPES[number];
 type Tile = { idx: number; type: TileType; label?: string; requirement?: { skillKey: string; threshold: number } };
+
+type CardRecord = {
+  title: string;
+  category: string;
+  body: string;
+};
 
 const buildBoard = (): Tile[] => {
   const tiles: Tile[] = [];
   for (let i = 0; i < 30; i++) {
     let type: TileType = "LEARN";
-    if (i === 0) type = "START";
-    else if (i === 29) type = "FINISH";
-    else if (i % 7 === 0) type = "CHALLENGE";
-    else if (i % 5 === 0) type = "EVENT";
+    
+    // Tile 0 and 29 are now Events (replacing START/FINISH)
+    if (i === 0) {
+      tiles.push({ idx: i, type: "EVENT", label: "Welcome Orientation" });
+      continue;
+    } else if (i === 29) {
+      tiles.push({ idx: i, type: "EVENT", label: "Leadership Summit" });
+      continue;
+    }
+    
+    // Increased Challenge and Event distribution (~45% of non-start/finish tiles)
+    // Challenge every 4th tile
+    if (i % 4 === 0) type = "CHALLENGE";
+    // Event every 3rd tile (if not already Challenge)
+    else if (i % 3 === 0) type = "EVENT";
+    // Rest occasionally
     else if (i % 11 === 0) type = "REST";
 
     const tile: Tile = { idx: i, type };
@@ -113,9 +132,13 @@ const buildBoard = (): Tile[] => {
         { skillKey: "presentation", threshold: 1 },
         { skillKey: "jobCost", threshold: 1 },
         { skillKey: "empathy", threshold: 1 },
+        { skillKey: "selfAwareness", threshold: 1 },
       ];
-      tile.requirement = reqs[Math.floor(i / 7) % reqs.length];
+      tile.requirement = reqs[Math.floor(i / 4) % reqs.length];
       tile.label = `Challenge: ${SKILL_LABELS[tile.requirement.skillKey]}`;
+    } else if (type === "EVENT" && !tile.label) {
+      const eventLabels = ["Team Meeting", "Strategy Session", "Training Workshop", "Stakeholder Review"];
+      tile.label = eventLabels[Math.floor(Math.random() * eventLabels.length)];
     }
     tiles.push(tile);
   }
@@ -140,6 +163,7 @@ type Player = {
   points: number;
   skipTurns: number;
   skills: Record<string, number>;
+  cardHistory: Record<string, CardRecord[]>; // Track which cards gave which skills
   isAI: boolean;
 };
 
@@ -151,6 +175,7 @@ function makePlayer(name: string, color: string, isAI: boolean = false): Player 
     points: 0,
     skipTurns: 0,
     skills: { selfAwareness: 0, activeListening: 0, empathy: 0, technical: 0, presentation: 0, jobCost: 0 },
+    cardHistory: {},
     isAI,
   };
 }
@@ -172,6 +197,7 @@ export default function LeadershipToolboxGame() {
   const [aiThinking, setAiThinking] = useState(false);
   const [cardQueue, setCardQueue] = useState<any[]>([]);
   const [winner, setWinner] = useState<string | null>(null);
+  const [skillHistoryModal, setSkillHistoryModal] = useState<{ playerIdx: number; skillKey: string } | null>(null);
 
   const active = players[current];
 
@@ -213,6 +239,7 @@ export default function LeadershipToolboxGame() {
     setAiThinking(false);
     setCardQueue([]);
     setWinner(null);
+    setSkillHistoryModal(null);
     setDeck(shuffle(SAMPLE_CARDS));
     setDiscard([]);
   }
@@ -245,6 +272,38 @@ export default function LeadershipToolboxGame() {
   }
 
   function handleTileEffect(tile: Tile) {
+    // Check for win condition at tile 29 (Leadership Summit)
+    if (tile.idx === 29) {
+      const playerPoints = players[current].points;
+      const hasWon = playerPoints >= 15;
+      
+      if (hasWon) {
+        setWinner(players[current].name);
+        setAiThinking(false);
+        setCurrentCard({
+          id: "win",
+          title: "🎉 Victory!",
+          category: "Game Over",
+          body: `${players[current].name} wins with ${playerPoints} points at the Leadership Summit! Congratulations!`,
+          effect: { type: "win" },
+        });
+      } else {
+        // Draw event card first, then check points
+        const [c] = drawCard(1);
+        if (c) {
+          // Add note about insufficient points
+          const modifiedCard = {
+            ...c,
+            body: `${c.body}\n\nNote: You need 15+ points to win. Current: ${playerPoints} points. Keep playing!`,
+          };
+          setCurrentCard(modifiedCard);
+        } else {
+          nextTurn();
+        }
+      }
+      return;
+    }
+    
     if (tile.type === "LEARN" || tile.type === "EVENT") {
       const [c] = drawCard(1);
       if (c) {
@@ -270,29 +329,6 @@ export default function LeadershipToolboxGame() {
         body: "Take a breath. +1 Self Awareness.",
         effect: { type: "skill", skillKey: "selfAwareness", amount: 1 },
       });
-    } else if (tile.type === "FINISH") {
-      const playerPoints = players[current].points;
-      const hasWon = playerPoints >= 15;
-      
-      if (hasWon) {
-        setWinner(players[current].name);
-        setAiThinking(false);
-        setCurrentCard({
-          id: "win",
-          title: "🎉 Victory!",
-          category: "Game Over",
-          body: `${players[current].name} wins with ${playerPoints} points! Congratulations!`,
-          effect: { type: "win" },
-        });
-      } else {
-        setCurrentCard({
-          id: "finish-no-win",
-          title: "Not Quite...",
-          category: "Milestone",
-          body: `${players[current].name} reached the finish with only ${playerPoints} points. You need 15+ points to win. Keep playing!`,
-          effect: { type: "continue" },
-        });
-      }
     } else {
       nextTurn();
     }
@@ -306,10 +342,10 @@ export default function LeadershipToolboxGame() {
     if (card.id && card.id !== "win" && card.id !== "challenge" && !card.id.startsWith("challenge-") && !card.id.startsWith("rest-") && !card.id.startsWith("finish-")) {
       setDiscard((d) => [card, ...d]);
     }
-    applyEffect(card.effect);
+    applyEffect(card.effect, card);
   }
 
-  function applyEffect(effect: any) {
+  function applyEffect(effect: any, card?: any) {
     // Now currentCard is closed, read the LATEST cardQueue state
     switch (effect?.type) {
       case "points":
@@ -320,7 +356,7 @@ export default function LeadershipToolboxGame() {
         }
         break;
       case "skill":
-        bumpSkill(current, effect.skillKey, effect.amount || 1);
+        bumpSkill(current, effect.skillKey, effect.amount || 1, card);
         // Check if there are more cards in queue before ending turn
         if (cardQueue.length === 0) {
           nextTurn();
@@ -360,11 +396,28 @@ export default function LeadershipToolboxGame() {
     }
   }
 
-  function bumpSkill(idx: number, skillKey: string, by = 1) {
-    updatePlayer(idx, (p) => ({
-      ...p,
-      skills: { ...p.skills, [skillKey]: (p.skills[skillKey] || 0) + by },
-    }));
+  function bumpSkill(idx: number, skillKey: string, by = 1, card?: any) {
+    updatePlayer(idx, (p) => {
+      const newCardHistory = { ...p.cardHistory };
+      if (card && card.title && card.category) {
+        if (!newCardHistory[skillKey]) {
+          newCardHistory[skillKey] = [];
+        }
+        newCardHistory[skillKey] = [
+          ...newCardHistory[skillKey],
+          {
+            title: card.title,
+            category: card.category,
+            body: card.body,
+          },
+        ];
+      }
+      return {
+        ...p,
+        skills: { ...p.skills, [skillKey]: (p.skills[skillKey] || 0) + by },
+        cardHistory: newCardHistory,
+      };
+    });
   }
 
   function updatePlayer(idx: number, fn: (p: Player) => Player) {
@@ -469,11 +522,17 @@ export default function LeadershipToolboxGame() {
                     <div className="text-xs text-muted-foreground">
                       Points: {p.points} {p.skipTurns > 0 && <em>(skip {p.skipTurns})</em>}
                     </div>
-                    <div className="flex flex-wrap gap-1 text-[10px] text-muted-foreground">
+                    <div className="flex flex-wrap gap-1 text-[10px]">
                       {Object.entries(p.skills).filter(([, v]) => v > 0).map(([k, v]) => (
-                        <span key={k} className="px-2 py-0.5 rounded bg-muted">
+                        <Badge
+                          key={k}
+                          variant="secondary"
+                          className="cursor-pointer hover-elevate"
+                          onClick={() => setSkillHistoryModal({ playerIdx: i, skillKey: k })}
+                          data-testid={`badge-skill-${p.name}-${k}`}
+                        >
                           {SKILL_LABELS[k] || k}: {v}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
                   </li>
@@ -487,7 +546,7 @@ export default function LeadershipToolboxGame() {
               <CardTitle className="flex flex-wrap items-center gap-2 text-base">How to Win</CardTitle>
             </CardHeader>
             <CardContent className="text-xs text-muted-foreground">
-              <p>Reach the finish with <strong>15+ points</strong>. Earn points by passing challenges and drawing cards.</p>
+              <p>Reach the Leadership Summit (tile 29) with <strong>15+ points</strong>. Earn points by passing challenges and drawing cards.</p>
             </CardContent>
           </Card>
         </aside>
@@ -502,6 +561,20 @@ export default function LeadershipToolboxGame() {
               body={currentCard.body}
               onClose={handleCardClose}
               isAI={currentCard.id === "win" ? false : active?.isAI}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {skillHistoryModal && (
+          <Modal>
+            <SkillHistoryModal
+              playerName={players[skillHistoryModal.playerIdx].name}
+              skillKey={skillHistoryModal.skillKey}
+              skillLabel={SKILL_LABELS[skillHistoryModal.skillKey]}
+              cards={players[skillHistoryModal.playerIdx].cardHistory[skillHistoryModal.skillKey] || []}
+              onClose={() => setSkillHistoryModal(null)}
             />
           </Modal>
         )}
@@ -545,7 +618,7 @@ function SetupScreen({ onStart }: { onStart: (aiCount: number) => void }) {
               <li>Land on LEARN or EVENT tiles to draw cards</li>
               <li>Pass CHALLENGE tiles by having the required skill level</li>
               <li>Earn points and build skills to reach the finish</li>
-              <li>First to finish with 15+ points wins!</li>
+              <li>Reach the Leadership Summit with 15+ points to win!</li>
             </ul>
           </div>
 
@@ -655,10 +728,6 @@ function Board({ board, players }: { board: Tile[]; players: Player[] }) {
 
 function tileBg(type: TileType) {
   switch (type) {
-    case "START":
-      return "bg-green-50 dark:bg-green-950";
-    case "FINISH":
-      return "bg-amber-50 dark:bg-amber-950";
     case "CHALLENGE":
       return "bg-red-50 dark:bg-red-950";
     case "EVENT":
@@ -716,7 +785,7 @@ function CardModal({
     <div>
       <div className="text-xs uppercase tracking-wide text-muted-foreground">{category}</div>
       <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+      <p className="mt-2 text-sm text-muted-foreground whitespace-pre-line">{body}</p>
       <div className="mt-4 flex justify-end">
         {!isAI && (
           <Button onClick={onClose} size="sm" data-testid="button-continue">
@@ -726,6 +795,45 @@ function CardModal({
         {isAI && (
           <span className="text-xs text-muted-foreground">AI continues in a moment...</span>
         )}
+      </div>
+    </div>
+  );
+}
+
+function SkillHistoryModal({
+  playerName,
+  skillKey,
+  skillLabel,
+  cards,
+  onClose,
+}: {
+  playerName: string;
+  skillKey: string;
+  skillLabel: string;
+  cards: CardRecord[];
+  onClose: () => void;
+}) {
+  return (
+    <div>
+      <div className="text-xs uppercase tracking-wide text-muted-foreground">Skill History</div>
+      <h3 className="text-lg font-semibold">{playerName} - {skillLabel}</h3>
+      <div className="mt-4 space-y-3 max-h-96 overflow-y-auto">
+        {cards.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No cards drawn yet for this skill.</p>
+        ) : (
+          cards.map((card, idx) => (
+            <div key={idx} className="border rounded p-3 space-y-1">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground">{card.category}</div>
+              <div className="font-semibold text-sm">{card.title}</div>
+              <p className="text-xs text-muted-foreground">{card.body}</p>
+            </div>
+          ))
+        )}
+      </div>
+      <div className="mt-4 flex justify-end">
+        <Button onClick={onClose} size="sm" data-testid="button-close-skill-history">
+          Close
+        </Button>
       </div>
     </div>
   );
