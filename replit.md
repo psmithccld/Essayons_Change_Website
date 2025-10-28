@@ -37,6 +37,15 @@ The website includes:
 - **Leadership Readiness Quiz**: A 10-question self-assessment based on the "5 Ws of Leadership," providing personalized feedback and actionable tips.
 - **Leadership Style Quiz**: A 14-question assessment to identify dominant leadership styles from 7 models, providing detailed results and descriptions.
 
+### YouTube Video Embedding
+The website supports two methods for embedding YouTube videos in blog posts and tutorials:
+
+**Inline Embedding**: Use `[video:URL]` syntax directly in content body text. The URL can be in any standard YouTube format (youtube.com/watch, youtu.be, embed URLs). The ContentRenderer component automatically parses this syntax and renders responsive video embeds.
+
+**Attachment System**: Content editors can add videos through the admin UI's "YouTube Videos" section. Videos are stored as attachments with optional titles and descriptions, then displayed in a dedicated "Videos" section on the content detail page.
+
+Both methods use the YouTubeEmbed component, which extracts video IDs from various URL formats and renders them in responsive 16:9 aspect ratio containers using iframe embeds. Video parsing is handled by `client/src/lib/youtube.ts`.
+
 ## External Dependencies
 
 ### Third-Party Services
