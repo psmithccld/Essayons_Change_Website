@@ -19,6 +19,8 @@ import { storage } from '../mem-storage';
 import { seedAdminUser } from '../seed';
 import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
 import { ObjectPermission } from '../objectAcl';
+import { getUncachableSendGridClient } from '../sendgrid';
+import { insertContactMessageSchema } from '../../shared/schema';
 
 dotenv.config();
 
@@ -87,6 +89,74 @@ app.get('/api/content/:slug', async (req, res) => {
   } catch (error) {
     console.error('Get content by slug error:', error);
     return res.status(500).json({ error: 'Failed to get content' });
+  }
+});
+
+// Contact form submission endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    // Validate request body
+    const validationResult = insertContactMessageSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: 'Invalid request data',
+        details: validationResult.error.errors 
+      });
+    }
+
+    const messageData = validationResult.data;
+
+    // Save to database
+    const savedMessage = await storage.createContactMessage(messageData);
+
+    // Send email via SendGrid
+    try {
+      const { client, fromEmail } = await getUncachableSendGridClient();
+      
+      await client.send({
+        to: fromEmail, // Send to the configured admin email
+        from: fromEmail,
+        replyTo: messageData.email,
+        subject: `Contact Form: ${messageData.subject}`,
+        text: `
+New contact form submission:
+
+From: ${messageData.name}
+Email: ${messageData.email}
+Subject: ${messageData.subject}
+
+Message:
+${messageData.message}
+
+---
+Submitted: ${new Date().toISOString()}
+Message ID: ${savedMessage.id}
+        `.trim(),
+        html: `
+<h2>New Contact Form Submission</h2>
+<p><strong>From:</strong> ${messageData.name}</p>
+<p><strong>Email:</strong> <a href="mailto:${messageData.email}">${messageData.email}</a></p>
+<p><strong>Subject:</strong> ${messageData.subject}</p>
+<h3>Message:</h3>
+<p>${messageData.message.replace(/\n/g, '<br>')}</p>
+<hr>
+<p><small>Submitted: ${new Date().toISOString()}</small></p>
+<p><small>Message ID: ${savedMessage.id}</small></p>
+        `.trim(),
+      });
+    } catch (emailError) {
+      console.error('Failed to send email:', emailError);
+      // Continue even if email fails - we still saved the message
+    }
+
+    return res.status(201).json({ 
+      success: true,
+      message: 'Message sent successfully',
+      id: savedMessage.id 
+    });
+  } catch (error) {
+    console.error('Contact form error:', error);
+    return res.status(500).json({ error: 'Failed to process contact form submission' });
   }
 });
 

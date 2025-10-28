@@ -3,12 +3,15 @@ import {
   adminUsers, 
   content, 
   attachments,
+  contactMessages,
   type AdminUser, 
   type InsertAdminUser,
   type Content,
   type InsertContent,
   type Attachment,
-  type InsertAttachment
+  type InsertAttachment,
+  type ContactMessage,
+  type InsertContactMessage
 } from "../shared/schema";
 import { db } from "./db";
 import { eq, and, desc } from "drizzle-orm";
@@ -33,6 +36,11 @@ export interface IStorage {
   createAttachment(insertAttachment: InsertAttachment): Promise<Attachment>;
   deleteAttachment(id: number): Promise<boolean>;
   deleteAttachmentsByContentId(contentId: number): Promise<void>;
+
+  // Contact message operations
+  createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage>;
+  listContactMessages(): Promise<ContactMessage[]>;
+  updateContactMessageStatus(id: number, status: string): Promise<ContactMessage | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -123,6 +131,25 @@ export class DatabaseStorage implements IStorage {
 
   async deleteAttachmentsByContentId(contentId: number): Promise<void> {
     await db.delete(attachments).where(eq(attachments.contentId, contentId));
+  }
+
+  // Contact message operations
+  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
+    const [message] = await db.insert(contactMessages).values(insertMessage).returning();
+    return message;
+  }
+
+  async listContactMessages(): Promise<ContactMessage[]> {
+    return db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
+  }
+
+  async updateContactMessageStatus(id: number, status: string): Promise<ContactMessage | undefined> {
+    const [updated] = await db
+      .update(contactMessages)
+      .set({ status })
+      .where(eq(contactMessages.id, id))
+      .returning();
+    return updated || undefined;
   }
 }
 
