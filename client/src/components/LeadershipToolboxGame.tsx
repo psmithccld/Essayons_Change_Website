@@ -562,31 +562,92 @@ function SetupScreen({ onStart }: { onStart: (aiCount: number) => void }) {
 }
 
 function Board({ board, players }: { board: Tile[]; players: Player[] }) {
+  // Arrange tiles in box shape around perimeter: 10 top, 5 right, 10 bottom, 5 left
+  // Total: 10 + 5 + 10 + 5 = 30 tiles
+  // Path flows clockwise: 0→9 (across top), 10→14 (down right), 15→24 (across bottom), 25→29 (up left)
+  
+  const topRow = board.slice(0, 10);      // 0-9 (left to right)
+  const rightCol = board.slice(10, 15);   // 10-14 (top to bottom)
+  const bottomRow = board.slice(15, 25);  // 15-24 (placed right to left via gridColumn)
+  const leftCol = board.slice(25, 30);    // 25-29 (placed bottom to top via gridRow)
+  
+  const renderTile = (t: Tile) => (
+    <div
+      key={t.idx}
+      className={`relative border h-20 rounded flex items-center justify-center text-xs text-center ${tileBg(t.type)}`}
+    >
+      <div className="absolute top-1 left-1 text-[10px] text-muted-foreground">{t.idx}</div>
+      <div className="px-1">
+        <div className="font-medium">{t.type}</div>
+        {t.label && <div className="text-[10px] text-muted-foreground mt-0.5 line-clamp-2">{t.label}</div>}
+      </div>
+      <div className="absolute bottom-1 right-1 flex gap-1">
+        {players
+          .filter((p) => p.position === t.idx)
+          .map((p) => (
+            <span
+              key={p.name}
+              className="w-3 h-3 rounded-full border"
+              style={{ background: p.color }}
+            />
+          ))}
+      </div>
+    </div>
+  );
+  
   return (
-    <div className="grid grid-cols-6 gap-2">
-      {board.map((t) => (
-        <div
-          key={t.idx}
-          className={`relative border h-20 rounded flex items-center justify-center text-xs text-center ${tileBg(t.type)}`}
-        >
-          <div className="absolute top-1 left-1 text-[10px] text-muted-foreground">{t.idx}</div>
-          <div className="px-1">
-            <div className="font-medium">{t.type}</div>
-            {t.label && <div className="text-[10px] text-muted-foreground mt-0.5">{t.label}</div>}
-          </div>
-          <div className="absolute bottom-1 right-1 flex gap-1">
-            {players
-              .filter((p) => p.position === t.idx)
-              .map((p) => (
-                <span
-                  key={p.name}
-                  className="w-3 h-3 rounded-full border"
-                  style={{ background: p.color }}
-                />
-              ))}
-          </div>
+    <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(10, 1fr)', gridTemplateRows: 'repeat(7, 1fr)' }}>
+      {/* Top row: tiles 0-9 */}
+      {topRow.map(renderTile)}
+      
+      {/* Right column: tiles 10-14 */}
+      {rightCol.map((t, i) => (
+        <div key={`right-${i}`} style={{ gridColumn: '10', gridRow: `${i + 2}` }}>
+          {renderTile(t)}
         </div>
       ))}
+      
+      {/* Bottom row: tiles 15-24 (right to left visually) */}
+      {bottomRow.map((t, i) => (
+        <div key={`bottom-${i}`} style={{ gridColumn: `${10 - i}`, gridRow: '7' }}>
+          {renderTile(t)}
+        </div>
+      ))}
+      
+      {/* Left column: tiles 25-29 (bottom to top) */}
+      {leftCol.map((t, i) => (
+        <div key={`left-${i}`} style={{ gridColumn: '1', gridRow: `${7 - i - 1}` }}>
+          {renderTile(t)}
+        </div>
+      ))}
+      
+      {/* Center area: Card decks display */}
+      <div 
+        className="flex flex-col items-center justify-center gap-3 p-4"
+        style={{ gridColumn: '2 / 10', gridRow: '2 / 7' }}
+      >
+        <div className="text-center space-y-2">
+          <h3 className="text-lg font-semibold">Card Decks</h3>
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            <div className="p-3 border rounded bg-blue-50 dark:bg-blue-950">
+              <div className="font-medium">Learning Cards</div>
+              <div className="text-xs text-muted-foreground mt-1">Draw on LEARN tiles</div>
+            </div>
+            <div className="p-3 border rounded bg-purple-50 dark:bg-purple-950">
+              <div className="font-medium">Event Cards</div>
+              <div className="text-xs text-muted-foreground mt-1">Draw on EVENT tiles</div>
+            </div>
+            <div className="p-3 border rounded bg-red-50 dark:bg-red-950">
+              <div className="font-medium">Challenge Cards</div>
+              <div className="text-xs text-muted-foreground mt-1">Test your skills</div>
+            </div>
+            <div className="p-3 border rounded bg-green-50 dark:bg-green-950">
+              <div className="font-medium">Rest Cards</div>
+              <div className="text-xs text-muted-foreground mt-1">Reflect & grow</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
