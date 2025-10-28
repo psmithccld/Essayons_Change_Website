@@ -2,11 +2,7 @@
 
 ## Overview
 
-Essayons Change Management is a monorepo-based public marketing website that combines content presentation with SaaS application integration. The project serves as the public face for a Change Management Information System (CMIS), offering marketing pages, educational content, and a gateway to the main application.
-
-**Purpose**: Public marketing site featuring home, about, pricing, tutorials, blog, and interactive games/quizzes, with a same-domain `/app` route that redirects to the main CMIS application.
-
-**Technology Stack**: TypeScript monorepo using Vite + React + Tailwind CSS (client), Express (server), with future database integration via Drizzle ORM.
+Essayons Change Management is a monorepo-based public marketing website for a Change Management Information System (CMIS). It provides marketing pages, educational content, interactive games/quizzes, and acts as a gateway to the main CMIS application via a `/app` route. The project aims to be the public face for the CMIS, offering various content types and engaging features to attract and inform users.
 
 ## User Preferences
 
@@ -15,253 +11,44 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### Monorepo Structure
-
-**Design Decision**: Workspace-based monorepo with three primary packages
-- **Rationale**: Enables code sharing between client/server while maintaining clear separation of concerns
-- **Structure**:
-  - `/client` - Vite-powered React SPA with Tailwind CSS
-  - `/server` - Express API server (Node 20)
-  - `/shared` - Shared TypeScript types and schemas
-
-**Pros**: Type safety across boundaries, single dependency management, simplified development workflow
-**Cons**: Requires coordinated builds, larger repository size
+The project uses a workspace-based monorepo to separate client (Vite + React + Tailwind CSS), server (Express), and shared TypeScript types. This allows for code sharing and clear separation of concerns.
 
 ### Frontend Architecture
-
-**Framework**: React 18 with TypeScript
-- **Routing**: Wouter for client-side routing (lightweight alternative to React Router)
-- **State Management**: TanStack Query (React Query) for server state
-- **Styling**: Tailwind CSS with shadcn/ui component library
-- **Animation**: Framer Motion for interactive elements
-
-**Design System Approach**: Reference-based design inspired by Notion (content clarity), Linear (typography/spacing), and Stripe (trust/professionalism)
-- **Typography**: Inter font family for display/UI, JetBrains Mono for code
-- **Component Library**: shadcn/ui "New York" style with custom theme tokens
-- **Spacing System**: Tailwind's standard spacing scale (2, 4, 6, 8, 12, 16, 20, 24, 32)
-
-**Build Strategy**: Vite bundles client into `/dist/public`, which Express serves in production
+Built with React 18 and TypeScript, it uses Wouter for routing, TanStack Query for server state, Tailwind CSS with shadcn/ui for styling, and Framer Motion for animations. The design is inspired by Notion, Linear, and Stripe, utilizing Inter and JetBrains Mono fonts. The client is bundled by Vite into `/dist/public`.
 
 ### Backend Architecture
+An Express.js server provides a minimal API for contact forms, status endpoints, and static file serving. It uses `tsx` for development and `esbuild` for production bundling. Key routes include `/api/status`, `/app` (redirect to CMIS), and `*` (serves client SPA). Security middleware like Helmet and CORS are included. An admin CMS with session-based authentication is implemented for content management, including protected routes for CRUD operations on content and attachments.
 
-**Framework**: Express.js with TypeScript
-- **Purpose**: Minimal API layer for contact forms, status endpoints, and static file serving
-- **Development**: tsx for hot-reload during development
-- **Production**: esbuild bundles to CommonJS for Node execution
-
-**Key Routes**:
-- `/api/status` - Health check endpoint
-- `/app` - 302 redirect to external CMIS application (configured via `APP_URL` env var)
-- `*` - Serves client SPA build in production
-
-**Security Middleware**:
-- Helmet for security headers
-- CORS enabled
-- Cookie parser for future session handling
-
-### Database Architecture (Future)
-
-**ORM**: Drizzle configured for PostgreSQL
-- **Schema Location**: `/shared/schema.ts` for type sharing
-- **Migration Strategy**: Drizzle Kit with `/migrations` directory
-- **Current State**: Configuration present but no active database connection required
-
-**Design Decision**: Drizzle-ready posture without immediate database dependency
-- **Rationale**: Supports rapid prototyping while maintaining migration path for data-driven features
-- **Alternative Considered**: Prisma (rejected due to preference for lighter-weight SQL-first approach)
+### Database Architecture
+Configured for future PostgreSQL integration using Drizzle ORM, with schema defined in `/shared/schema.ts` and Drizzle Kit for migrations. Currently, no active database connection is required for the public-facing features.
 
 ### Deployment Architecture
-
-**Target Platform**: Render (or similar PaaS)
-- **Node Version**: 20.x (specified in engines)
-- **Environment Variables**: Managed via Render dashboard, not committed to repository
-
-**Deployment Options**:
-1. **Single Service** (Recommended for MVP): Build client during CI, copy to `server/public`, deploy server
-2. **Separate Services**: Client on static host (Cloudflare Pages/Netlify), server on Render
-
-**Build Process**:
-```bash
-npm run build  # Builds both workspaces
-npm --workspace server run start  # Production server
-```
+Designed for deployment on platforms like Render, supporting Node.js 20.x. The recommended deployment strategy for MVP involves building the client during CI, copying it to `server/public`, and deploying the server as a single service.
 
 ### Authentication & Authorization
+The public site requires no authentication. The `/app` route redirects to an external CMIS for authentication. An Admin CMS uses session-based authentication with `bcryptjs` and `express-session` for content management, with default dev credentials `admin`/`admin123`. Content APIs are protected with authentication middleware.
 
-**Admin CMS System** (October 2025): Session-based authentication for content management
-- **Implementation**: bcryptjs for password hashing, express-session with secure cookies
-- **Security**: Same-site strict cookies for CSRF protection, HTTP-only cookies
-- **Admin Routes**: `/admin/login`, `/admin/dashboard`, `/admin/content/:id`
-- **API Endpoints**: 
-  - Authentication: `/api/auth/login`, `/api/auth/logout`, `/api/auth/me`
-  - Content CRUD: `/api/admin/content` (protected with requireAuth middleware)
-  - Attachments: `/api/admin/attachments` (protected)
-  - Public content: `/api/content`, `/api/content/:slug` (no auth required)
-- **Default Credentials** (development): username=admin, password=admin123
-- **Storage**: In-memory storage (MemStorage) pending drizzle-orm dependency resolution
+### Contact Form System
+Contact form submissions are stored in an in-memory database (MemStorage) and sent via SendGrid email. It features Zod validation, toast feedback, and specific status codes for full success (DB save + email send), partial success (DB save, email fail), and errors.
 
-**Public Site**: No authentication required
-- **App Access**: `/app` route redirects to external CMIS application for authentication
+### Games & Interactive Features
+The website includes:
+- **Leadership Toolbox Board Game**: An interactive 30-tile board game with human and AI players, card draws, skill building, and a win condition based on points. It features state-driven modal rendering, card queue management, and detailed card history tracking.
+- **Leadership Readiness Quiz**: A 10-question self-assessment based on the "5 Ws of Leadership," providing personalized feedback and actionable tips.
+- **Leadership Style Quiz**: A 14-question assessment to identify dominant leadership styles from 7 models, providing detailed results and descriptions.
 
 ## External Dependencies
 
 ### Third-Party Services
-
-**Font Hosting**: Google Fonts CDN
-- Inter (400, 500, 600, 700, 800 weights)
-- JetBrains Mono (400 weight)
-
-**External Application**: CMIS App
-- **Integration Point**: `APP_URL` environment variable
-- **Purpose**: Main change management application hosted separately
-- **Connection**: Client-side redirect via `/app` route
+- **Font Hosting**: Google Fonts CDN (Inter, JetBrains Mono)
+- **External Application**: CMIS App (integrated via `APP_URL` environment variable for redirect)
+- **Email Service**: SendGrid (for contact form notifications, managed via Replit connector)
 
 ### Package Dependencies
-
-**UI Components**: shadcn/ui ecosystem
-- @radix-ui primitives for accessible components
-- class-variance-authority for variant management
-- tailwind-merge for className composition
-
-**Client Dependencies**:
-- react-router-dom, wouter (routing)
-- @tanstack/react-query (data fetching)
-- framer-motion (animations)
-- lucide-react (icons)
-- react-hook-form (forms)
-
-**Server Dependencies**:
-- express (web framework)
-- helmet (security)
-- cors (cross-origin)
-- cookie-parser (session handling)
-- tsx (dev server)
-- esbuild (production bundler)
-
-**Development Tools**:
-- TypeScript 5.6
-- Vite 5.4
-- Tailwind CSS 3.4
-- concurrently (parallel dev servers)
-
-### Build & Development Tools
-
-**Development Workflow**: `npm run dev` runs client (port 5173) and server (port 3000) concurrently
-- Client proxies `/api` and `/app` routes to server during development
-
-**Type Checking**: Shared tsconfig.json with path aliases
-- `@/*` → client/src
-- `@shared/*` → shared/src
-- `@assets/*` → attached_assets
-
-**Production Build**: Client outputs to `dist/public`, server bundles to `dist/index.cjs`
+- **UI Components**: shadcn/ui ecosystem (`@radix-ui`, `class-variance-authority`, `tailwind-merge`)
+- **Client**: `wouter`, `@tanstack/react-query`, `framer-motion`, `lucide-react`, `react-hook-form`
+- **Server**: `express`, `helmet`, `cors`, `cookie-parser`, `tsx`, `esbuild`
+- **Development Tools**: TypeScript 5.6, Vite 5.4, Tailwind CSS 3.4, `concurrently`
 
 ### Environment Configuration
-
-**Required Variables** (see `.env.example`):
-- `APP_URL` - URL of main CMIS application (Render deployment)
-- `SERVER_PORT` - Express server port (default: 3000)
-- `DATABASE_URL` - PostgreSQL connection string (for future use)
-- `SESSION_SECRET` - Session encryption key (for future use)
-
-**Security**: No secrets in repository, .env excluded from git, Render dashboard manages production secrets
-
-## Games & Interactive Features
-
-### Leadership Toolbox Board Game (October 2025)
-
-**Implementation**: Interactive 30-tile board game with human and AI players
-- **Technology**: React component with Framer Motion animations
-- **Game Rules**:
-  - 2-6 players (mix of human and AI)
-  - Roll dice to move along 30-tile board
-  - Draw cards from 4 categories (Leadership, Communication, Problem-Solving, Well-being)
-  - Build 5 skills (Self Awareness, Emotional Intelligence, Communication, Delegation, Strategic Thinking)
-  - Win condition: Reach FINISH tile with 15+ points
-  - If player reaches FINISH with <15 points, they continue playing
-
-**Recent Updates** (October 2025):
-- **State-Driven Modal Rendering**: Refactored from modal-as-React-node pattern to state-driven rendering to eliminate closure stale-state issues
-- **Multi-Card Draw Fix**: Cards that draw multiple cards (e.g., "Draw 2 Cards") now show all cards sequentially to the current player
-- **Card Queue Management**: New cards drawn by queued cards append to queue instead of replacing it, preventing card loss
-- **Win Condition Enforcement**: Game now properly stops when a player wins (≥15 points at tile 29), checking within functional updater to prevent stale state issues
-- **Game State Reset**: Starting a new game after someone wins now properly resets all state (winner, cardQueue, rolled, etc.)
-- **Modal Opacity Enhancement**: Changed modal background to use inline styles with dark overlay (rgba(0, 0, 0, 0.6)) and Tailwind bg-card for content, ensuring optimal readability
-- **Board Layout Redesign**: Changed from grid layout to box-shaped perimeter path with 30 tiles flowing sequentially around rectangular border (top: 0-9, right: 10-14, bottom: 15-24, left: 25-29) with card deck information displayed in center area
-- **Clickable Skill Badges**: Players can click on skill badges to view a modal showing all cards that contributed to that skill, including card title, category, and description
-- **Card History Tracking**: System tracks which cards contributed to each skill increment, storing card details in player.cardHistory object
-- **Event Tile Replacement**: Tile 0 (Welcome Orientation) and tile 29 (Leadership Summit) are now Event tiles instead of START/FINISH, making the board more immersive
-- **Increased Challenge/Event Distribution**: Board now has ~45% Challenge and Event tiles (up from ~20%), making gameplay more dynamic and engaging
-
-**Technical Architecture**:
-- **State Management**: useState for game state, useEffect for AI auto-play and card queue processing
-- **Card Queue**: Sequential card processing via `currentCard` state and `cardQueue` array
-- **AI Behavior**: Automated turn-taking with 1.5-second think delay, auto-closes most cards except win modal
-- **Modal System**: State-driven rendering prevents closure stale-state bugs
-- **Win Condition Check**: Performed inside updatePlayer functional updater when points are added to ensure updated state is checked before nextTurn()
-- **Card History**: Each player maintains cardHistory object mapping skill keys to arrays of card objects
-
-**File Location**: `client/src/components/LeadershipToolboxGame.tsx`
-
-### Leadership Readiness Quiz (October 2025)
-
-**Implementation**: 10-question self-assessment based on the 5 Ws of Leadership
-- **Technology**: React component with shadcn/ui (Button, Card, Progress)
-- **Assessment Structure**:
-  - 10 questions across 5 categories: WHO, WHAT, WHEN, WHERE, WHY
-  - 2 questions per category
-  - Rating scale: 1 (Strongly Disagree) to 5 (Strongly Agree)
-  - Real-time progress tracking with visual progress bar
-  - Results calculation and personalized feedback
-
-**Features**:
-- **Progress Tracking**: Visual progress bar showing completion percentage
-- **Interactive Rating**: Clear selection feedback with filled background and ring effect
-- **Results Dashboard**: 
-  - Overall readiness score (average of all categories)
-  - Individual category scores with progress bars
-  - Tiered feedback (High ≥4.2, Medium ≥3.2, Low <3.2)
-  - Actionable tips for each dimension
-- **Reset Functionality**: Option to retake the quiz
-- **Responsive Design**: Works on mobile and desktop
-
-**The 5 Ws Framework**:
-1. **WHO** - People & Stakeholders: Understanding team members and stakeholders
-2. **WHAT** - Outcomes & Intent: Defining clear success criteria
-3. **WHEN** - Cadence & Timing: Managing milestones and decision gates
-4. **WHERE** - Channels & Environment: Creating effective communication channels
-5. **WHY** - Purpose & Meaning: Expressing purpose and commander's intent
-
-**File Location**: `client/src/components/LeadershipReadinessQuiz.tsx`
-
-### Leadership Style Quiz (October 2025)
-
-**Implementation**: 14-question assessment to identify dominant leadership style from 7 leadership models
-- **Technology**: React component with shadcn/ui (Button, Card, Progress)
-- **Assessment Structure**:
-  - 14 questions across 7 leadership styles: Authentic, Servant, Transformational, Transactional, Democratic, Authoritarian, Laissez-Faire
-  - 2 questions per style
-  - Rating scale: 1 (Strongly Disagree) to 5 (Strongly Agree)
-  - Real-time progress tracking with visual progress bar
-  - Calculates average scores for all 7 styles
-
-**Features**:
-- **Progress Tracking**: Visual progress bar showing completion percentage
-- **Interactive Rating**: Clear selection feedback with primary color for selected rating
-- **Results Dashboard**: 
-  - Primary leadership style with detailed description and strengths
-  - Secondary style influence with summary
-  - Complete breakdown of all 7 style scores with progress bars
-  - Individual scores displayed as X.XX / 5.00 format
-- **Reset Functionality**: Option to retake the quiz
-- **Responsive Design**: Works on mobile and desktop
-
-**The 7 Leadership Styles**:
-1. **Authentic** - Self-aware, transparent leaders guided by integrity
-2. **Servant** - Leaders who prioritize team needs and development
-3. **Transformational** - Visionaries who inspire innovation and change
-4. **Transactional** - Structure-oriented leaders focused on measurable results
-5. **Democratic** - Collaborative leaders who value team input
-6. **Authoritarian** - Decisive leaders who provide strong direction
-7. **Laissez-Faire** - Empowering leaders who trust team autonomy
-
-**File Location**: `client/src/components/LeadershipStyleQuiz.tsx`
+Required variables include `APP_URL`, `SERVER_PORT`, `DATABASE_URL` (future), and `SESSION_SECRET` (future), managed securely via environment variables and not committed to the repository.
