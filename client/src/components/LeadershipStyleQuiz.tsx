@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Check } from "lucide-react";
 
 const STYLES = [
   "Authentic",
@@ -194,10 +195,10 @@ export default function LeadershipStyleQuiz() {
                     {[1, 2, 3, 4, 5].map((v) => (
                       <label
                         key={v}
-                        className={`flex flex-col items-center justify-center p-3 border rounded-md cursor-pointer transition-colors ${
+                        className={`relative flex flex-col items-center justify-center p-3 border-2 rounded-md cursor-pointer transition-all ${
                           answers[q.id] === v
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "hover-elevate active-elevate-2"
+                            ? "bg-primary text-primary-foreground border-primary ring-2 ring-primary ring-offset-2 scale-105"
+                            : "border-border hover-elevate active-elevate-2"
                         }`}
                         data-testid={`label-question-${q.id}-rating-${v}`}
                       >
@@ -210,6 +211,9 @@ export default function LeadershipStyleQuiz() {
                           onChange={() => handleChange(q.id, v)}
                           data-testid={`input-question-${q.id}-rating-${v}`}
                         />
+                        {answers[q.id] === v && (
+                          <Check className="absolute top-1 right-1 h-4 w-4" />
+                        )}
                         <span className="text-lg font-semibold">{v}</span>
                       </label>
                     ))}
