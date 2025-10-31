@@ -169,11 +169,17 @@ export class DatabaseStorage implements IStorage {
 
 // Use DatabaseStorage if database is available, otherwise fall back to MemStorage
 async function createStorage(): Promise<IStorage> {
-  if (db) {
+  if (db && eq && and && desc) {
     console.log('[STORAGE] Using DatabaseStorage (PostgreSQL)');
+    console.log('[STORAGE] Database connection confirmed with drizzle-orm functions available');
     return new DatabaseStorage();
   } else {
-    console.log('[STORAGE] Using MemStorage (in-memory fallback)');
+    if (db && (!eq || !and || !desc)) {
+      console.warn('[STORAGE] Database connection available but drizzle-orm functions missing');
+      console.warn('[STORAGE] Falling back to MemStorage');
+    } else if (!db) {
+      console.log('[STORAGE] Using MemStorage (DATABASE_URL not configured or database packages not installed)');
+    }
     const { MemStorage } = await import('./mem-storage');
     return new MemStorage();
   }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
-import { storage } from "./mem-storage";
+import { storage } from "./storage";
 
 declare module "express-session" {
   interface SessionData {

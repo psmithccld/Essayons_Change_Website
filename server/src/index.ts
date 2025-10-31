@@ -15,7 +15,7 @@ import {
   createAttachmentHandler,
   deleteAttachmentHandler,
 } from '../admin-routes';
-import { storage } from '../mem-storage';
+import { storage } from '../storage';
 import { seedAdminUser } from '../seed';
 import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
 import { ObjectPermission } from '../objectAcl';
