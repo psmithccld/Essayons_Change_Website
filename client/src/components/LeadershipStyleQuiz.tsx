@@ -197,7 +197,7 @@ export default function LeadershipStyleQuiz() {
                         key={v}
                         className={`relative flex flex-col items-center justify-center p-3 border-2 rounded-md cursor-pointer transition-all ${
                           answers[q.id] === v
-                            ? "bg-primary text-primary-foreground border-primary ring-2 ring-primary ring-offset-2 scale-105"
+                            ? "bg-primary/90 dark:bg-primary text-primary-foreground border-primary ring-2 ring-primary ring-offset-2 scale-105"
                             : "border-border hover-elevate active-elevate-2"
                         }`}
                         data-testid={`label-question-${q.id}-rating-${v}`}

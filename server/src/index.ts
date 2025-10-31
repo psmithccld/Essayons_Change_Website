@@ -15,7 +15,7 @@ import {
   createAttachmentHandler,
   deleteAttachmentHandler,
 } from '../admin-routes';
-import { storage } from '../mem-storage';
+import { storage } from '../storage';
 import { seedAdminUser } from '../seed';
 import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
 import { ObjectPermission } from '../objectAcl';
@@ -273,6 +273,9 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, async () => {
   console.log(`Server listening on port ${PORT}`);
+  console.log('[STARTUP] Storage implementation:', storage.constructor.name);
+  console.log('[STARTUP] DATABASE_URL configured:', !!process.env.DATABASE_URL);
+  console.log('[STARTUP] NODE_ENV:', process.env.NODE_ENV);
   
   // Seed initial admin user for development
   await seedAdminUser();

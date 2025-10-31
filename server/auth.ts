@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
-import { storage } from "./mem-storage";
+import { storage } from "./storage";
 
 declare module "express-session" {
   interface SessionData {
@@ -12,7 +12,11 @@ declare module "express-session" {
 export async function loginHandler(req: Request, res: Response) {
   const { username, password } = req.body;
 
+  console.log('[LOGIN] Attempt for username:', username);
+  console.log('[LOGIN] Storage type:', storage.constructor.name);
+
   if (!username || !password) {
+    console.log('[LOGIN] Missing username or password');
     return res.status(400).json({ error: "Username and password required" });
   }
 
@@ -20,17 +24,23 @@ export async function loginHandler(req: Request, res: Response) {
     const user = await storage.getAdminUserByUsername(username);
     
     if (!user) {
+      console.log('[LOGIN] User not found:', username);
       return res.status(401).json({ error: "Invalid credentials" });
     }
+
+    console.log('[LOGIN] User found:', { id: user.id, username: user.username, email: user.email });
 
     const isValidPassword = await bcrypt.compare(password, user.passwordHash);
     
     if (!isValidPassword) {
+      console.log('[LOGIN] Invalid password for user:', username);
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
     req.session.userId = user.id;
     req.session.username = user.username;
+
+    console.log('[LOGIN] Login successful for user:', username);
 
     return res.json({
       id: user.id,
@@ -38,7 +48,7 @@ export async function loginHandler(req: Request, res: Response) {
       email: user.email,
     });
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("[LOGIN] Login error:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { storage } from "./mem-storage";
+import { storage } from "./storage";
 import { z } from "zod";
 
 const insertContentSchema = z.object({
