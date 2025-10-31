@@ -14,7 +14,17 @@ import {
   type InsertContactMessage
 } from "../shared/schema";
 import { db } from "./db";
-import { eq, and, desc } from "drizzle-orm";
+
+// Conditionally import drizzle-orm functions
+let eq: any, and: any, desc: any;
+try {
+  const drizzleOrm = await import("drizzle-orm");
+  eq = drizzleOrm.eq;
+  and = drizzleOrm.and;
+  desc = drizzleOrm.desc;
+} catch (error) {
+  // drizzle-orm not available, DatabaseStorage will not be used
+}
 
 export interface IStorage {
   // Admin user operations
@@ -46,21 +56,25 @@ export interface IStorage {
 export class DatabaseStorage implements IStorage {
   // Admin user operations
   async getAdminUserById(id: number): Promise<AdminUser | undefined> {
+    if (!db) throw new Error('Database not available');
     const [user] = await db.select().from(adminUsers).where(eq(adminUsers.id, id));
     return user || undefined;
   }
 
   async getAdminUserByUsername(username: string): Promise<AdminUser | undefined> {
+    if (!db) throw new Error('Database not available');
     const [user] = await db.select().from(adminUsers).where(eq(adminUsers.username, username));
     return user || undefined;
   }
 
   async getAdminUserByEmail(email: string): Promise<AdminUser | undefined> {
+    if (!db) throw new Error('Database not available');
     const [user] = await db.select().from(adminUsers).where(eq(adminUsers.email, email));
     return user || undefined;
   }
 
   async createAdminUser(insertUser: InsertAdminUser): Promise<AdminUser> {
+    if (!db) throw new Error('Database not available');
     const [user] = await db.insert(adminUsers).values(insertUser).returning();
     return user;
   }
@@ -153,4 +167,16 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+// Use DatabaseStorage if database is available, otherwise fall back to MemStorage
+async function createStorage(): Promise<IStorage> {
+  if (db) {
+    console.log('[STORAGE] Using DatabaseStorage (PostgreSQL)');
+    return new DatabaseStorage();
+  } else {
+    console.log('[STORAGE] Using MemStorage (in-memory fallback)');
+    const { MemStorage } = await import('./mem-storage');
+    return new MemStorage();
+  }
+}
+
+export const storage: IStorage = await createStorage();
