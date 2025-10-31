@@ -44,7 +44,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a href="/app" data-testid="link-app">
+          <a href="https://app.essayonschange.com" target="_blank" rel="noopener noreferrer" data-testid="link-app">
             <Button variant="default" size="sm">
               Sign In
             </Button>
