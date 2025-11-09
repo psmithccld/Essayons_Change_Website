@@ -33,6 +33,9 @@ Schema is defined in `/shared/schema.ts`. The storage abstraction layer in `serv
 ### Deployment Architecture
 Designed for deployment on platforms like Render, supporting Node.js 20.x. The recommended deployment strategy for MVP involves building the client during CI, copying it to `server/public`, and deploying the server as a single service.
 
+**Build Configuration (November 2025)**:
+The server build uses esbuild with ES Module format (`--format=esm`) to support top-level await for database connections. Database packages (`drizzle-orm`, `drizzle-zod`, `@neondatabase/serverless`) are marked as external dependencies and not bundled, allowing them to be resolved at runtime in production where they're installed via the `javascript_database` integration.
+
 **Production Database Setup (October 2025)**:
 The production deployment on Render is now configured to use PostgreSQL for persistent admin user and content storage. When deployed:
 
