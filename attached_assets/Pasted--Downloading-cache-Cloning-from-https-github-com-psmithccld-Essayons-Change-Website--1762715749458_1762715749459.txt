@@ -1,0 +1,47 @@
+==> Downloading cache...
+==> Cloning from https://github.com/psmithccld/Essayons_Change_Website
+==> Checking out commit 2f43cbcab86513233c68e221033ddb7753a8665a in branch main
+==> Downloaded 123MB in 3s. Extraction took 4s.
+==> Requesting Node.js version 20.x
+==> Using Node.js version 20.19.5 via /opt/render/project/src/package.json
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Running build command 'NPM_CONFIG_PRODUCTION=false npm ci && npm run build'...
+npm error code EUSAGE
+npm error
+npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+npm error
+npm error Missing: @neondatabase/serverless@0.10.4 from lock file
+npm error Missing: drizzle-orm@0.38.4 from lock file
+npm error Missing: drizzle-zod@0.7.1 from lock file
+npm error Missing: @types/pg@8.11.6 from lock file
+npm error Missing: pg-protocol@1.10.3 from lock file
+npm error Missing: pg-types@4.1.0 from lock file
+npm error Missing: pg-int8@1.0.1 from lock file
+npm error Missing: pg-numeric@1.0.2 from lock file
+npm error Missing: postgres-array@3.0.4 from lock file
+npm error Missing: postgres-bytea@3.0.0 from lock file
+npm error Missing: postgres-date@2.1.0 from lock file
+npm error Missing: postgres-interval@3.0.0 from lock file
+npm error Missing: postgres-range@1.1.4 from lock file
+npm error Missing: obuf@1.1.2 from lock file
+npm error
+npm error Clean install a project
+npm error
+npm error Usage:
+npm error npm ci
+npm error
+npm error Options:
+npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+npm error [--no-bin-links] [--no-fund] [--dry-run]
+npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+npm error
+npm error aliases: clean-install, ic, install-clean, isntall-clean
+npm error
+npm error Run "npm help ci" for more info
+npm error A complete log of this run can be found in: /opt/render/.cache/_logs/2025-11-09T19_14_51_611Z-debug-0.log
+==> Build failed 😞
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
