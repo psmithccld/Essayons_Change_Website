@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --outfile=dist/index.mjs --format=esm",
+    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:@neondatabase/serverless --outfile=dist/index.mjs --format=esm",
     "start": "node dist/index.mjs",
     "check": "tsc -p ../tsconfig.json --noEmit"
   },
