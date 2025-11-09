@@ -1,0 +1,129 @@
+Microsoft Windows [Version 10.0.26100.6899]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\phili>cd Essayons_Change_Website
+
+C:\Users\phili\Essayons_Change_Website>git clone https://github.com/psmithccld/Essayons_Change_Website.git
+Cloning into 'Essayons_Change_Website'...
+remote: Enumerating objects: 906, done.
+remote: Counting objects: 100% (75/75), done.
+remote: Compressing objects: 100% (45/45), done.
+remote: Total 906 (delta 51), reused 45 (delta 30), pack-reused 831 (from 2)
+Receiving objects: 100% (906/906), 27.29 MiB | 79.83 MiB/s, done.
+Resolving deltas: 100% (561/561), done.
+warning: the following paths have collided (e.g. case-sensitive paths
+on a case-insensitive filesystem) and only one from the same
+colliding group is in the working tree:
+
+  'client/src/pages/About.tsx'
+  'client/src/pages/about.tsx'
+  'client/src/pages/Blog.tsx'
+  'client/src/pages/blog.tsx'
+  'client/src/pages/Contact.tsx'
+  'client/src/pages/contact.tsx'
+  'client/src/pages/Games.tsx'
+  'client/src/pages/games.tsx'
+  'client/src/pages/Home.tsx'
+  'client/src/pages/home.tsx'
+  'client/src/pages/Pricing.tsx'
+  'client/src/pages/pricing.tsx'
+  'client/src/pages/Tutorials.tsx'
+  'client/src/pages/tutorials.tsx'
+
+C:\Users\phili\Essayons_Change_Website>git pull origin main
+remote: Enumerating objects: 762, done.
+remote: Counting objects: 100% (68/68), done.
+remote: Compressing objects: 100% (41/41), done.
+remote: Total 762 (delta 48), reused 42 (delta 27), pack-reused 694 (from 2)
+Receiving objects: 100% (762/762), 27.21 MiB | 41.46 MiB/s, done.
+Resolving deltas: 100% (509/509), done.
+From https://github.com/psmithccld/Essayons_Change_Website
+ * branch            main       -> FETCH_HEAD
+ + 4810f5b...76cdff5 main       -> origin/main  (forced update)
+fatal: refusing to merge unrelated histories
+
+C:\Users\phili\Essayons_Change_Website>npm install
+
+added 294 packages, and audited 297 packages in 27s
+
+57 packages are looking for funding
+  run `npm fund` for details
+
+2 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.6.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.2
+npm notice To update run: npm install -g npm@11.6.2
+npm notice
+
+C:\Users\phili\Essayons_Change_Website>dir package-lock.json
+ Volume in drive C has no label.
+ Volume Serial Number is A44D-ADF7
+
+ Directory of C:\Users\phili\Essayons_Change_Website
+
+11/09/2025  02:27 PM           174,650 package-lock.json
+               1 File(s)        174,650 bytes
+               0 Dir(s)  896,125,485,056 bytes free
+
+C:\Users\phili\Essayons_Change_Website>git add package-lock.json
+
+C:\Users\phili\Essayons_Change_Website>git commit -m "Add package-lock.json with database dependencies"
+[update-readme-phil-smith-2025-10-22 144a710] Add package-lock.json with database dependencies
+ 1 file changed, 4965 insertions(+)
+ create mode 100644 package-lock.json
+
+C:\Users\phili\Essayons_Change_Website>git push origin main
+To https://github.com/psmithccld/Essayons_Change_Website/
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/psmithccld/Essayons_Change_Website/'
+hint: Updates were rejected because a pushed branch tip is behind its remote
+hint: counterpart. If you want to integrate the remote changes, use 'git pull'
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+C:\Users\phili\Essayons_Change_Website>git pull
+remote: Enumerating objects: 94, done.
+remote: Counting objects: 100% (10/10), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 94 (delta 6), reused 6 (delta 6), pack-reused 84 (from 1)
+Unpacking objects: 100% (94/94), 69.24 KiB | 553.00 KiB/s, done.
+From https://github.com/psmithccld/Essayons_Change_Website
+ * [new branch]      copilot/add-assets-logo-hero -> origin/copilot/add-assets-logo-hero
+ * [new branch]      copilot/add-home-page-component -> origin/copilot/add-home-page-component
+ * [new branch]      copilot/add-logo-and-hero-screenshot -> origin/copilot/add-logo-and-hero-screenshot
+ * [new branch]      copilot/add-render-yaml-config -> origin/copilot/add-render-yaml-config
+ * [new branch]      copilot/fix-client-dist-path -> origin/copilot/fix-client-dist-path
+ * [new branch]      copilot/fixadd-postcss-config -> origin/copilot/fixadd-postcss-config
+ * [new branch]      copilot/fixclient-dist-path-commit -> origin/copilot/fixclient-dist-path-commit
+ * [new branch]      copilot/fixlog-clientdist-files -> origin/copilot/fixlog-clientdist-files
+ * [new branch]      copilot/fixserver-build-cjs -> origin/copilot/fixserver-build-cjs
+ * [new branch]      copilot/replace-header-and-add-logos -> origin/copilot/replace-header-and-add-logos
+ * [new branch]      copilot/update-homepage-layout -> origin/copilot/update-homepage-layout
+ * [new branch]      copilot/update-render-yaml-devdependencies -> origin/copilot/update-render-yaml-devdependencies
+ * [new branch]      copilot/update-render-yaml-for-devdependencies -> origin/copilot/update-render-yaml-for-devdependencies
+ * [new branch]      fix/update-home-header-footer -> origin/fix/update-home-header-footer
+Your configuration specifies to merge with the ref 'refs/heads/update-readme-phil-smith-2025-10-22'
+from the remote, but no such ref was fetched.
+
+C:\Users\phili\Essayons_Change_Website>git push
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 39.48 KiB | 13.16 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'update-readme-phil-smith-2025-10-22' on GitHub by visiting:
+remote:      https://github.com/psmithccld/Essayons_Change_Website/pull/new/update-readme-phil-smith-2025-10-22
+remote:
+To https://github.com/psmithccld/Essayons_Change_Website/
+ * [new branch]      update-readme-phil-smith-2025-10-22 -> update-readme-phil-smith-2025-10-22
+
+C:\Users\phili\Essayons_Change_Website>

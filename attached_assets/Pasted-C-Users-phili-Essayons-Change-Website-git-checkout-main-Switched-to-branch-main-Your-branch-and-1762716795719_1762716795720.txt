@@ -1,0 +1,71 @@
+C:\Users\phili\Essayons_Change_Website>git checkout main
+Switched to branch 'main'
+Your branch and 'origin/main' have diverged,
+and have 2 and 132 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+C:\Users\phili\Essayons_Change_Website>git merge update-readme-phil-smith-2025-10-22
+Updating 4810f5b..144a710
+Fast-forward
+ .env.example                   |    9 +
+ client/index.html              |   12 +
+ client/package.json            |   30 +
+ client/src/App.tsx             |   31 +
+ client/src/main.tsx            |   13 +
+ client/src/pages/About.tsx     |    9 +
+ client/src/pages/Blog.tsx      |    9 +
+ client/src/pages/Contact.tsx   |    9 +
+ client/src/pages/Footer.tsx    |   11 +
+ client/src/pages/Games.tsx     |    9 +
+ client/src/pages/Header.tsx    |   20 +
+ client/src/pages/Home.tsx      |   34 +
+ client/src/pages/Pricing.tsx   |    9 +
+ client/src/pages/Tutorials.tsx |    9 +
+ client/src/styles/tailwind.css |    8 +
+ client/tailwind.config.cjs     |    7 +
+ client/vite.config.ts          |   12 +
+ docker-compose.yml             |   11 +
+ package-lock.json              | 4965 ++++++++++++++++++++++++++++++++++++++++
+ package.json                   |   21 +
+ server/Dockerfile              |   16 +
+ server/package.json            |   26 +
+ server/src/index.ts            |   49 +
+ shared/src/types.ts            |    6 +
+ tsconfig.json                  |   20 +
+ 25 files changed, 5355 insertions(+)
+ create mode 100644 .env.example
+ create mode 100644 client/index.html
+ create mode 100644 client/package.json
+ create mode 100644 client/src/App.tsx
+ create mode 100644 client/src/main.tsx
+ create mode 100644 client/src/pages/About.tsx
+ create mode 100644 client/src/pages/Blog.tsx
+ create mode 100644 client/src/pages/Contact.tsx
+ create mode 100644 client/src/pages/Footer.tsx
+ create mode 100644 client/src/pages/Games.tsx
+ create mode 100644 client/src/pages/Header.tsx
+ create mode 100644 client/src/pages/Home.tsx
+ create mode 100644 client/src/pages/Pricing.tsx
+ create mode 100644 client/src/pages/Tutorials.tsx
+ create mode 100644 client/src/styles/tailwind.css
+ create mode 100644 client/tailwind.config.cjs
+ create mode 100644 client/vite.config.ts
+ create mode 100644 docker-compose.yml
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+ create mode 100644 server/Dockerfile
+ create mode 100644 server/package.json
+ create mode 100644 server/src/index.ts
+ create mode 100644 shared/src/types.ts
+ create mode 100644 tsconfig.json
+
+C:\Users\phili\Essayons_Change_Website>git push origin main
+To https://github.com/psmithccld/Essayons_Change_Website/
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/psmithccld/Essayons_Change_Website/'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+C:\Users\phili\Essayons_Change_Website>
