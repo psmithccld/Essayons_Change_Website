@@ -20,7 +20,15 @@ import { seedAdminUser } from '../seed';
 import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
 import { ObjectPermission } from '../objectAcl';
 import { getUncachableSendGridClient } from '../sendgrid';
-import { insertContactMessageSchema } from '../../shared/schema-types';
+import { z } from 'zod';
+
+// Inline validation schema to avoid importing from shared/schema which requires Drizzle packages
+const insertContactMessageSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(1, "Subject is required"),
+  message: z.string().min(1, "Message is required"),
+});
 
 dotenv.config();
 

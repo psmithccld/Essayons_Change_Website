@@ -28,7 +28,7 @@ An Express.js server provides a minimal API for contact forms, status endpoints,
 - When `DATABASE_URL` is available AND database packages are installed → uses `DatabaseStorage` (PostgreSQL)
 - When database packages are missing → falls back to `MemStorage` (in-memory)
 
-**Schema Architecture**: The Drizzle ORM schema is defined in `shared/src/schema.ts` as the single source of truth. Runtime-independent TypeScript types are re-exported via `shared/src/types.ts` using `import type` for use in both client and server code without materializing Drizzle at runtime. The storage abstraction layer in `server/storage.ts` handles automatic switching between `DatabaseStorage` (PostgreSQL) and `MemStorage` (in-memory) implementations by dynamically importing the schema only when database packages are available.
+**Schema Architecture**: The Drizzle ORM schema is defined in `shared/src/schema.ts` as the single source of truth. Runtime-independent TypeScript types are re-exported via `shared/src/types.ts` using `import type` for use in both client and server code without materializing Drizzle at runtime. Zod validation schemas requiring Drizzle are inlined in `server/src/index.ts` to avoid top-level imports. The storage abstraction layer in `server/storage.ts` handles automatic switching between `DatabaseStorage` (PostgreSQL) and `MemStorage` (in-memory) implementations by dynamically importing the schema only when database packages are available.
 
 ### Deployment Architecture
 Designed for deployment on platforms like Render, supporting Node.js 20.x. The recommended deployment strategy for MVP involves building the client during CI, copying it to `server/public`, and deploying the server as a single service.
