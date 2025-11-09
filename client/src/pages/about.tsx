@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import abstractImage from "@assets/image_1761605800665.png";
 import philSmithImage from "@assets/Author Picture_1761601756882.jpg";
+import danRauschImage from "@assets/image_1762711078959.png";
 
 export default function About() {
   return (
@@ -71,10 +72,10 @@ export default function About() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Our Team</h2>
         </div>
-        <div className="max-w-3xl mx-auto">
+        <div className="grid gap-8 md:grid-cols-2 max-w-6xl mx-auto">
           <Card>
             <CardContent className="pt-6">
-              <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+              <div className="flex flex-col gap-6 items-center text-center">
                 <Avatar className="h-32 w-32 flex-shrink-0">
                   <AvatarImage 
                     src={philSmithImage} 
@@ -83,12 +84,12 @@ export default function About() {
                   />
                   <AvatarFallback>PS</AvatarFallback>
                 </Avatar>
-                <div className="flex-1 space-y-4 text-center md:text-left">
+                <div className="flex-1 space-y-4">
                   <div>
-                    <h3 className="text-2xl font-bold" data-testid="text-team-member-name">
+                    <h3 className="text-2xl font-bold" data-testid="text-team-member-phil-name">
                       Phil Smith, PMP, Ph.D. Candidate
                     </h3>
-                    <p className="text-lg text-muted-foreground" data-testid="text-team-member-role">
+                    <p className="text-lg text-muted-foreground" data-testid="text-team-member-phil-role">
                       Founder & President
                     </p>
                   </div>
@@ -98,6 +99,36 @@ export default function About() {
                     </p>
                     <p>
                       His work bridges theory and practice — developing frameworks and systems that help leaders design, measure, and sustain transformational change.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex flex-col gap-6 items-center text-center">
+                <Avatar className="h-32 w-32 flex-shrink-0">
+                  <AvatarImage 
+                    src={danRauschImage} 
+                    alt="Dan Rausch"
+                    className="object-cover object-center"
+                  />
+                  <AvatarFallback>DR</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 space-y-4">
+                  <div>
+                    <h3 className="text-2xl font-bold" data-testid="text-team-member-dan-name">
+                      Dan Rausch
+                    </h3>
+                    <p className="text-lg text-muted-foreground" data-testid="text-team-member-dan-role">
+                      Co-Founder & Chief Business Officer
+                    </p>
+                  </div>
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>
+                      Dan Rausch is a business development leader with over 20 years of experience in sales, recruiting, and strategic partnerships across engineering, construction, and professional services. He brings a people-centered approach to growth—building authentic relationships that translate vision into opportunity and drive measurable results.
                     </p>
                   </div>
                 </div>
