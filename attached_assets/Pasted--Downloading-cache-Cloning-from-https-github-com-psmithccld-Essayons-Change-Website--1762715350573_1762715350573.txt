@@ -1,0 +1,82 @@
+==> Downloading cache...
+==> Cloning from https://github.com/psmithccld/Essayons_Change_Website
+==> Checking out commit c4ed93bbd8b166cc53d3bf88f59730f975261931 in branch main
+==> Downloaded 123MB in 5s. Extraction took 3s.
+==> Requesting Node.js version 20.x
+==> Using Node.js version 20.19.5 via /opt/render/project/src/package.json
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Running build command 'NPM_CONFIG_PRODUCTION=false npm ci && npm run build'...
+added 490 packages, and audited 493 packages in 11s
+81 packages are looking for funding
+  run `npm fund` for details
+2 moderate severity vulnerabilities
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+Run `npm audit` for details.
+> build
+> npm run build --workspaces
+> essayons-client@0.1.0 build
+> vite build
+vite v5.4.21 building for production...
+transforming...
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+✓ 2113 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                  0.99 kB │ gzip:   0.53 kB
+dist/assets/image_1758211685824_1761593188026-DL5lyzk2.png      47.03 kB
+dist/assets/image_1761599761478-DRXnfJw4.png                   124.37 kB
+dist/assets/image_1761599774749-YDido6yA.png                   133.27 kB
+dist/assets/image_1761599788619-BgbCpq9p.png                   133.41 kB
+dist/assets/image_1761599726140-CiC7YoiS.png                   151.01 kB
+dist/assets/image_1762711078959-dLp_jEFS.png                   197.32 kB
+dist/assets/image_1761593182537-DmnXT2It.png                   228.78 kB
+dist/assets/Author Picture_1761601756882-BP-KIHxd.jpg        4,119.14 kB
+dist/assets/image_1761605800665-DNU_jyZa.png                20,131.70 kB
+dist/assets/index-X052vkmH.css                                  57.14 kB │ gzip:  10.29 kB
+dist/assets/index-VYIqXIKB.js                                  560.86 kB │ gzip: 175.51 kB
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 4.72s
+> essayons-server@0.1.0 build
+> esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:@neondatabase/serverless --outfile=dist/index.mjs --format=esm
+  dist/index.mjs  3.5mb ⚠️
+⚡ Done in 221ms
+==> Uploading build...
+==> Uploaded in 8.3s. Compression took 3.8s
+==> Build successful 🎉
+==> Deploying...
+==> Running 'npm start'
+> start
+> npm --workspace server run start
+> essayons-server@0.1.0 start
+> node dist/index.mjs
+node:internal/modules/esm/resolve:873
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'drizzle-orm' imported from /opt/render/project/src/server/dist/index.mjs
+    at packageResolve (node:internal/modules/esm/resolve:873:9)
+    at moduleResolve (node:internal/modules/esm/resolve:946:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:708:12)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:657:25)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:640:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:264:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:168:49) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+Node.js v20.19.5
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /opt/render/project/src/server
+npm error workspace essayons-server@0.1.0
+npm error location /opt/render/project/src/server
+npm error command failed
+npm error command sh -c node dist/index.mjs
+==> Exited with status 1
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+==> Running 'npm start'
+> start
+> npm --workspace server run start
