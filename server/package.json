@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:@neondatabase/serverless --outfile=dist/index.mjs --format=esm",
+    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:@neondatabase/serverless --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:@sendgrid/mail --external:@google-cloud/storage --external:ws --external:zod --outfile=dist/index.mjs --format=esm",
     "start": "node dist/index.mjs",
     "check": "tsc -p ../tsconfig.json --noEmit"
   },

@@ -1,30 +1,19 @@
 // Referenced from blueprint:javascript_database
-import { 
-  adminUsers, 
-  content, 
-  attachments,
-  contactMessages,
-  type AdminUser, 
-  type InsertAdminUser,
-  type Content,
-  type InsertContent,
-  type Attachment,
-  type InsertAttachment,
-  type ContactMessage,
-  type InsertContactMessage
-} from "../shared/schema";
+import type { 
+  AdminUser, 
+  InsertAdminUser,
+  Content,
+  InsertContent,
+  Attachment,
+  InsertAttachment,
+  ContactMessage,
+  InsertContactMessage
+} from "@shared/types";
 import { db } from "./db";
 
-// Conditionally import drizzle-orm functions
+// These will be populated dynamically when database is available
+let adminUsers: any, content: any, attachments: any, contactMessages: any;
 let eq: any, and: any, desc: any;
-try {
-  const drizzleOrm = await import("drizzle-orm");
-  eq = drizzleOrm.eq;
-  and = drizzleOrm.and;
-  desc = drizzleOrm.desc;
-} catch (error) {
-  // drizzle-orm not available, DatabaseStorage will not be used
-}
 
 export interface IStorage {
   // Admin user operations
@@ -169,20 +158,32 @@ export class DatabaseStorage implements IStorage {
 
 // Use DatabaseStorage if database is available, otherwise fall back to MemStorage
 async function createStorage(): Promise<IStorage> {
-  if (db && eq && and && desc) {
-    console.log('[STORAGE] Using DatabaseStorage (PostgreSQL)');
-    console.log('[STORAGE] Database connection confirmed with drizzle-orm functions available');
-    return new DatabaseStorage();
-  } else {
-    if (db && (!eq || !and || !desc)) {
-      console.warn('[STORAGE] Database connection available but drizzle-orm functions missing');
+  if (db) {
+    try {
+      // Dynamically import Drizzle schema and functions
+      const schema = await import("@shared/schema");
+      const drizzleOrm = await import("drizzle-orm");
+      
+      adminUsers = schema.adminUsers;
+      content = schema.content;
+      attachments = schema.attachments;
+      contactMessages = schema.contactMessages;
+      eq = drizzleOrm.eq;
+      and = drizzleOrm.and;
+      desc = drizzleOrm.desc;
+      
+      console.log('[STORAGE] Using DatabaseStorage (PostgreSQL)');
+      return new DatabaseStorage();
+    } catch (error) {
+      console.warn('[STORAGE] Failed to load database packages:', error instanceof Error ? error.message : String(error));
       console.warn('[STORAGE] Falling back to MemStorage');
-    } else if (!db) {
-      console.log('[STORAGE] Using MemStorage (DATABASE_URL not configured or database packages not installed)');
     }
-    const { MemStorage } = await import('./mem-storage');
-    return new MemStorage();
+  } else {
+    console.log('[STORAGE] Using MemStorage (DATABASE_URL not configured)');
   }
+  
+  const { MemStorage } = await import('./mem-storage');
+  return new MemStorage();
 }
 
 export const storage: IStorage = await createStorage();

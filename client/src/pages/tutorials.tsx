@@ -1,9 +1,9 @@
 import BlogCard from "@/components/BlogCard";
 import { useQuery } from "@tanstack/react-query";
-import type { SelectContent } from "@shared/schema";
+import type { Content } from "@shared/types";
 
 export default function Tutorials() {
-  const { data: tutorials, isLoading } = useQuery<SelectContent[]>({
+  const { data: tutorials, isLoading } = useQuery<Content[]>({
     queryKey: ["/api/content?type=tutorial&status=published"],
   });
 

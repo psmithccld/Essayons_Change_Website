@@ -7,7 +7,7 @@ import type {
   InsertAttachment,
   ContactMessage,
   InsertContactMessage
-} from "../shared/schema-types";
+} from "@shared/types";
 
 export interface IStorage {
   getAdminUserById(id: number): Promise<AdminUser | undefined>;

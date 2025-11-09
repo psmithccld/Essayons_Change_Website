@@ -28,13 +28,13 @@ An Express.js server provides a minimal API for contact forms, status endpoints,
 - When `DATABASE_URL` is available AND database packages are installed → uses `DatabaseStorage` (PostgreSQL)
 - When database packages are missing → falls back to `MemStorage` (in-memory)
 
-Schema is defined in `/shared/schema.ts`. The storage abstraction layer in `server/storage.ts` handles the automatic switching between implementations.
+**Schema Architecture**: The Drizzle ORM schema is defined in `shared/src/schema.ts` as the single source of truth. Runtime-independent TypeScript types are re-exported via `shared/src/types.ts` using `import type` for use in both client and server code without materializing Drizzle at runtime. The storage abstraction layer in `server/storage.ts` handles automatic switching between `DatabaseStorage` (PostgreSQL) and `MemStorage` (in-memory) implementations by dynamically importing the schema only when database packages are available.
 
 ### Deployment Architecture
 Designed for deployment on platforms like Render, supporting Node.js 20.x. The recommended deployment strategy for MVP involves building the client during CI, copying it to `server/public`, and deploying the server as a single service.
 
 **Build Configuration (November 2025)**:
-The server build uses esbuild with ES Module format (`--format=esm`) to support top-level await for database connections. Database packages (`drizzle-orm`, `drizzle-zod`, `@neondatabase/serverless`) are marked as external dependencies and not bundled, allowing them to be resolved at runtime where they're installed as npm dependencies in `server/package.json`.
+The server build uses esbuild with ES Module format (`--format=esm`) to support top-level await for database connections. All Express-related packages and database packages are marked as external dependencies (not bundled), including: `express`, `cors`, `helmet`, `cookie-parser`, `dotenv`, `bcryptjs`, `express-session`, `@sendgrid/mail`, `@google-cloud/storage`, `drizzle-orm`, `drizzle-zod`, `@neondatabase/serverless`, `ws`, and `zod`. These are resolved at runtime from `server/node_modules` where they're installed as npm dependencies in `server/package.json`.
 
 **Production Database Setup (October 2025)**:
 The production deployment on Render is now configured to use PostgreSQL for persistent admin user and content storage. When deployed:
@@ -51,8 +51,8 @@ The database packages (`drizzle-orm`, `drizzle-zod`, `@neondatabase/serverless`)
 - Production on Render will automatically use `DatabaseStorage` (PostgreSQL) when `DATABASE_URL` is configured
 
 **Development vs Production**:
-- **Replit Development**: Database packages are installed. Uses `MemStorage` (in-memory) by default, or `DatabaseStorage` (PostgreSQL) if `DATABASE_URL` is configured via `javascript_database` integration.
-- **Production (Render)**: Database packages are installed via npm. Uses `DatabaseStorage` (PostgreSQL) automatically when `DATABASE_URL` environment variable is configured.
+- **Replit Development**: Database packages are NOT available in the execution environment. Uses `MemStorage` (in-memory) exclusively. The Drizzle schema and database packages are dynamically imported only when both `DATABASE_URL` is configured AND packages are available, preventing import errors in dev mode.
+- **Production (Render)**: Database packages are installed via npm from `server/package.json`. Uses `DatabaseStorage` (PostgreSQL) automatically when `DATABASE_URL` environment variable is configured. The server's dynamic import strategy loads Drizzle schema at runtime.
 
 **Previous 401 Login Issue (RESOLVED)**:
 The production 401 "Invalid credentials" error was caused by the application using in-memory storage instead of PostgreSQL. Production logs showed:

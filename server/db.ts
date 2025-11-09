@@ -8,7 +8,7 @@ try {
     const { Pool, neonConfig } = await import('@neondatabase/serverless');
     const { drizzle } = await import('drizzle-orm/neon-serverless');
     const ws = await import("ws");
-    const schema = await import("../shared/schema");
+    const schema = await import("@shared/schema");
 
     neonConfig.webSocketConstructor = ws.default;
 
