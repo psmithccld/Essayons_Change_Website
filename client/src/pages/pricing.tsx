@@ -31,7 +31,7 @@ export default function Pricing() {
       <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
         <PricingCard
           title="Basic"
-          price="$299.00"
+          price="$1,000"
           period="month"
           seats="10 seats"
           fileSize="10 MB files"
@@ -46,8 +46,8 @@ export default function Pricing() {
         />
         <PricingCard
           title="Professional"
-          price="$50.00"
-          period="seat/month"
+          price="$1,500"
+          period="month"
           seats="20+ seats"
           fileSize="10 MB files"
           storage="5 GB"
