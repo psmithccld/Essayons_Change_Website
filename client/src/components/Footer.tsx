@@ -24,7 +24,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-3">Connect</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-linkedin">
+                <a href="https://www.linkedin.com/company/essayons-change/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-linkedin">
                   LinkedIn
                 </a>
               </li>
