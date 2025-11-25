@@ -5,12 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:@neondatabase/serverless --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:@sendgrid/mail --external:@google-cloud/storage --external:ws --external:zod --outfile=dist/index.mjs --format=esm",
+    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:pg --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:@sendgrid/mail --external:@google-cloud/storage --external:zod --outfile=dist/index.mjs --format=esm",
     "start": "node dist/index.mjs",
     "check": "tsc -p ../tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -21,7 +20,7 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "helmet": "^7.0.0",
-    "ws": "^8.18.0",
+    "pg": "^8.13.1",
     "zod": "^3.24.1"
   },
   "devDependencies": {
