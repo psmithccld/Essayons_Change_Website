@@ -5,15 +5,17 @@ try {
   if (!process.env.DATABASE_URL) {
     console.warn('[DATABASE] DATABASE_URL not set. Database functionality will be unavailable.');
   } else {
-    const { Pool, neonConfig } = await import('@neondatabase/serverless');
-    const { drizzle } = await import('drizzle-orm/neon-serverless');
-    const ws = await import("ws");
+    const pg = await import('pg');
+    const { drizzle } = await import('drizzle-orm/node-postgres');
     const schema = await import("@shared/schema");
 
-    neonConfig.webSocketConstructor = ws.default;
-
+    const Pool = pg.default.Pool;
     pool = new Pool({ connectionString: process.env.DATABASE_URL });
-    db = drizzle({ client: pool, schema });
+    
+    // Test the connection
+    await pool.query('SELECT 1');
+    
+    db = drizzle(pool, { schema });
     
     console.log('[DATABASE] PostgreSQL connection established');
   }
