@@ -1,0 +1,175 @@
+==> Downloading cache...
+==> Cloning from https://github.com/psmithccld/Essayons_Change_Website
+==> Checking out commit c9c13dcf287b3390cd17259e42b550863ee2be80 in branch main
+==> Downloaded 240MB in 3s. Extraction took 6s.
+==> Requesting Node.js version 20.x
+==> Using Node.js version 20.19.6 via /opt/render/project/src/package.json
+==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+==> Running build command 'npm run build && cd server && npm install && npx drizzle-kit push'...
+> build
+> npm run build --workspaces
+> essayons-client@0.1.0 build
+> vite build
+vite v5.4.21 building for production...
+transforming...
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+✓ 2254 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                  1.23 kB │ gzip:   0.59 kB
+dist/assets/image_1758211685824_1761593188026-DL5lyzk2.png      47.03 kB
+dist/assets/image_1761599761478-DRXnfJw4.png                   124.37 kB
+dist/assets/image_1761599774749-YDido6yA.png                   133.27 kB
+dist/assets/image_1761599788619-BgbCpq9p.png                   133.41 kB
+dist/assets/image_1761599726140-CiC7YoiS.png                   151.01 kB
+dist/assets/image_1762711078959-dLp_jEFS.png                   197.32 kB
+dist/assets/image_1761593182537-DmnXT2It.png                   228.78 kB
+dist/assets/Author Picture_1761601756882-BP-KIHxd.jpg        4,119.14 kB
+dist/assets/image_1761605800665-DNU_jyZa.png                20,131.70 kB
+dist/assets/index-X052vkmH.css                                  57.14 kB │ gzip:  10.29 kB
+dist/assets/index-BN2Ff9Oy.js                                  563.68 kB │ gzip: 176.57 kB
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.82s
+> essayons-server@0.1.0 build
+> esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:drizzle-kit --external:pg --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:@sendgrid/mail --external:@google-cloud/storage --external:zod --outfile=dist/index.mjs --format=esm
+  dist/index.mjs  38.0kb
+⚡ Done in 6ms
+added 9 packages, changed 6 packages, and audited 525 packages in 4s
+83 packages are looking for funding
+  run `npm fund` for details
+4 moderate severity vulnerabilities
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+Run `npm audit` for details.
+No config path provided, using default 'drizzle.config.ts'
+Reading config file '/opt/render/project/src/server/drizzle.config.ts'
+Using 'pg' driver for database querying
+Error: Cannot find module 'drizzle-orm/pg-core'
+Require stack:
+- /opt/render/project/src/shared/src/schema.ts
+- /opt/render/project/src/server/node_modules/drizzle-kit/bin.cjs
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at Module._resolveFilename (/opt/render/project/src/server/node_modules/drizzle-kit/bin.cjs:16643:40)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (/opt/render/project/src/shared/src/schema.ts:1:77)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._compile (/opt/render/project/src/server/node_modules/drizzle-kit/bin.cjs:14147:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Object.newLoader [as .ts] (/opt/render/project/src/server/node_modules/drizzle-kit/bin.cjs:14151:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/opt/render/project/src/shared/src/schema.ts',
+    '/opt/render/project/src/server/node_modules/drizzle-kit/bin.cjs'
+  ]
+}
+==> Uploading build...
+==> Uploaded in 6.1s. Compression took 2.5s
+==> Build successful 🎉
+==> Deploying...
+==> Running 'npm start'
+> start
+> npm --workspace server run start
+> essayons-server@0.1.0 start
+> node dist/index.mjs
+[DATABASE] PostgreSQL connection established
+[STORAGE] Using DatabaseStorage (PostgreSQL)
+Warning: connect.session() MemoryStore is not
+designed for a production environment, as it will leak
+memory, and will not scale past a single process.
+Server listening on port 3000
+[STARTUP] Storage implementation: DatabaseStorage
+[STARTUP] DATABASE_URL configured: true
+[STARTUP] NODE_ENV: production
+/opt/render/project/src/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+error: relation "admin_users" does not exist
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///opt/render/project/src/server/node_modules/drizzle-orm/node-postgres/session.js:83:22
+    at async DatabaseStorage.getAdminUserByUsername (file:///opt/render/project/src/server/dist/index.mjs:296:20)
+    at async seedAdminUser (file:///opt/render/project/src/server/dist/index.mjs:587:31)
+    at async Server.<anonymous> (file:///opt/render/project/src/server/dist/index.mjs:1128:3) {
+  length: 110,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '70',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+Node.js v20.19.6
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /opt/render/project/src/server
+npm error workspace essayons-server@0.1.0
+npm error location /opt/render/project/src/server
+npm error command failed
+npm error command sh -c node dist/index.mjs
+==> Exited with status 1
+==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+==> Running 'npm start'
+> start
+> npm --workspace server run start
+> essayons-server@0.1.0 start
+> node dist/index.mjs
+[DATABASE] PostgreSQL connection established
+[STORAGE] Using DatabaseStorage (PostgreSQL)
+Warning: connect.session() MemoryStore is not
+designed for a production environment, as it will leak
+memory, and will not scale past a single process.
+Server listening on port 3000
+[STARTUP] Storage implementation: DatabaseStorage
+[STARTUP] DATABASE_URL configured: true
+[STARTUP] NODE_ENV: production
+/opt/render/project/src/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+error: relation "admin_users" does not exist
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///opt/render/project/src/server/node_modules/drizzle-orm/node-postgres/session.js:83:22
+    at async DatabaseStorage.getAdminUserByUsername (file:///opt/render/project/src/server/dist/index.mjs:296:20)
+    at async seedAdminUser (file:///opt/render/project/src/server/dist/index.mjs:587:31)
+    at async Server.<anonymous> (file:///opt/render/project/src/server/dist/index.mjs:1128:3) {
+  length: 110,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '70',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+Node.js v20.19.6
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /opt/render/project/src/server
+npm error workspace essayons-server@0.1.0
+npm error location /opt/render/project/src/server
+npm error command failed
+npm error command sh -c node dist/index.mjs
