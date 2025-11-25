@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:pg --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:@sendgrid/mail --external:@google-cloud/storage --external:zod --outfile=dist/index.mjs --format=esm",
+    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:drizzle-kit --external:pg --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:@sendgrid/mail --external:@google-cloud/storage --external:zod --outfile=dist/index.mjs --format=esm",
+    "db:push": "drizzle-kit push",
     "start": "node dist/index.mjs",
     "check": "tsc -p ../tsconfig.json --noEmit"
   },
@@ -14,6 +15,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "drizzle-kit": "^0.30.1",
     "drizzle-orm": "^0.38.3",
     "drizzle-zod": "^0.7.0",
     "esbuild": "^0.25.0",

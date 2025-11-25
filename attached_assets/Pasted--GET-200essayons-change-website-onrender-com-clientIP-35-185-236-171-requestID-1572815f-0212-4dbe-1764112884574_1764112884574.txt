@@ -1,0 +1,50 @@
+[GET]200essayons-change-website.onrender.com/clientIP="35.185.236.171" requestID="1572815f-0212-4dbe" responseTimeMS=23 responseBytes=1544 userAgent="Go-http-client/2.0"
+     ==> Detected service running on port 3000
+     ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+     [GET]301essayonschange.com/clientIP="34.138.91.110" requestID="" responseTimeMS=0 responseBytes=141 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]301essayonschange.com/clientIP="34.138.91.110" requestID="" responseTimeMS=0 responseBytes=149 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//xmlrpc.php?rsdclientIP="34.138.91.110" requestID="990d0c51-6379-4375" responseTimeMS=4 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="9cebff17-45ca-4031" responseTimeMS=48 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//news/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="483c8c8e-e6ba-411d" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//website/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="af56ff31-a130-48ab" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//blog/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="85fccee6-37cf-4b1a" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//2019/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="cf3a34f1-9670-4ba0" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//2018/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="59388067-2a0f-4e39" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com/clientIP="34.138.91.110" requestID="060a777d-6687-4e60" responseTimeMS=4 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//wp/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="3bee19fc-a23f-4543" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//web/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="35e0280d-f25c-4c48" responseTimeMS=4 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//wordpress/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="60e58cf2-2e5c-4f18" responseTimeMS=4 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//test/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="876a3a18-2e41-44dc" responseTimeMS=2 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//shop/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="00eda80f-53ba-4fdf" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//wp1/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="f06e7129-a18b-4c09" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//media/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="fd50b14f-fb77-4a6e" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//wp2/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="502086c9-a60a-4744" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//sito/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="60cd2463-d2d4-482c" responseTimeMS=2 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//site/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="f38dd8dd-6fb7-451f" responseTimeMS=4 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [GET]200www.essayonschange.com//cms/wp-includes/wlwmanifest.xmlclientIP="34.138.91.110" requestID="64b5a400-5c72-4ed0" responseTimeMS=3 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+     [POST]500www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="c4b21fa3-a7b5-4cc6" responseTimeMS=47 responseBytes=1063 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] Login error: error: relation "admin_users" does not exist
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///opt/render/project/src/server/node_modules/drizzle-orm/node-postgres/session.js:83:22
+    at async DatabaseStorage.getAdminUserByUsername (file:///opt/render/project/src/server/dist/index.mjs:296:20)
+    at async loginHandler (file:///opt/render/project/src/server/dist/index.mjs:404:18) {
+  length: 110,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '70',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
