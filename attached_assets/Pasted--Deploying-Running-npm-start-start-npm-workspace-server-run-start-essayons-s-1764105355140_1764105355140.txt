@@ -1,0 +1,69 @@
+==> Deploying...
+==> Running 'npm start'
+> start
+> npm --workspace server run start
+> essayons-server@0.1.0 start
+> node dist/index.mjs
+[DATABASE] DATABASE_URL not set. Database functionality will be unavailable.
+[STORAGE] Using MemStorage (DATABASE_URL not configured)
+Warning: connect.session() MemoryStore is not
+designed for a production environment, as it will leak
+memory, and will not scale past a single process.
+Server listening on port 3000
+[STARTUP] Storage implementation: MemStorage
+[STARTUP] DATABASE_URL configured: false
+[STARTUP] NODE_ENV: production
+Admin user created: { id: 1, username: 'admin', email: 'admin@essayons.com' }
+Login credentials: username=admin, password=admin123
+     ==> Your service is live 🎉
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     ==> 
+     ==> Available at your primary URL https://www.essayonschange.com + 1 more domain
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     [GET]200essayons-change-website.onrender.com/clientIP="34.82.41.62" requestID="a381830f-6ee3-4dff" responseTimeMS=5 responseBytes=1543 userAgent="Go-http-client/2.0"
+     ==> Detected service running on port 3000
+     ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+     ==> Deploying...
+==> Running 'npm start'
+> start
+> npm --workspace server run start
+> essayons-server@0.1.0 start
+> node dist/index.mjs
+[STORAGE] Using MemStorage (DATABASE_URL not configured)
+[DATABASE] Failed to initialize database: Cannot find package 'ws' imported from /opt/render/project/src/server/dist/index.mjs
+[DATABASE] Application will use in-memory storage
+Warning: connect.session() MemoryStore is not
+designed for a production environment, as it will leak
+memory, and will not scale past a single process.
+Server listening on port 3000
+[STARTUP] Storage implementation: MemStorage
+[STARTUP] DATABASE_URL configured: true
+[STARTUP] NODE_ENV: production
+Admin user created: { id: 1, username: 'admin', email: 'admin@essayons.com' }
+Login credentials: username=admin, password=admin123
+     ==> Your service is live 🎉
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     ==> 
+     ==> Available at your primary URL https://www.essayonschange.com + 1 more domain
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     [GET]200essayons-change-website.onrender.com/clientIP="35.247.111.159" requestID="b96cf21e-7170-49d6" responseTimeMS=10 responseBytes=1544 userAgent="Go-http-client/2.0"
+     [POST]401www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="73af2f85-50c6-4f7d" responseTimeMS=15 responseBytes=1061 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: MemStorage
+[LOGIN] User not found: Essayon6
+     [POST]401www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="915474c3-8972-4c6d" responseTimeMS=4 responseBytes=1061 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: admin
+[LOGIN] Storage type: MemStorage
+[LOGIN] User not found: admin
+     [POST]401www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="44cfbe0c-cc3e-47b6" responseTimeMS=4 responseBytes=1061 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: admin
+[LOGIN] Storage type: MemStorage
+[LOGIN] User not found: admin
+     [POST]401www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="8b1c22be-2734-4e7e" responseTimeMS=3 responseBytes=1061 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: MemStorage
+[LOGIN] User not found: Essayon6
