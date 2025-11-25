@@ -10,7 +10,16 @@ try {
     const schema = await import("@shared/schema");
 
     const Pool = pg.default.Pool;
-    pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    
+    // Configure SSL for production (Render requires SSL even for internal connections)
+    const sslConfig = process.env.NODE_ENV === 'production' 
+      ? { ssl: { rejectUnauthorized: false } }
+      : {};
+    
+    pool = new Pool({ 
+      connectionString: process.env.DATABASE_URL,
+      ...sslConfig
+    });
     
     // Test the connection
     await pool.query('SELECT 1');
