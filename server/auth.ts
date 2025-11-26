@@ -40,12 +40,21 @@ export async function loginHandler(req: Request, res: Response) {
     req.session.userId = user.id;
     req.session.username = user.username;
 
-    console.log('[LOGIN] Login successful for user:', username);
+    // Explicitly save session before responding to ensure cookie is set
+    req.session.save((err) => {
+      if (err) {
+        console.error('[LOGIN] Session save error:', err);
+        return res.status(500).json({ error: "Failed to create session" });
+      }
+      
+      console.log('[LOGIN] Login successful for user:', username);
+      console.log('[LOGIN] Session ID:', req.sessionID);
 
-    return res.json({
-      id: user.id,
-      username: user.username,
-      email: user.email,
+      return res.json({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      });
     });
   } catch (error) {
     console.error("[LOGIN] Login error:", error);
@@ -64,7 +73,11 @@ export async function logoutHandler(req: Request, res: Response) {
 }
 
 export async function getCurrentUserHandler(req: Request, res: Response) {
+  console.log('[AUTH] getCurrentUser - Session ID:', req.sessionID);
+  console.log('[AUTH] getCurrentUser - Session data:', JSON.stringify(req.session));
+  
   if (!req.session.userId) {
+    console.log('[AUTH] getCurrentUser - No userId in session');
     return res.status(401).json({ error: "Not authenticated" });
   }
 
