@@ -38,6 +38,9 @@ const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-secret-change-in-produ
 
 const app = express();
 
+// Trust proxy for secure cookies behind Render's reverse proxy
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 app.use(cors({
