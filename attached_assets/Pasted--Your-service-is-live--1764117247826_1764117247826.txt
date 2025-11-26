@@ -1,0 +1,25 @@
+==> Your service is live 🎉
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     ==> 
+     ==> Available at your primary URL https://www.essayonschange.com + 1 more domain
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     [GET]200essayons-change-website.onrender.com/clientIP="35.230.45.39" requestID="8b64947b-29b0-42f9" responseTimeMS=17 responseBytes=1545 userAgent="Go-http-client/2.0"
+     [GET]200www.essayonschange.com/assets/index-DKMOgj6F.jsclientIP="69.140.149.160" requestID="6efbb96d-7acd-44e2" responseTimeMS=57 responseBytes=176698 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="5c84beea-455a-4e21" responseTimeMS=36 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="0f3c730b-8615-4e55" responseTimeMS=2 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="f9912391-635e-4a28" responseTimeMS=2 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/admin/loginclientIP="69.140.149.160" requestID="cb7faf5e-b68d-485c" responseTimeMS=11 responseBytes=1545 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/assets/index-X052vkmH.cssclientIP="69.140.149.160" requestID="348a31ec-39b6-4f51" responseTimeMS=6 responseBytes=11631 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="2bf5575b-4afc-4678" responseTimeMS=2 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]401www.essayonschange.com/api/auth/meclientIP="69.140.149.160" requestID="e0711f3f-fcea-4f2c" responseTimeMS=2 responseBytes=998 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [POST]200www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="f36f68c7-7bd6-4869" responseTimeMS=181 responseBytes=1090 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User found: { id: 1, username: 'Essayon6', email: 'psmith@essayonschange.com' }
+[LOGIN] Login successful for user: Essayon6
+[LOGIN] Session ID: VPQfgVAxbZFP5u1eZqNrPiTZ2CTZvsWr
+[AUTH] getCurrentUser - Session ID: 9lDRnX3aV-w2jjEcNSuzKgeq1By2dJii
+[AUTH] getCurrentUser - Session data: {"cookie":{"originalMaxAge":86400000,"expires":"2025-11-27T00:33:33.458Z","secure":true,"httpOnly":true,"path":"/","sameSite":"lax"}}
+[AUTH] getCurrentUser - No userId in session
