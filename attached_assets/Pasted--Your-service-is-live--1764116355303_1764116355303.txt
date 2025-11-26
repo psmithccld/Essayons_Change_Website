@@ -1,0 +1,59 @@
+     ==> Your service is live 🎉
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     ==> 
+     ==> Available at your primary URL https://www.essayonschange.com + 1 more domain
+     ==> 
+     ==> ///////////////////////////////////////////////////////////
+     [GET]200essayons-change-website.onrender.com/clientIP="34.82.80.145" requestID="78c9cf0c-727e-424a" responseTimeMS=23 responseBytes=1544 userAgent="Go-http-client/2.0"
+     [GET]301essayonschange.com/clientIP="170.106.37.134" requestID="" responseTimeMS=0 responseBytes=141 userAgent="Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+     [GET]301essayonschange.com/clientIP="170.106.37.134" requestID="" responseTimeMS=0 responseBytes=149 userAgent="Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+     [GET]200www.essayonschange.com/clientIP="170.106.37.134" requestID="acf10470-e7c0-4e02" responseTimeMS=9 responseBytes=1545 userAgent="Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+     ==> Detected service running on port 3000
+     ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="f51ca3c5-0af0-44ed" responseTimeMS=3 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [POST]200www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="f30bd692-1a52-48fa" responseTimeMS=184 responseBytes=1090 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="946094bb-b271-493e" responseTimeMS=4 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]401www.essayonschange.com/api/auth/meclientIP="69.140.149.160" requestID="4003111d-55ef-4790" responseTimeMS=7 responseBytes=998 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User found: { id: 1, username: 'Essayon6', email: 'psmith@essayonschange.com' }
+[LOGIN] Login successful for user: Essayon6
+     [GET]200www.essayonschange.com/admin/loginclientIP="69.140.149.160" requestID="4235b5a7-b44b-4b05" responseTimeMS=6 responseBytes=1545 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/assets/index-DKMOgj6F.jsclientIP="69.140.149.160" requestID="19bdd0d4-9860-4c4f" responseTimeMS=29 responseBytes=176698 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/assets/index-X052vkmH.cssclientIP="69.140.149.160" requestID="4c2a2849-2005-4899" responseTimeMS=7 responseBytes=11631 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="ae0a1e8e-3b7e-48fa" responseTimeMS=10 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="51528d1b-9ed1-4ea6" responseTimeMS=3 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="d0143d4e-2705-4741" responseTimeMS=3 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]401www.essayonschange.com/api/auth/meclientIP="69.140.149.160" requestID="cb9bc37e-84e1-4e98" responseTimeMS=3 responseBytes=998 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [POST]200www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="dd332efd-599e-417b" responseTimeMS=106 responseBytes=1090 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="faf8ccc8-964b-4e2b" responseTimeMS=3 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User found: { id: 1, username: 'Essayon6', email: 'psmith@essayonschange.com' }
+[LOGIN] Login successful for user: Essayon6
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="18037e7c-9a2e-4ca7" responseTimeMS=3 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [POST]200www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="8ac110b2-9bbe-40c8" responseTimeMS=126 responseBytes=1090 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]401www.essayonschange.com/api/auth/meclientIP="69.140.149.160" requestID="9eb11686-088b-447d" responseTimeMS=3 responseBytes=998 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User found: { id: 1, username: 'Essayon6', email: 'psmith@essayonschange.com' }
+[LOGIN] Login successful for user: Essayon6
+     [POST]401www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="dc6323ed-20ac-424a" responseTimeMS=24 responseBytes=1061 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayons6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User not found: Essayons6
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="77d25281-2bbe-4ff1" responseTimeMS=4 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [POST]200www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="f73e9d88-9cf5-4d3d" responseTimeMS=148 responseBytes=1090 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]401www.essayonschange.com/api/auth/meclientIP="69.140.149.160" requestID="086f6337-4dc1-4389" responseTimeMS=2 responseBytes=998 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User found: { id: 1, username: 'Essayon6', email: 'psmith@essayonschange.com' }
+[LOGIN] Login successful for user: Essayon6
+     [POST]200www.essayonschange.com/api/auth/loginclientIP="69.140.149.160" requestID="c81fb6dd-824c-4f6f" responseTimeMS=169 responseBytes=1090 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]200www.essayonschange.com/favicon.png?v=3clientIP="69.140.149.160" requestID="b56691ba-e146-4e6b" responseTimeMS=4 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+     [GET]401www.essayonschange.com/api/auth/meclientIP="69.140.149.160" requestID="57bfef5f-ccd9-4524" responseTimeMS=6 responseBytes=998 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+[LOGIN] Attempt for username: Essayon6
+[LOGIN] Storage type: DatabaseStorage
+[LOGIN] User found: { id: 1, username: 'Essayon6', email: 'psmith@essayonschange.com' }
+[LOGIN] Login successful for user: Essayon6
