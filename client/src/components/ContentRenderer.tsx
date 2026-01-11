@@ -6,24 +6,30 @@ interface ContentRendererProps {
   className?: string;
 }
 
+type ContentPart = 
+  | { type: 'text'; content: string }
+  | { type: 'video'; content: string; title?: string }
+  | { type: 'image'; content: string; alt?: string };
+
 /**
- * Renders content with support for inline video embedding
+ * Renders content with support for inline video and image embedding
  * Syntax: [video:YOUTUBE_URL] or [video:YOUTUBE_URL|Title]
+ *         [image:IMAGE_URL] or [image:IMAGE_URL|Alt text]
  */
 export function ContentRenderer({ content, className = "" }: ContentRendererProps) {
   if (!content) {
     return null;
   }
   
-  // Parse content for [video:URL] or [video:URL|Title] patterns
-  const videoPattern = /\[video:([^\]|]+)(?:\|([^\]]+))?\]/g;
-  const parts: Array<{ type: 'text' | 'video'; content: string; title?: string }> = [];
+  // Parse content for [video:URL], [image:URL] patterns with optional title/alt
+  const mediaPattern = /\[(video|image):([^\]|]+)(?:\|([^\]]+))?\]/g;
+  const parts: ContentPart[] = [];
   
   let lastIndex = 0;
   let match;
   
-  while ((match = videoPattern.exec(content)) !== null) {
-    // Add text before the video
+  while ((match = mediaPattern.exec(content)) !== null) {
+    // Add text before the media
     if (match.index > lastIndex) {
       parts.push({
         type: 'text',
@@ -31,25 +37,33 @@ export function ContentRenderer({ content, className = "" }: ContentRendererProp
       });
     }
     
-    // Add video
-    const videoUrl = match[1].trim();
-    const videoTitle = match[2]?.trim();
+    const mediaType = match[1] as 'video' | 'image';
+    const mediaUrl = match[2].trim();
+    const mediaLabel = match[3]?.trim();
     
-    if (isYouTubeUrl(videoUrl)) {
+    if (mediaType === 'video') {
+      if (isYouTubeUrl(mediaUrl)) {
+        parts.push({
+          type: 'video',
+          content: mediaUrl,
+          title: mediaLabel
+        });
+      } else {
+        // If not a valid YouTube URL, treat as text
+        parts.push({
+          type: 'text',
+          content: match[0]
+        });
+      }
+    } else if (mediaType === 'image') {
       parts.push({
-        type: 'video',
-        content: videoUrl,
-        title: videoTitle
-      });
-    } else {
-      // If not a valid YouTube URL, treat as text
-      parts.push({
-        type: 'text',
-        content: match[0]
+        type: 'image',
+        content: mediaUrl,
+        alt: mediaLabel
       });
     }
     
-    lastIndex = videoPattern.lastIndex;
+    lastIndex = mediaPattern.lastIndex;
   }
   
   // Add remaining text
@@ -73,6 +87,22 @@ export function ContentRenderer({ content, className = "" }: ContentRendererProp
                 </p>
               )}
             </div>
+          );
+        } else if (part.type === 'image') {
+          return (
+            <figure key={index} className="my-8">
+              <img 
+                src={part.content} 
+                alt={part.alt || ''} 
+                className="rounded-lg w-full max-w-2xl mx-auto"
+                loading="lazy"
+              />
+              {part.alt && (
+                <figcaption className="text-sm text-center text-muted-foreground mt-2">
+                  {part.alt}
+                </figcaption>
+              )}
+            </figure>
           );
         } else {
           // Render text with preserved line breaks

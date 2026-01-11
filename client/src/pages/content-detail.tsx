@@ -75,6 +75,7 @@ export default function ContentDetail({ contentType }: ContentDetailProps) {
   }
 
   const videoAttachments = content.attachments?.filter((a: Attachment) => a.kind === 'video') || [];
+  const imageAttachments = content.attachments?.filter((a: Attachment) => a.kind === 'image') || [];
 
   return (
     <div className="container py-12">
@@ -150,6 +151,31 @@ export default function ContentDetail({ contentType }: ContentDetailProps) {
                 )}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Image attachments */}
+        {imageAttachments.length > 0 && (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold">Images</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {imageAttachments.map((attachment: Attachment, index: number) => (
+                <figure key={attachment.id} className="space-y-2" data-testid={`image-attachment-${index}`}>
+                  <img 
+                    src={attachment.url} 
+                    alt={attachment.title || content.title}
+                    className="w-full rounded-lg border"
+                    loading="lazy"
+                  />
+                  {attachment.title && (
+                    <figcaption className="text-sm font-medium text-center">{attachment.title}</figcaption>
+                  )}
+                  {attachment.description && (
+                    <p className="text-sm text-muted-foreground text-center">{attachment.description}</p>
+                  )}
+                </figure>
+              ))}
+            </div>
           </div>
         )}
 

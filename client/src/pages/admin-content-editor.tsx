@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { ArrowLeft, Save, Plus, Trash2, Video } from "lucide-react";
+import { ArrowLeft, Save, Plus, Trash2, Video, ImageIcon } from "lucide-react";
 import { isYouTubeUrl } from "@/lib/youtube";
 
 interface Attachment {
@@ -58,6 +58,12 @@ export default function AdminContentEditor() {
   const [newVideo, setNewVideo] = useState({
     url: "",
     title: "",
+    description: "",
+  });
+
+  const [newImage, setNewImage] = useState({
+    url: "",
+    alt: "",
     description: "",
   });
 
@@ -124,7 +130,7 @@ export default function AdminContentEditor() {
     saveMutation.mutate(formData);
   };
 
-  const createAttachmentMutation = useMutation({
+  const createVideoMutation = useMutation({
     mutationFn: async (data: { contentId: number; kind: string; url: string; title?: string | null; description?: string | null; order: number }) => {
       return await apiRequest("POST", "/api/admin/attachments", data);
     },
@@ -140,6 +146,27 @@ export default function AdminContentEditor() {
       toast({
         title: "Error",
         description: "Failed to add video",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const createImageMutation = useMutation({
+    mutationFn: async (data: { contentId: number; kind: string; url: string; title?: string | null; description?: string | null; order: number }) => {
+      return await apiRequest("POST", "/api/admin/attachments", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/content", contentId] });
+      setNewImage({ url: "", alt: "", description: "" });
+      toast({
+        title: "Image added",
+        description: "The image has been added successfully",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to add image",
         variant: "destructive",
       });
     },
@@ -209,7 +236,7 @@ export default function AdminContentEditor() {
     }
 
     const nextOrder = (existingContent?.attachments?.length || 0);
-    createAttachmentMutation.mutate({
+    createVideoMutation.mutate({
       contentId: parseInt(contentId),
       kind: "video",
       url: newVideo.url,
@@ -219,8 +246,38 @@ export default function AdminContentEditor() {
     });
   };
 
-  const handleDeleteVideo = (attachmentId: number) => {
-    if (confirm("Are you sure you want to delete this video?")) {
+  const handleAddImage = () => {
+    if (!newImage.url) {
+      toast({
+        title: "Validation error",
+        description: "Please enter an image URL",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!contentId) {
+      toast({
+        title: "Save content first",
+        description: "Please save the content before adding images",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const nextOrder = (existingContent?.attachments?.length || 0);
+    createImageMutation.mutate({
+      contentId: parseInt(contentId),
+      kind: "image",
+      url: newImage.url,
+      title: newImage.alt || null,
+      description: newImage.description || null,
+      order: nextOrder,
+    });
+  };
+
+  const handleDeleteAttachment = (attachmentId: number, type: string) => {
+    if (confirm(`Are you sure you want to delete this ${type}?`)) {
       deleteAttachmentMutation.mutate(attachmentId);
     }
   };
@@ -424,7 +481,7 @@ export default function AdminContentEditor() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => handleDeleteVideo(attachment.id)}
+                              onClick={() => handleDeleteAttachment(attachment.id, 'video')}
                               disabled={deleteAttachmentMutation.isPending}
                               data-testid={`button-delete-video-${attachment.id}`}
                             >
@@ -475,11 +532,121 @@ export default function AdminContentEditor() {
                   <Button
                     type="button"
                     onClick={handleAddVideo}
-                    disabled={createAttachmentMutation.isPending || !newVideo.url}
+                    disabled={createVideoMutation.isPending || !newVideo.url}
                     data-testid="button-add-video"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    {createAttachmentMutation.isPending ? "Adding..." : "Add Video"}
+                    {createVideoMutation.isPending ? "Adding..." : "Add Video"}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Image Attachments Section - Only show for existing content */}
+        {!isNewContent && contentId && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ImageIcon className="w-5 h-5" />
+                Images
+              </CardTitle>
+              <CardDescription>
+                Add images to this {formData.type}. You can also use [image:URL] or [image:URL|Caption] syntax in the content body for inline embedding.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Existing images list */}
+              {existingContent?.attachments && existingContent.attachments.filter((a: Attachment) => a.kind === 'image').length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium">Current Images</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {existingContent.attachments
+                      .filter((a: Attachment) => a.kind === 'image')
+                      .map((attachment: Attachment) => (
+                        <div
+                          key={attachment.id}
+                          className="relative border rounded-lg overflow-hidden"
+                          data-testid={`image-item-${attachment.id}`}
+                        >
+                          <img 
+                            src={attachment.url} 
+                            alt={attachment.title || 'Image'} 
+                            className="w-full h-32 object-cover"
+                          />
+                          <div className="p-3 space-y-1">
+                            {attachment.title && (
+                              <p className="text-sm font-medium">{attachment.title}</p>
+                            )}
+                            <p className="text-xs text-muted-foreground font-mono break-all truncate">
+                              {attachment.url}
+                            </p>
+                            {attachment.description && (
+                              <p className="text-xs text-muted-foreground line-clamp-2">
+                                {attachment.description}
+                              </p>
+                            )}
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="absolute top-2 right-2 bg-background/80 hover:bg-background"
+                            onClick={() => handleDeleteAttachment(attachment.id, 'image')}
+                            disabled={deleteAttachmentMutation.isPending}
+                            data-testid={`button-delete-image-${attachment.id}`}
+                          >
+                            <Trash2 className="w-4 h-4 text-destructive" />
+                          </Button>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Add new image form */}
+              <div className="space-y-4 pt-4 border-t">
+                <h3 className="text-sm font-medium">Add New Image</h3>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="image-url">Image URL *</Label>
+                    <Input
+                      id="image-url"
+                      data-testid="input-image-url"
+                      value={newImage.url}
+                      onChange={(e) => setNewImage((prev) => ({ ...prev, url: e.target.value }))}
+                      placeholder="https://example.com/image.jpg"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="image-alt">Alt Text / Caption (optional)</Label>
+                    <Input
+                      id="image-alt"
+                      data-testid="input-image-alt"
+                      value={newImage.alt}
+                      onChange={(e) => setNewImage((prev) => ({ ...prev, alt: e.target.value }))}
+                      placeholder="e.g., Diagram showing change management process"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="image-description">Description (optional)</Label>
+                    <Textarea
+                      id="image-description"
+                      data-testid="input-image-description"
+                      value={newImage.description}
+                      onChange={(e) => setNewImage((prev) => ({ ...prev, description: e.target.value }))}
+                      placeholder="Brief description of the image"
+                      rows={2}
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={handleAddImage}
+                    disabled={createImageMutation.isPending || !newImage.url}
+                    data-testid="button-add-image"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    {createImageMutation.isPending ? "Adding..." : "Add Image"}
                   </Button>
                 </div>
               </div>
