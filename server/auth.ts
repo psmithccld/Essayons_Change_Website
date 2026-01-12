@@ -100,8 +100,16 @@ export async function getCurrentUserHandler(req: Request, res: Response) {
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
+  console.log('[AUTH] requireAuth check:');
+  console.log('[AUTH] - Session ID:', req.sessionID);
+  console.log('[AUTH] - Session userId:', req.session.userId);
+  console.log('[AUTH] - Cookies received:', req.headers.cookie ? 'yes' : 'no');
+  console.log('[AUTH] - Request path:', req.path);
+  
   if (!req.session.userId) {
+    console.log('[AUTH] DENIED - No userId in session');
     return res.status(401).json({ error: "Authentication required" });
   }
+  console.log('[AUTH] ALLOWED - userId:', req.session.userId);
   next();
 }
