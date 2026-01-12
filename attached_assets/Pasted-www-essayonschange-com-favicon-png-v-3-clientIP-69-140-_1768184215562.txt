@@ -1,0 +1,55 @@
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="7e350850-90bf-43a8" responseTimeMS=6 responseBytes=11487 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="2d9a6e5e-3729-41f7" responseTimeMS=3 responseBytes=11487 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-zvY-dEa7.js clientIP="69.140.149.160" requestID="11e1e447-38e5-4ccf" responseTimeMS=53 responseBytes=327021 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BvsKJgFJ.css clientIP="69.140.149.160" requestID="2fc639b5-0e9d-46e2" responseTimeMS=10 responseBytes=12008 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/admin/login clientIP="69.140.149.160" requestID="fbdbfdab-e2b0-4e3d" responseTimeMS=12 responseBytes=1921 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="8f4f9b31-a493-4bb3" responseTimeMS=3 responseBytes=11487 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/api/admin/content clientIP="69.140.149.160" requestID="8acbe5ff-d6f9-42a2" responseTimeMS=12 responseBytes=1380 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/auth/login clientIP="69.140.149.160" requestID="b88df249-651a-44ef" responseTimeMS=316 responseBytes=1654 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/api/auth/me clientIP="69.140.149.160" requestID="f36a2bad-1cbb-4075" responseTimeMS=44 responseBytes=1406 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[POST]
+www.essayonschange.com/api/admin/upload/presigned-url clientIP="69.140.149.160" requestID="e0924789-c681-4361" responseTimeMS=475 responseBytes=1832 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/admin/content clientIP="69.140.149.160" requestID="7b72ec4a-6af6-42e2" responseTimeMS=44 responseBytes=1442 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: bzgVjeBm2jPPNlhWwDrFVrWw9GTXEitg
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/content
+[AUTH] ALLOWED - userId: 1
+Create content error: error: column "scheduled_publish_at" of relation "content" does not exist
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///opt/render/project/src/server/node_modules/drizzle-orm/node-postgres/session.js:83:22
+    at async DatabaseStorage.createContent (file:///opt/render/project/src/server/dist/index.mjs:383:20)
+    at async createContentHandler (file:///opt/render/project/src/server/dist/index.mjs:588:18) {
+  length: 141,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '100',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1065',
+  routine: 'checkInsertTargets'
+}
