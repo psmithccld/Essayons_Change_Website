@@ -7,10 +7,16 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { ArrowLeft, Save, Plus, Trash2, Video, ImageIcon } from "lucide-react";
+import { ArrowLeft, Save, Plus, Trash2, Video, ImageIcon, CalendarIcon, Eye, Edit } from "lucide-react";
 import { isYouTubeUrl } from "@/lib/youtube";
+import { format } from "date-fns";
+import RichTextEditor from "@/components/RichTextEditor";
+import { ContentRenderer } from "@/components/ContentRenderer";
 
 interface Attachment {
   id: number;
@@ -31,6 +37,7 @@ interface Content {
   body: string;
   status: string;
   publishedAt?: string | null;
+  scheduledPublishAt?: string | null;
   heroImageUrl?: string | null;
   authorId?: number | null;
   createdAt: string;
@@ -53,7 +60,10 @@ export default function AdminContentEditor() {
     body: "",
     status: "draft",
     heroImageUrl: "",
+    scheduledPublishAt: null as Date | null,
   });
+
+  const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit");
 
   const [newVideo, setNewVideo] = useState({
     url: "",
@@ -82,22 +92,23 @@ export default function AdminContentEditor() {
         body: existingContent.body,
         status: existingContent.status,
         heroImageUrl: existingContent.heroImageUrl || "",
+        scheduledPublishAt: existingContent.scheduledPublishAt ? new Date(existingContent.scheduledPublishAt) : null,
       });
     }
   }, [existingContent]);
 
   const saveMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
+      const payload = {
+        ...data,
+        publishedAt: data.status === "published" ? new Date().toISOString() : null,
+        scheduledPublishAt: data.status === "scheduled" && data.scheduledPublishAt ? data.scheduledPublishAt.toISOString() : null,
+      };
+      
       if (isNewContent) {
-        return await apiRequest("POST", "/api/admin/content", {
-          ...data,
-          publishedAt: data.status === "published" ? new Date().toISOString() : null,
-        });
+        return await apiRequest("POST", "/api/admin/content", payload);
       } else {
-        return await apiRequest("PATCH", `/api/admin/content/${contentId}`, {
-          ...data,
-          publishedAt: data.status === "published" ? new Date().toISOString() : null,
-        });
+        return await apiRequest("PATCH", `/api/admin/content/${contentId}`, payload);
       }
     },
     onSuccess: () => {
@@ -123,6 +134,14 @@ export default function AdminContentEditor() {
       toast({
         title: "Validation error",
         description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (formData.status === "scheduled" && !formData.scheduledPublishAt) {
+      toast({
+        title: "Validation error",
+        description: "Please select a publish date for scheduled content",
         variant: "destructive",
       });
       return;
@@ -179,14 +198,14 @@ export default function AdminContentEditor() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/content", contentId] });
       toast({
-        title: "Video deleted",
-        description: "The video has been deleted successfully",
+        title: "Attachment deleted",
+        description: "The attachment has been deleted successfully",
       });
     },
     onError: () => {
       toast({
         title: "Error",
-        description: "Failed to delete video",
+        description: "Failed to delete attachment",
         variant: "destructive",
       });
     },
@@ -351,10 +370,58 @@ export default function AdminContentEditor() {
                     <SelectContent>
                       <SelectItem value="draft">Draft</SelectItem>
                       <SelectItem value="published">Published</SelectItem>
+                      <SelectItem value="scheduled">Scheduled</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
+
+              {formData.status === "scheduled" && (
+                <div className="space-y-2">
+                  <Label>Scheduled Publish Date *</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal"
+                        data-testid="button-schedule-date"
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {formData.scheduledPublishAt ? (
+                          format(formData.scheduledPublishAt, "PPP 'at' p")
+                        ) : (
+                          <span className="text-muted-foreground">Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={formData.scheduledPublishAt || undefined}
+                        onSelect={(date) => setFormData((prev) => ({ ...prev, scheduledPublishAt: date || null }))}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                      />
+                      <div className="p-3 border-t">
+                        <Input
+                          type="time"
+                          data-testid="input-schedule-time"
+                          value={formData.scheduledPublishAt ? format(formData.scheduledPublishAt, "HH:mm") : ""}
+                          onChange={(e) => {
+                            if (formData.scheduledPublishAt && e.target.value) {
+                              const [hours, minutes] = e.target.value.split(':').map(Number);
+                              const newDate = new Date(formData.scheduledPublishAt);
+                              newDate.setHours(hours, minutes);
+                              setFormData((prev) => ({ ...prev, scheduledPublishAt: newDate }));
+                            }
+                          }}
+                        />
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Label htmlFor="title">Title *</Label>
@@ -404,16 +471,34 @@ export default function AdminContentEditor() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="body">Content *</Label>
-                <Textarea
-                  id="body"
-                  data-testid="input-body"
-                  value={formData.body}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, body: e.target.value }))}
-                  placeholder="Write your content here..."
-                  rows={15}
-                  required
-                />
+                <div className="flex items-center justify-between">
+                  <Label>Content *</Label>
+                  <Tabs value={activeTab} onValueChange={(v: string) => setActiveTab(v as "edit" | "preview")} className="w-auto">
+                    <TabsList className="h-8">
+                      <TabsTrigger value="edit" className="text-xs px-3 gap-1" data-testid="tab-edit">
+                        <Edit className="w-3 h-3" />
+                        Edit
+                      </TabsTrigger>
+                      <TabsTrigger value="preview" className="text-xs px-3 gap-1" data-testid="tab-preview">
+                        <Eye className="w-3 h-3" />
+                        Preview
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+
+                {activeTab === "edit" ? (
+                  <RichTextEditor
+                    value={formData.body}
+                    onChange={(value) => setFormData((prev) => ({ ...prev, body: value }))}
+                    placeholder="Write your content here..."
+                    data-testid="rich-text-editor"
+                  />
+                ) : (
+                  <Card className="min-h-[300px] p-4" data-testid="content-preview">
+                    <ContentRenderer content={formData.body} />
+                  </Card>
+                )}
               </div>
 
               <div className="flex justify-end gap-4">
@@ -553,7 +638,7 @@ export default function AdminContentEditor() {
                 Images
               </CardTitle>
               <CardDescription>
-                Add images to this {formData.type}. You can also use [image:URL] or [image:URL|Caption] syntax in the content body for inline embedding.
+                Add images to this {formData.type}. You can also insert images directly in the content editor using the image button.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

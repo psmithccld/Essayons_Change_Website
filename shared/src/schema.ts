@@ -31,8 +31,9 @@ export const content = pgTable("content", {
   slug: varchar("slug", { length: 500 }).notNull().unique(),
   summary: text("summary"),
   body: text("body").notNull(),
-  status: varchar("status", { length: 50 }).notNull().default("draft"), // 'draft' or 'published'
+  status: varchar("status", { length: 50 }).notNull().default("draft"), // 'draft', 'published', or 'scheduled'
   publishedAt: timestamp("published_at"),
+  scheduledPublishAt: timestamp("scheduled_publish_at"), // For scheduled publishing
   heroImageUrl: varchar("hero_image_url", { length: 1000 }),
   authorId: integer("author_id").references(() => adminUsers.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
