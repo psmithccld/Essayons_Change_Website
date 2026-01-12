@@ -95,6 +95,7 @@ Both methods use the YouTubeEmbed component, which extracts video IDs from vario
 - **Font Hosting**: Google Fonts CDN (Inter, JetBrains Mono)
 - **External Application**: CMIS App (integrated via `APP_URL` environment variable for redirect)
 - **Email Service**: SendGrid (for contact form notifications, managed via Replit connector)
+- **Image Storage**: Cloudflare R2 (for image uploads in the rich text editor)
 
 ### Package Dependencies
 - **UI Components**: shadcn/ui ecosystem (`@radix-ui`, `class-variance-authority`, `tailwind-merge`)
