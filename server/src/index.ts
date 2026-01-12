@@ -53,6 +53,8 @@ if (r2AccountId) {
 if (r2PublicDomain) {
   connectSrcDirectives.push(`https://${r2PublicDomain}`);
 }
+// Also allow R2 public dev URLs for uploads
+connectSrcDirectives.push("https://*.r2.dev");
 
 // Build img-src directives for displaying R2 images
 const imgSrcDirectives: string[] = ["'self'", "data:", "blob:"];
@@ -62,6 +64,8 @@ if (r2AccountId) {
 if (r2PublicDomain) {
   imgSrcDirectives.push(`https://${r2PublicDomain}`);
 }
+// Also allow R2 public dev URLs (pub-*.r2.dev pattern)
+imgSrcDirectives.push("https://*.r2.dev");
 
 app.use(helmet({
   contentSecurityPolicy: {
