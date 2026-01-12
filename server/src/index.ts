@@ -41,8 +41,40 @@ const app = express();
 // Trust proxy for secure cookies behind Render's reverse proxy
 app.set('trust proxy', 1);
 
-// Security middleware
-app.use(helmet());
+// Security middleware - configure CSP to allow R2 uploads
+const r2AccountId = process.env.R2_ACCOUNT_ID;
+const r2PublicDomain = process.env.R2_PUBLIC_DOMAIN;
+
+// Build connect-src directives for R2 uploads
+const connectSrcDirectives: string[] = ["'self'"];
+if (r2AccountId) {
+  connectSrcDirectives.push(`https://*.${r2AccountId}.r2.cloudflarestorage.com`);
+}
+if (r2PublicDomain) {
+  connectSrcDirectives.push(`https://${r2PublicDomain}`);
+}
+
+// Build img-src directives for displaying R2 images
+const imgSrcDirectives: string[] = ["'self'", "data:", "blob:"];
+if (r2AccountId) {
+  imgSrcDirectives.push(`https://*.${r2AccountId}.r2.cloudflarestorage.com`);
+}
+if (r2PublicDomain) {
+  imgSrcDirectives.push(`https://${r2PublicDomain}`);
+}
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: imgSrcDirectives,
+      connectSrc: connectSrcDirectives,
+      frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com"],
+    },
+  },
+}));
 app.use(cors({
   origin: true,
   credentials: true,
