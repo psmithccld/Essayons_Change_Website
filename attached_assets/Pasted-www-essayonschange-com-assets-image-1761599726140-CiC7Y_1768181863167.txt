@@ -1,0 +1,26 @@
+www.essayonschange.com/assets/image_1761599726140-CiC7YoiS.png clientIP="69.140.149.160" requestID="ce0b96cd-83dc-438e" responseTimeMS=6 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="4e3a8dd8-3000-4454" responseTimeMS=15 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599774749-YDido6yA.png clientIP="69.140.149.160" requestID="4414cd93-b41a-401a" responseTimeMS=6 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599788619-BgbCpq9p.png clientIP="69.140.149.160" requestID="c195dbe7-388d-471e" responseTimeMS=7 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/admin/upload/presigned-url clientIP="69.140.149.160" requestID="a1a684ce-053e-4ab4" responseTimeMS=109 responseBytes=1071 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: GuEVKtNHTc-k5JldsFJj-BlYgRDb3Dey
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[R2] Error generating presigned URL: Error: Dynamic require of "buffer" is not supported
+    at file:///opt/render/project/src/server/dist/index.mjs:11:9
+    at ../node_modules/@smithy/util-buffer-from/dist-cjs/index.js (file:///opt/render/project/src/server/dist/index.mjs:1240:18)
+    at __require2 (file:///opt/render/project/src/server/dist/index.mjs:17:50)
+    at ../node_modules/@smithy/util-base64/dist-cjs/fromBase64.js (file:///opt/render/project/src/server/dist/index.mjs:1264:30)
+    at __require2 (file:///opt/render/project/src/server/dist/index.mjs:17:50)
+    at ../node_modules/@smithy/util-base64/dist-cjs/index.js (file:///opt/render/project/src/server/dist/index.mjs:1341:23)
+    at __require2 (file:///opt/render/project/src/server/dist/index.mjs:17:50)
+    at ../node_modules/@smithy/util-stream/dist-cjs/index.js (file:///opt/render/project/src/server/dist/index.mjs:3012:22)
+    at __require2 (file:///opt/render/project/src/server/dist/index.mjs:17:50)
+    at ../node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js (file:///opt/render/project/src/server/dist/index.mjs:3115:34)

@@ -1,0 +1,77 @@
+www.essayonschange.com/assets/image_1761599726140-CiC7YoiS.png clientIP="69.140.149.160" requestID="1278e2a5-c4af-4663" responseTimeMS=4 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="ad24f26d-9343-4fd5" responseTimeMS=26 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599788619-BgbCpq9p.png clientIP="69.140.149.160" requestID="8f4e51c2-2554-4efe" responseTimeMS=6 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599774749-YDido6yA.png clientIP="69.140.149.160" requestID="d908a6f6-4a88-462a" responseTimeMS=5 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761593182537-DmnXT2It.png clientIP="69.140.149.160" requestID="9ac38add-dff6-432e" responseTimeMS=5 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="8d0a4e2f-88f6-4003" responseTimeMS=18 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599774749-YDido6yA.png clientIP="69.140.149.160" requestID="7654b7b4-25bb-4e01" responseTimeMS=3 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599788619-BgbCpq9p.png clientIP="69.140.149.160" requestID="55408c4a-1682-436e" responseTimeMS=5 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761593182537-DmnXT2It.png clientIP="69.140.149.160" requestID="471bb7f3-db7c-4545" responseTimeMS=12 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761593182537-DmnXT2It.png clientIP="69.140.149.160" requestID="06cf5eb9-827c-4eea" responseTimeMS=14 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599726140-CiC7YoiS.png clientIP="69.140.149.160" requestID="564726c0-d6c1-4cea" responseTimeMS=5 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="11ac8498-4273-4ecd" responseTimeMS=6 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599726140-CiC7YoiS.png clientIP="69.140.149.160" requestID="50b6d9ca-705a-4890" responseTimeMS=24 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="803edbad-5ad6-4590" responseTimeMS=5 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599774749-YDido6yA.png clientIP="69.140.149.160" requestID="c45d14dd-efad-4f92" responseTimeMS=4 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599788619-BgbCpq9p.png clientIP="69.140.149.160" requestID="f6c30f08-2b6f-4c8d" responseTimeMS=5 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BvsKJgFJ.css clientIP="69.140.149.160" requestID="1641e9bc-2262-46ef" responseTimeMS=16 responseBytes=961 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/admin/content/new clientIP="69.140.149.160" requestID="e3d60bbd-58a8-4a4c" responseTimeMS=7 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BvsKJgFJ.css clientIP="69.140.149.160" requestID="282ade07-2b44-4e0c" responseTimeMS=8 responseBytes=11631 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BxSRRG3Z.js clientIP="69.140.149.160" requestID="7182ed21-5cda-445b" responseTimeMS=59 responseBytes=326532 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="91d598b5-faf5-4a03" responseTimeMS=6 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="1ed8295b-8864-49f7" responseTimeMS=5 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="53cc7391-e011-4ed8" responseTimeMS=6 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761593182537-DmnXT2It.png clientIP="69.140.149.160" requestID="913c96a2-2ce1-4059" responseTimeMS=8 responseBytes=229789 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599726140-CiC7YoiS.png clientIP="69.140.149.160" requestID="3a5fc5bd-e6da-4864" responseTimeMS=17 responseBytes=152017 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="7db8d5a5-00fe-4e4c" responseTimeMS=8 responseBytes=125378 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599774749-YDido6yA.png clientIP="69.140.149.160" requestID="1d33d975-8171-4123" responseTimeMS=8 responseBytes=134283 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599788619-BgbCpq9p.png clientIP="69.140.149.160" requestID="725d8164-3537-4423" responseTimeMS=6 responseBytes=134423 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761593182537-DmnXT2It.png clientIP="69.140.149.160" requestID="f5d23f60-b28f-46e1" responseTimeMS=16 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599726140-CiC7YoiS.png clientIP="69.140.149.160" requestID="ff9d3f01-4725-4ac2" responseTimeMS=6 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="6f105d6d-9343-46e7" responseTimeMS=7 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599761478-DRXnfJw4.png clientIP="69.140.149.160" requestID="173a04ee-5493-44f7" responseTimeMS=18 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599774749-YDido6yA.png clientIP="69.140.149.160" requestID="2e7d2d11-7fd9-46f8" responseTimeMS=4 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761599788619-BgbCpq9p.png clientIP="69.140.149.160" requestID="814134de-43b5-4108" responseTimeMS=14 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/image_1761593182537-DmnXT2It.png clientIP="69.140.149.160" requestID="52070ab2-af0d-4386" responseTimeMS=8 responseBytes=962 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/admin/upload/presigned-url clientIP="69.140.149.160" requestID="b685fcfe-2d3d-4342" responseTimeMS=44 responseBytes=1064 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: v0NCqGiKbA_hv-WwGxcHgUyEXEwkvThB
+[AUTH] - Session userId: undefined
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] DENIED - No userId in session
