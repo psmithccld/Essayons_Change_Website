@@ -113,9 +113,9 @@ export default function ContentDetail({ contentType }: ContentDetailProps) {
           </h1>
 
           {content.summary && (
-            <p className="text-xl text-muted-foreground" data-testid="text-summary">
-              {content.summary}
-            </p>
+            <div className="text-xl text-muted-foreground prose prose-slate max-w-none dark:prose-invert" data-testid="text-summary">
+              <ContentRenderer content={content.summary} className="text-xl text-muted-foreground" />
+            </div>
           )}
 
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
