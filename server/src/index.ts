@@ -84,6 +84,86 @@ app.delete('/api/admin/content/:id', requireAuth, deleteContentHandler);
 app.post('/api/admin/attachments', requireAuth, createAttachmentHandler);
 app.delete('/api/admin/attachments/:id', requireAuth, deleteAttachmentHandler);
 
+// Cloudflare R2 upload endpoint (protected)
+app.post('/api/admin/upload/presigned-url', requireAuth, async (req, res) => {
+  try {
+    const { filename, contentType, fileSize } = req.body;
+
+    // Validate inputs
+    if (!filename || !contentType) {
+      return res.status(400).json({ error: 'Filename and contentType are required' });
+    }
+
+    // Validate content type is an image
+    if (!contentType.startsWith('image/')) {
+      return res.status(400).json({ error: 'Only image files are allowed' });
+    }
+
+    // Validate file size (max 10MB)
+    if (fileSize && fileSize > 10 * 1024 * 1024) {
+      return res.status(400).json({ error: 'File size must be less than 10MB' });
+    }
+
+    // Check for R2 configuration
+    const accountId = process.env.R2_ACCOUNT_ID;
+    const accessKeyId = process.env.R2_ACCESS_KEY_ID;
+    const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
+    const bucketName = process.env.R2_BUCKET_NAME;
+
+    if (!accountId || !accessKeyId || !secretAccessKey || !bucketName) {
+      console.error('[R2] Missing configuration:', {
+        accountId: !!accountId,
+        accessKeyId: !!accessKeyId,
+        secretAccessKey: !!secretAccessKey,
+        bucketName: !!bucketName,
+      });
+      return res.status(500).json({ error: 'R2 storage is not configured' });
+    }
+
+    // Dynamic import of AWS SDK to avoid issues in environments without it
+    const { S3Client, PutObjectCommand } = await import('@aws-sdk/client-s3');
+    const { getSignedUrl } = await import('@aws-sdk/s3-request-presigner');
+
+    const r2Client = new S3Client({
+      region: 'auto',
+      endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+      },
+    });
+
+    // Generate unique key with timestamp and random suffix
+    const timestamp = Date.now();
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    const extension = filename.split('.').pop() || 'jpg';
+    const key = `images/${timestamp}-${randomSuffix}.${extension}`;
+
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: key,
+      ContentType: contentType,
+    });
+
+    const presignedUrl = await getSignedUrl(r2Client, command, { expiresIn: 600 });
+
+    // Construct the public URL (assuming public bucket with r2.dev subdomain or custom domain)
+    const publicDomain = process.env.R2_PUBLIC_DOMAIN;
+    const publicUrl = publicDomain 
+      ? `https://${publicDomain}/${key}`
+      : `https://${bucketName}.${accountId}.r2.cloudflarestorage.com/${key}`;
+
+    return res.json({ 
+      presignedUrl, 
+      key,
+      publicUrl,
+    });
+  } catch (error) {
+    console.error('[R2] Error generating presigned URL:', error);
+    return res.status(500).json({ error: 'Failed to generate upload URL' });
+  }
+});
+
 // Helper function to check if scheduled content should be published
 function isContentPublishable(item: any): boolean {
   if (item.status === 'published') return true;
