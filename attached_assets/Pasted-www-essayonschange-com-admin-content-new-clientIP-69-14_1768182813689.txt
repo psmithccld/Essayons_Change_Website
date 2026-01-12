@@ -1,0 +1,39 @@
+www.essayonschange.com/admin/content/new clientIP="69.140.149.160" requestID="384a6bce-c1f6-4e6b" responseTimeMS=22 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BxSRRG3Z.js clientIP="69.140.149.160" requestID="1dd7303f-b01a-4829" responseTimeMS=55 responseBytes=326532 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="6578d501-9193-4c60" responseTimeMS=4 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="c919a24e-99e8-4c43" responseTimeMS=21 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="844de0b9-1986-49bc" responseTimeMS=4 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BvsKJgFJ.css clientIP="69.140.149.160" requestID="f247be9c-37dd-4c56" responseTimeMS=10 responseBytes=11631 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/admin/upload/presigned-url clientIP="69.140.149.160" requestID="6fa792d9-b817-410d" responseTimeMS=12 responseBytes=1454 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: Sb_E74uY6EDi7JE8RWQ3Z_a4xfjKp-Z-
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[GET]
+www.essayonschange.com/admin/content/new clientIP="69.140.149.160" requestID="3b442fdb-e712-44f4" responseTimeMS=4 responseBytes=1544 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="03d61762-2147-4efc" responseTimeMS=8 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="43306b8b-0d25-4598" responseTimeMS=3 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="b4650ce5-20e1-40e0" responseTimeMS=4 responseBytes=11110 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BvsKJgFJ.css clientIP="69.140.149.160" requestID="7310f243-6598-4133" responseTimeMS=12 responseBytes=11631 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/assets/index-BxSRRG3Z.js clientIP="69.140.149.160" requestID="418b580b-636e-4f76" responseTimeMS=56 responseBytes=326532 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/admin/upload/presigned-url clientIP="69.140.149.160" requestID="5c932c60-19d5-475b" responseTimeMS=16 responseBytes=1456 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: Sb_E74uY6EDi7JE8RWQ3Z_a4xfjKp-Z-
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1

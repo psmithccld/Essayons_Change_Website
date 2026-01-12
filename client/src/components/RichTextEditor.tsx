@@ -158,16 +158,27 @@ export default function RichTextEditor({ value, onChange, placeholder, className
 
       // Step 2: Upload file directly to R2
       setUploadProgress(30);
-      const uploadResponse = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': file.type,
-        },
-      });
+      console.log('[Upload] Uploading to presigned URL:', presignedUrl.substring(0, 100) + '...');
+      
+      try {
+        const uploadResponse = await fetch(presignedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
 
-      if (!uploadResponse.ok) {
-        throw new Error('Failed to upload file to storage');
+        if (!uploadResponse.ok) {
+          const errorText = await uploadResponse.text();
+          console.error('[Upload] R2 upload failed:', uploadResponse.status, errorText);
+          throw new Error(`Failed to upload file to storage: ${uploadResponse.status}`);
+        }
+        
+        console.log('[Upload] R2 upload successful');
+      } catch (uploadError) {
+        console.error('[Upload] R2 fetch error:', uploadError);
+        throw new Error('Failed to upload to storage. Please check R2 CORS configuration.');
       }
 
       setUploadProgress(90);
