@@ -21,11 +21,20 @@ CREATE TABLE IF NOT EXISTS content (
   body TEXT NOT NULL,
   status VARCHAR(50) NOT NULL DEFAULT 'draft',
   published_at TIMESTAMP,
+  scheduled_publish_at TIMESTAMP,
   hero_image_url VARCHAR(1000),
   author_id INTEGER REFERENCES admin_users(id),
   created_at TIMESTAMP DEFAULT NOW() NOT NULL,
   updated_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
+
+-- Add scheduled_publish_at column if it doesn't exist (for existing tables)
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'content' AND column_name = 'scheduled_publish_at') THEN
+    ALTER TABLE content ADD COLUMN scheduled_publish_at TIMESTAMP;
+  END IF;
+END $$;
 
 -- Create attachments table
 CREATE TABLE IF NOT EXISTS attachments (

@@ -1,0 +1,98 @@
+www.essayonschange.com/assets/index-zvY-dEa7.js clientIP="69.140.149.160" requestID="8bd64683-ef8f-44f1" responseTimeMS=50 responseBytes=327055 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[GET]
+www.essayonschange.com/favicon.png?v=3 clientIP="69.140.149.160" requestID="0396bcc7-cbb9-4382" responseTimeMS=4 responseBytes=11521 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[POST]
+www.essayonschange.com/api/admin/upload/presigned-url clientIP="69.140.149.160" requestID="9fa0fd65-eda2-44b2" responseTimeMS=23 responseBytes=1866 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: 9uscmKk0IR3w2E7yp-nTVN9sK5VQ0AlS
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[AUTH] requireAuth check:
+[AUTH] - Session ID: 9uscmKk0IR3w2E7yp-nTVN9sK5VQ0AlS
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[AUTH] requireAuth check:
+[AUTH] - Session ID: 9uscmKk0IR3w2E7yp-nTVN9sK5VQ0AlS
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[AUTH] requireAuth check:
+[AUTH] - Session ID: 9uscmKk0IR3w2E7yp-nTVN9sK5VQ0AlS
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[AUTH] requireAuth check:
+[AUTH] - Session ID: 9uscmKk0IR3w2E7yp-nTVN9sK5VQ0AlS
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/upload/presigned-url
+[AUTH] ALLOWED - userId: 1
+[POST]
+www.essayonschange.com/api/admin/content clientIP="69.140.149.160" requestID="9cb6c230-09f6-4e1c" responseTimeMS=71 responseBytes=1476 userAgent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+[AUTH] requireAuth check:
+[AUTH] - Session ID: 9uscmKk0IR3w2E7yp-nTVN9sK5VQ0AlS
+[AUTH] - Session userId: 1
+[AUTH] - Cookies received: yes
+[AUTH] - Request path: /api/admin/content
+[AUTH] ALLOWED - userId: 1
+[CREATE_CONTENT] Request body: {
+  "type": "blog",
+  "title": "Why Essayons Change Exists: The Gap Between Strategy and Execution",
+  "slug": "why-essayons-change-exists-the-gap-between-strategy-and-execution",
+  "summary": "Most organizations are not failing at change because of resistance, poor leadership, or a lack of frameworks. They are failing because there is a structural gap between strategy and execution.\n\nLeaders define objectives and plans at the top, while employees experience change as fragmented actions with unclear priorities at the frontline. Between these levels, decisions lose intent, alignment erodes, and progress is measured by activity rather than outcomes. This breakdown occurs during translation, not design.\n\nEssayons Change exists to close that gap. By functioning as a Change Management Information System (CMIS), it connects strategy, decisions, execution, and feedback across all levels of an organization, making change visible, coordinated, and sustainable.",
+  "body": "<p>Organizations are not short on change initiatives.<br></p><p>They are short on <strong>clarity, visibility, and coordination</strong>.</p><p>&nbsp;</p><p>Across industries, leaders routinely manage anywhere from <strong>15 to 30 concurrent change efforts</strong> in new systems, restructures, policy shifts, cultural initiatives, and strategic pivots. Each effort is often well-intentioned, properly funded, and supported by leadership. Yet despite this investment, change outcomes remain inconsistent at best.The problem is not a lack of frameworks, communication plans, or leadership commitment. The problem is a <strong>structural gap between strategy and execution</strong>.</p><p>That gap is why <strong>Essayons Change</strong> exists.</p><p>&nbsp;</p><p><strong>The Illusion of Control During Change</strong></p><p>Most organizations plan change at the strategic level and execute it at the operational level, but rarely connect the two in a meaningful way.</p><p>&nbsp;</p><p>At the top, leadership defines objectives, milestones, and success criteria. At the frontline, employees experience change as a series of disconnected actions, shifting priorities, and unclear expectations. Between these two levels, information fragments.</p><p>&nbsp;</p><p>What emerges is the <strong>illusion of control</strong>:</p><ul><li><p>Leadership believes change is progressing because plans exist.</p></li><li><p>Teams believe change is chaotic because guidance is inconsistent.</p></li><li><p>Progress is measured through activity, not outcomes.</p></li></ul><p>&nbsp;</p><p>This disconnect is not caused by resistance or poor intent. It is caused by <strong>structural blind spots</strong>.</p><p>&nbsp;</p><p><strong>The False Choice in Change Management</strong></p><p>Traditional change approaches force organizations into a false choice:</p><ul><li><p><strong>Organizational change models</strong> focus on vision, governance, and high-level alignment.</p></li><li><p><strong>Individual adoption models</strong> focus on communication, training, and behavior.</p></li></ul><p>&nbsp;</p><p>Both are necessary. Neither is sufficient alone.</p><p>&nbsp;</p><p>What’s missing is a way to <strong>connect decisions, guidance, execution, and feedback</strong> across all levels of the organization, continuously, not just at kickoff.</p><p>&nbsp;</p><p>Without that connection:</p><ul><li><p>Leaders cannot see how decisions are interpreted downstream.</p></li><li><p>Managers lack clarity on priorities and authority.</p></li><li><p>Employees receive information without context.</p></li><li><p>Feedback arrives too late to matter.</p></li></ul><p>&nbsp;</p><p><strong>The Real Reason Change Breaks Down</strong></p><p>Change rarely fails at the point of design.<br></p><p>It fails during <strong>translation</strong>.</p><p>&nbsp;</p><p>Decisions made at the organizational level must be interpreted, adapted, and executed at lower levels. Each translation introduces friction. Without a shared structure, intent erodes.</p><p>&nbsp;</p><p>Over time:</p><ul><li><p>Priorities drift</p></li><li><p>Ownership blurs</p></li><li><p>Accountability weakens</p></li><li><p>Alignment decays</p></li></ul><p>&nbsp;</p><p>Most organizations lack a system to detect this decay until the outcomes suffer.</p><p>&nbsp;</p><p><strong>The Gap Essayons Change Was Built to Close</strong></p><p>Essayons Change was created to address this exact problem:<br><strong>The absence of a system that links strategy to execution during change.</strong></p><p>&nbsp;</p><p>Not another framework.<br>Not another communication plan.<br>Not another static dashboard.</p><p>&nbsp;</p><p>Instead, Essayons Change functions as a <strong>Change Management Information System (CMIS)</strong>, a shared operational environment where:</p><ul><li><p>Change initiatives are visible as a portfolio</p></li><li><p>Decisions and guidance are explicit</p></li><li><p>Stakeholders understand their role and authority</p></li><li><p>Progress reflects reality, not activity</p></li><li><p>Leadership maintains shared understanding across levels</p></li></ul><p>&nbsp;</p><p>Change becomes manageable not because it is simplified, but because it is <strong>made visible</strong>.</p><p>A Change Management Information System (CMIS) is a shared operational environment that connects strategy, decisions, execution, and feedback across all levels of an organization during change.</p><p>&nbsp;</p><p><strong>From Intent to Execution</strong></p><p>Successful change depends on two conditions:</p><ol type=\"1\"><li><p><strong>Clear intent</strong></p></li><li><p><strong>Shared understanding</strong></p></li></ol><p><strong>&nbsp;</strong></p><img class=\"max-w-full h-auto rounded-lg my-4\" src=\"https://https://pub-774ca419ce604fa5ae1aec8e4e20ce45.r2.dev/images/1768185765418-va7k62.png\" alt=\"Alignment Layer Graphic.png\"><p>&nbsp;</p><p>Most organizations address the first and assume the second will follow.</p><p>Essayons Change was built on the recognition that <strong>shared understanding does not emerge automatically</strong>. It must be created, maintained, and reinforced through structure.</p><p>When intent and execution remain connected:</p><ul><li><p>Teams move faster</p></li><li><p>Decisions improve</p></li><li><p>Friction decreases</p></li><li><p>Confidence increases</p></li></ul><p>&nbsp;</p><p>If this structural gap feels all too real, Essayons Change exists to bridge it. In upcoming posts, we'll unpack how a true Change Management Information System makes alignment not just possible, but sustainable.</p>",
+  "status": "scheduled",
+  "heroImageUrl": "",
+  "scheduledPublishAt": "2026-01-12T12:00:00.000Z",
+  "publishedAt": null
+}
+[CREATE_CONTENT] Validated data: {
+  "type": "blog",
+  "title": "Why Essayons Change Exists: The Gap Between Strategy and Execution",
+  "slug": "why-essayons-change-exists-the-gap-between-strategy-and-execution",
+  "summary": "Most organizations are not failing at change because of resistance, poor leadership, or a lack of frameworks. They are failing because there is a structural gap between strategy and execution.\n\nLeaders define objectives and plans at the top, while employees experience change as fragmented actions with unclear priorities at the frontline. Between these levels, decisions lose intent, alignment erodes, and progress is measured by activity rather than outcomes. This breakdown occurs during translation, not design.\n\nEssayons Change exists to close that gap. By functioning as a Change Management Information System (CMIS), it connects strategy, decisions, execution, and feedback across all levels of an organization, making change visible, coordinated, and sustainable.",
+  "body": "<p>Organizations are not short on change initiatives.<br></p><p>They are short on <strong>clarity, visibility, and coordination</strong>.</p><p>&nbsp;</p><p>Across industries, leaders routinely manage anywhere from <strong>15 to 30 concurrent change efforts</strong> in new systems, restructures, policy shifts, cultural initiatives, and strategic pivots. Each effort is often well-intentioned, properly funded, and supported by leadership. Yet despite this investment, change outcomes remain inconsistent at best.The problem is not a lack of frameworks, communication plans, or leadership commitment. The problem is a <strong>structural gap between strategy and execution</strong>.</p><p>That gap is why <strong>Essayons Change</strong> exists.</p><p>&nbsp;</p><p><strong>The Illusion of Control During Change</strong></p><p>Most organizations plan change at the strategic level and execute it at the operational level, but rarely connect the two in a meaningful way.</p><p>&nbsp;</p><p>At the top, leadership defines objectives, milestones, and success criteria. At the frontline, employees experience change as a series of disconnected actions, shifting priorities, and unclear expectations. Between these two levels, information fragments.</p><p>&nbsp;</p><p>What emerges is the <strong>illusion of control</strong>:</p><ul><li><p>Leadership believes change is progressing because plans exist.</p></li><li><p>Teams believe change is chaotic because guidance is inconsistent.</p></li><li><p>Progress is measured through activity, not outcomes.</p></li></ul><p>&nbsp;</p><p>This disconnect is not caused by resistance or poor intent. It is caused by <strong>structural blind spots</strong>.</p><p>&nbsp;</p><p><strong>The False Choice in Change Management</strong></p><p>Traditional change approaches force organizations into a false choice:</p><ul><li><p><strong>Organizational change models</strong> focus on vision, governance, and high-level alignment.</p></li><li><p><strong>Individual adoption models</strong> focus on communication, training, and behavior.</p></li></ul><p>&nbsp;</p><p>Both are necessary. Neither is sufficient alone.</p><p>&nbsp;</p><p>What’s missing is a way to <strong>connect decisions, guidance, execution, and feedback</strong> across all levels of the organization, continuously, not just at kickoff.</p><p>&nbsp;</p><p>Without that connection:</p><ul><li><p>Leaders cannot see how decisions are interpreted downstream.</p></li><li><p>Managers lack clarity on priorities and authority.</p></li><li><p>Employees receive information without context.</p></li><li><p>Feedback arrives too late to matter.</p></li></ul><p>&nbsp;</p><p><strong>The Real Reason Change Breaks Down</strong></p><p>Change rarely fails at the point of design.<br></p><p>It fails during <strong>translation</strong>.</p><p>&nbsp;</p><p>Decisions made at the organizational level must be interpreted, adapted, and executed at lower levels. Each translation introduces friction. Without a shared structure, intent erodes.</p><p>&nbsp;</p><p>Over time:</p><ul><li><p>Priorities drift</p></li><li><p>Ownership blurs</p></li><li><p>Accountability weakens</p></li><li><p>Alignment decays</p></li></ul><p>&nbsp;</p><p>Most organizations lack a system to detect this decay until the outcomes suffer.</p><p>&nbsp;</p><p><strong>The Gap Essayons Change Was Built to Close</strong></p><p>Essayons Change was created to address this exact problem:<br><strong>The absence of a system that links strategy to execution during change.</strong></p><p>&nbsp;</p><p>Not another framework.<br>Not another communication plan.<br>Not another static dashboard.</p><p>&nbsp;</p><p>Instead, Essayons Change functions as a <strong>Change Management Information System (CMIS)</strong>, a shared operational environment where:</p><ul><li><p>Change initiatives are visible as a portfolio</p></li><li><p>Decisions and guidance are explicit</p></li><li><p>Stakeholders understand their role and authority</p></li><li><p>Progress reflects reality, not activity</p></li><li><p>Leadership maintains shared understanding across levels</p></li></ul><p>&nbsp;</p><p>Change becomes manageable not because it is simplified, but because it is <strong>made visible</strong>.</p><p>A Change Management Information System (CMIS) is a shared operational environment that connects strategy, decisions, execution, and feedback across all levels of an organization during change.</p><p>&nbsp;</p><p><strong>From Intent to Execution</strong></p><p>Successful change depends on two conditions:</p><ol type=\"1\"><li><p><strong>Clear intent</strong></p></li><li><p><strong>Shared understanding</strong></p></li></ol><p><strong>&nbsp;</strong></p><img class=\"max-w-full h-auto rounded-lg my-4\" src=\"https://https://pub-774ca419ce604fa5ae1aec8e4e20ce45.r2.dev/images/1768185765418-va7k62.png\" alt=\"Alignment Layer Graphic.png\"><p>&nbsp;</p><p>Most organizations address the first and assume the second will follow.</p><p>Essayons Change was built on the recognition that <strong>shared understanding does not emerge automatically</strong>. It must be created, maintained, and reinforced through structure.</p><p>When intent and execution remain connected:</p><ul><li><p>Teams move faster</p></li><li><p>Decisions improve</p></li><li><p>Friction decreases</p></li><li><p>Confidence increases</p></li></ul><p>&nbsp;</p><p>If this structural gap feels all too real, Essayons Change exists to bridge it. In upcoming posts, we'll unpack how a true Change Management Information System makes alignment not just possible, but sustainable.</p>",
+  "status": "scheduled",
+  "publishedAt": null,
+  "scheduledPublishAt": "2026-01-12T12:00:00.000Z",
+  "heroImageUrl": ""
+}
+[CREATE_CONTENT] Storage error: error: column "scheduled_publish_at" of relation "content" does not exist
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///opt/render/project/src/server/node_modules/drizzle-orm/node-postgres/session.js:83:22
+    at async DatabaseStorage.createContent (file:///opt/render/project/src/server/dist/index.mjs:383:20)
+    at async createContentHandler (file:///opt/render/project/src/server/dist/index.mjs:590:18) {
+  length: 141,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '100',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_target.c',
+  line: '1065',
+  routine: 'checkInsertTargets'
+}
+[CREATE_CONTENT] Error message: column "scheduled_publish_at" of relation "content" does not exist
+[CREATE_CONTENT] Error stack: error: column "scheduled_publish_at" of relation "content" does not exist
+    at /opt/render/project/src/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///opt/render/project/src/server/node_modules/drizzle-orm/node-postgres/session.js:83:22
+    at async DatabaseStorage.createContent (file:///opt/render/project/src/server/dist/index.mjs:383:20)
+    at async createContentHandler (file:///opt/render/project/src/server/dist/index.mjs:590:18)
+[GET]
+www.essayonschange.com/robots.txt clientIP="104.210.140.143" requestID="9ae10db5-cb1a-4651" responseTimeMS=4 responseBytes=1955 userAgent="Mozilla/5.0 (Macintosh; Intel Mac O
