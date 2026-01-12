@@ -58,14 +58,20 @@ export async function getContentHandler(req: Request, res: Response) {
 
 export async function createContentHandler(req: Request, res: Response) {
   try {
+    console.log("[CREATE_CONTENT] Request body:", JSON.stringify(req.body, null, 2));
     const validated = insertContentSchema.parse(req.body);
+    console.log("[CREATE_CONTENT] Validated data:", JSON.stringify(validated, null, 2));
     const item = await storage.createContent(validated);
+    console.log("[CREATE_CONTENT] Created item:", JSON.stringify(item, null, 2));
     return res.status(201).json(item);
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error("[CREATE_CONTENT] Validation error:", JSON.stringify(error.issues, null, 2));
       return res.status(400).json({ error: "Invalid input", details: error.issues });
     }
-    console.error("Create content error:", error);
+    console.error("[CREATE_CONTENT] Storage error:", error);
+    console.error("[CREATE_CONTENT] Error message:", (error as Error).message);
+    console.error("[CREATE_CONTENT] Error stack:", (error as Error).stack);
     return res.status(500).json({ error: "Failed to create content" });
   }
 }
@@ -73,19 +79,26 @@ export async function createContentHandler(req: Request, res: Response) {
 export async function updateContentHandler(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    console.log("[UPDATE_CONTENT] ID:", id, "Request body:", JSON.stringify(req.body, null, 2));
     const validated = insertContentSchema.partial().parse(req.body);
+    console.log("[UPDATE_CONTENT] Validated data:", JSON.stringify(validated, null, 2));
     const updated = await storage.updateContent(parseInt(id), validated);
     
     if (!updated) {
+      console.log("[UPDATE_CONTENT] Content not found for ID:", id);
       return res.status(404).json({ error: "Content not found" });
     }
 
+    console.log("[UPDATE_CONTENT] Updated item:", JSON.stringify(updated, null, 2));
     return res.json(updated);
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error("[UPDATE_CONTENT] Validation error:", JSON.stringify(error.issues, null, 2));
       return res.status(400).json({ error: "Invalid input", details: error.issues });
     }
-    console.error("Update content error:", error);
+    console.error("[UPDATE_CONTENT] Storage error:", error);
+    console.error("[UPDATE_CONTENT] Error message:", (error as Error).message);
+    console.error("[UPDATE_CONTENT] Error stack:", (error as Error).stack);
     return res.status(500).json({ error: "Failed to update content" });
   }
 }
