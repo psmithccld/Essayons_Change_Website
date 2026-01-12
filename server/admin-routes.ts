@@ -10,6 +10,7 @@ const insertContentSchema = z.object({
   body: z.string(),
   status: z.string().default("draft"),
   publishedAt: z.string().optional().nullable().transform((val) => val ? new Date(val) : null),
+  scheduledPublishAt: z.string().optional().nullable().transform((val) => val ? new Date(val) : null),
   heroImageUrl: z.string().optional().nullable(),
   authorId: z.number().optional().nullable(),
 });

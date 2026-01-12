@@ -84,14 +84,38 @@ app.delete('/api/admin/content/:id', requireAuth, deleteContentHandler);
 app.post('/api/admin/attachments', requireAuth, createAttachmentHandler);
 app.delete('/api/admin/attachments/:id', requireAuth, deleteAttachmentHandler);
 
+// Helper function to check if scheduled content should be published
+function isContentPublishable(item: any): boolean {
+  if (item.status === 'published') return true;
+  if (item.status === 'scheduled' && item.scheduledPublishAt) {
+    const scheduledDate = new Date(item.scheduledPublishAt);
+    return scheduledDate <= new Date();
+  }
+  return false;
+}
+
 // Public content endpoints (no auth required)
-app.get('/api/content', (req, res) => listContentHandler(req, res));
+app.get('/api/content', async (req, res) => {
+  try {
+    const { type } = req.query;
+    const items = await storage.listContent(type as string | undefined, undefined);
+    
+    // Filter to only show published or past-scheduled content
+    const publishedItems = items.filter(isContentPublishable);
+    
+    return res.json(publishedItems);
+  } catch (error) {
+    console.error('List content error:', error);
+    return res.status(500).json({ error: 'Failed to list content' });
+  }
+});
+
 app.get('/api/content/:slug', async (req, res) => {
   try {
     const { slug } = req.params;
     const item = await storage.getContentBySlug(slug);
     
-    if (!item) {
+    if (!item || !isContentPublishable(item)) {
       return res.status(404).json({ error: 'Content not found' });
     }
 
