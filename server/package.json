@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:drizzle-kit --external:pg --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:connect-pg-simple --external:@sendgrid/mail --external:@google-cloud/storage --external:zod --outfile=dist/index.mjs --format=esm",
+    "build": "esbuild src/index.ts --bundle --platform=node --external:*.css --external:drizzle-orm --external:drizzle-zod --external:drizzle-kit --external:pg --external:express --external:cookie-parser --external:cors --external:helmet --external:dotenv --external:bcryptjs --external:express-session --external:connect-pg-simple --external:@sendgrid/mail --external:@google-cloud/storage --external:@aws-sdk/client-s3 --external:@aws-sdk/s3-request-presigner --external:zod --outfile=dist/index.mjs --format=esm",
     "db:push": "drizzle-kit push",
     "start": "node dist/index.mjs",
     "check": "tsc -p ../tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.700.0",
+    "@aws-sdk/s3-request-presigner": "^3.700.0",
     "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^10.0.0",
     "cookie-parser": "^1.4.7",
