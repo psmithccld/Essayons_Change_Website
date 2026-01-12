@@ -71,6 +71,10 @@ And the "Essayon6" admin user created in the PostgreSQL database will be found a
 ### Authentication & Authorization
 The public site requires no authentication. The `/app` route redirects to an external CMIS for authentication. An Admin CMS uses session-based authentication with `bcryptjs` and `express-session` for content management, with default dev credentials `admin`/`admin123`. Content APIs are protected with authentication middleware.
 
+**Session Storage (January 2026)**:
+- **Development**: Uses in-memory session storage (sessions lost on server restart)
+- **Production**: Uses PostgreSQL session storage via `connect-pg-simple` for persistent sessions across server restarts. The session table is automatically created in the database.
+
 ### Contact Form System
 Contact form submissions are stored in an in-memory database (MemStorage) and sent via SendGrid email. It features Zod validation, toast feedback, and specific status codes for full success (DB save + email send), partial success (DB save, email fail), and errors.
 

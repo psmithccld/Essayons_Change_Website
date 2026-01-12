@@ -49,19 +49,51 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  session({
+
+// Configure session store - use PostgreSQL in production, memory in development
+async function configureSession() {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const databaseUrl = process.env.DATABASE_URL;
+  
+  let sessionStore;
+  
+  if (isProduction && databaseUrl) {
+    try {
+      const pgSession = (await import('connect-pg-simple')).default;
+      const PgStore = pgSession(session);
+      
+      sessionStore = new PgStore({
+        conString: databaseUrl,
+        tableName: 'session',
+        createTableIfMissing: true,
+      });
+      
+      console.log('[SESSION] Using PostgreSQL session store');
+    } catch (err) {
+      console.error('[SESSION] Failed to initialize PostgreSQL session store:', err);
+      console.log('[SESSION] Falling back to memory session store');
+    }
+  } else {
+    console.log('[SESSION] Using memory session store (development mode)');
+  }
+  
+  return session({
+    store: sessionStore,
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax', // Changed from 'strict' to allow session cookies on navigation
+      secure: isProduction,
+      sameSite: 'lax',
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
-  })
-);
+  });
+}
+
+// Apply session middleware asynchronously
+const sessionMiddleware = await configureSession();
+app.use(sessionMiddleware);
 
 // Basic API endpoint
 app.get('/api/status', (_req, res) => {
