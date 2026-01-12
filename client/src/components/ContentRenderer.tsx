@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import { YouTubeEmbed } from "./YouTubeEmbed";
 import { isYouTubeUrl } from "@/lib/youtube";
 
@@ -8,20 +9,15 @@ interface ContentRendererProps {
 
 type ContentPart = 
   | { type: 'text'; content: string }
+  | { type: 'html'; content: string }
   | { type: 'video'; content: string; title?: string }
   | { type: 'image'; content: string; alt?: string };
 
-/**
- * Renders content with support for inline video and image embedding
- * Syntax: [video:YOUTUBE_URL] or [video:YOUTUBE_URL|Title]
- *         [image:IMAGE_URL] or [image:IMAGE_URL|Alt text]
- */
-export function ContentRenderer({ content, className = "" }: ContentRendererProps) {
-  if (!content) {
-    return null;
-  }
-  
-  // Parse content for [video:URL], [image:URL] patterns with optional title/alt
+function isHtmlContent(content: string): boolean {
+  return /<[a-z][\s\S]*>/i.test(content);
+}
+
+function parseContent(content: string): ContentPart[] {
   const mediaPattern = /\[(video|image):([^\]|]+)(?:\|([^\]]+))?\]/g;
   const parts: ContentPart[] = [];
   
@@ -29,11 +25,11 @@ export function ContentRenderer({ content, className = "" }: ContentRendererProp
   let match;
   
   while ((match = mediaPattern.exec(content)) !== null) {
-    // Add text before the media
     if (match.index > lastIndex) {
+      const textBefore = content.substring(lastIndex, match.index);
       parts.push({
-        type: 'text',
-        content: content.substring(lastIndex, match.index)
+        type: isHtmlContent(textBefore) ? 'html' : 'text',
+        content: textBefore
       });
     }
     
@@ -49,7 +45,6 @@ export function ContentRenderer({ content, className = "" }: ContentRendererProp
           title: mediaLabel
         });
       } else {
-        // If not a valid YouTube URL, treat as text
         parts.push({
           type: 'text',
           content: match[0]
@@ -66,13 +61,36 @@ export function ContentRenderer({ content, className = "" }: ContentRendererProp
     lastIndex = mediaPattern.lastIndex;
   }
   
-  // Add remaining text
   if (lastIndex < content.length) {
+    const remaining = content.substring(lastIndex);
     parts.push({
-      type: 'text',
-      content: content.substring(lastIndex)
+      type: isHtmlContent(remaining) ? 'html' : 'text',
+      content: remaining
     });
   }
+  
+  return parts;
+}
+
+export function ContentRenderer({ content, className = "" }: ContentRendererProps) {
+  if (!content) {
+    return null;
+  }
+  
+  const parts = parseContent(content);
+  
+  const sanitizeConfig = {
+    ALLOWED_TAGS: [
+      'p', 'br', 'strong', 'em', 'u', 's', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+      'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'a', 'img', 'figure', 
+      'figcaption', 'div', 'span', 'hr', 'table', 'thead', 'tbody', 'tr', 'th', 'td'
+    ],
+    ALLOWED_ATTR: [
+      'href', 'src', 'alt', 'title', 'class', 'id', 'target', 'rel',
+      'width', 'height', 'style', 'data-*'
+    ],
+    ALLOW_DATA_ATTR: true,
+  };
   
   return (
     <div className={`prose prose-slate max-w-none dark:prose-invert ${className}`}>
@@ -104,8 +122,15 @@ export function ContentRenderer({ content, className = "" }: ContentRendererProp
               )}
             </figure>
           );
+        } else if (part.type === 'html') {
+          const sanitizedHtml = DOMPurify.sanitize(part.content, sanitizeConfig);
+          return (
+            <div 
+              key={index}
+              dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+            />
+          );
         } else {
-          // Render text with preserved line breaks
           return (
             <div key={index}>
               {part.content.split('\n').map((line, lineIndex) => (
