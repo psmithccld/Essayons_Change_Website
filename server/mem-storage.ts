@@ -21,6 +21,8 @@ export interface IStorage {
   createContent(insertContent: InsertContent): Promise<Content>;
   updateContent(id: number, updates: Partial<InsertContent>): Promise<Content | undefined>;
   deleteContent(id: number): Promise<boolean>;
+  getScheduledContentToPublish(): Promise<Content[]>;
+  publishScheduledContent(id: number): Promise<Content | undefined>;
   
   getAttachmentsByContentId(contentId: number): Promise<Attachment[]>;
   createAttachment(insertAttachment: InsertAttachment): Promise<Attachment>;
@@ -114,6 +116,30 @@ export class MemStorage implements IStorage {
   async deleteContent(id: number): Promise<boolean> {
     await this.deleteAttachmentsByContentId(id);
     return this.content.delete(id);
+  }
+
+  async getScheduledContentToPublish(): Promise<Content[]> {
+    const now = new Date();
+    return Array.from(this.content.values()).filter(c => 
+      c.status === 'scheduled' && 
+      c.scheduledPublishAt && 
+      new Date(c.scheduledPublishAt) <= now
+    );
+  }
+
+  async publishScheduledContent(id: number): Promise<Content | undefined> {
+    const existing = this.content.get(id);
+    if (!existing) return undefined;
+    
+    const now = new Date();
+    const updated: Content = {
+      ...existing,
+      status: 'published',
+      publishedAt: now,
+      updatedAt: now,
+    };
+    this.content.set(id, updated);
+    return updated;
   }
 
   async getAttachmentsByContentId(contentId: number): Promise<Attachment[]> {

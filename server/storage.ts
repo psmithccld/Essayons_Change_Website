@@ -29,6 +29,8 @@ export interface IStorage {
   createContent(insertContent: InsertContent): Promise<Content>;
   updateContent(id: number, updates: Partial<InsertContent>): Promise<Content | undefined>;
   deleteContent(id: number): Promise<boolean>;
+  getScheduledContentToPublish(): Promise<Content[]>;
+  publishScheduledContent(id: number): Promise<Content | undefined>;
 
   // Attachment operations
   getAttachmentsByContentId(contentId: number): Promise<Attachment[]>;
@@ -115,6 +117,37 @@ export class DatabaseStorage implements IStorage {
     
     const result = await db.delete(content).where(eq(content.id, id));
     return result.rowCount !== null && result.rowCount > 0;
+  }
+
+  async getScheduledContentToPublish(): Promise<Content[]> {
+    const now = new Date();
+    // Get content with status 'scheduled' and scheduled_publish_at <= now
+    const drizzleOrm = await import("drizzle-orm");
+    const lte = drizzleOrm.lte;
+    
+    return db
+      .select()
+      .from(content)
+      .where(
+        and(
+          eq(content.status, 'scheduled'),
+          lte(content.scheduledPublishAt, now)
+        )
+      );
+  }
+
+  async publishScheduledContent(id: number): Promise<Content | undefined> {
+    const now = new Date();
+    const [updated] = await db
+      .update(content)
+      .set({ 
+        status: 'published', 
+        publishedAt: now,
+        updatedAt: now
+      })
+      .where(eq(content.id, id))
+      .returning();
+    return updated || undefined;
   }
 
   // Attachment operations
