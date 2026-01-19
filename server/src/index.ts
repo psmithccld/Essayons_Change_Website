@@ -454,6 +454,26 @@ app.get('*', (req, res) => {
   });
 });
 
+// Background job to publish scheduled content
+async function publishScheduledContent() {
+  try {
+    const scheduledItems = await storage.getScheduledContentToPublish();
+    
+    for (const item of scheduledItems) {
+      const published = await storage.publishScheduledContent(item.id);
+      if (published) {
+        console.log(`[SCHEDULER] Published scheduled content: "${published.title}" (ID: ${published.id})`);
+      }
+    }
+    
+    if (scheduledItems.length > 0) {
+      console.log(`[SCHEDULER] Published ${scheduledItems.length} scheduled item(s)`);
+    }
+  } catch (error) {
+    console.error('[SCHEDULER] Error publishing scheduled content:', error);
+  }
+}
+
 app.listen(PORT, async () => {
   console.log(`Server listening on port ${PORT}`);
   console.log('[STARTUP] Storage implementation:', storage.constructor.name);
@@ -462,4 +482,12 @@ app.listen(PORT, async () => {
   
   // Seed initial admin user for development
   await seedAdminUser();
+  
+  // Run scheduled publishing check every minute
+  setInterval(publishScheduledContent, 60 * 1000);
+  
+  // Also run immediately on startup to publish any pending content
+  await publishScheduledContent();
+  
+  console.log('[SCHEDULER] Scheduled publishing job started (runs every 60 seconds)');
 });
