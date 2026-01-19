@@ -36,11 +36,28 @@ export function isYouTubeUrl(url: string): boolean {
 }
 
 /**
- * Converts a YouTube URL to an embed URL
+ * Converts a YouTube URL to an embed URL with parameters to improve compatibility
+ * Uses youtube-nocookie.com for privacy-enhanced embeds and adds origin parameter
  */
 export function getYouTubeEmbedUrl(url: string): string | null {
   const videoId = extractYouTubeId(url);
   if (!videoId) return null;
   
-  return `https://www.youtube.com/embed/${videoId}`;
+  // Get current origin for the embed - helps with Error 153 issues
+  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+  
+  // Add parameters to improve embed compatibility and fix Error 153
+  const params = new URLSearchParams({
+    rel: '0',           // Don't show related videos
+    modestbranding: '1', // Minimal YouTube branding
+    enablejsapi: '1',   // Enable JS API for better control
+  });
+  
+  // Add origin parameter if available (helps with embed restrictions)
+  if (origin) {
+    params.set('origin', origin);
+  }
+  
+  // Use youtube-nocookie.com for privacy-enhanced embeds (also helps with some embed issues)
+  return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
 }

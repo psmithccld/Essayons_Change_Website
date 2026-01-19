@@ -75,7 +75,7 @@ app.use(helmet({
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: imgSrcDirectives,
       connectSrc: connectSrcDirectives,
-      frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com"],
+      frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com", "https://www.youtube-nocookie.com", "https://youtube-nocookie.com"],
     },
   },
 }));
