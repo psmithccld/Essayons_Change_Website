@@ -7,11 +7,8 @@ export default function Pricing() {
     "GPT Integration",
     "Surveys",
     "Change Artifacts",
-    "Data Export",
-    "Audit Logs",
-    "Workflow Automation",
-    "Custom Branding",
-    "Cost and multi-tier organizational structure",
+    "Cost Module",
+    "Multi-tier Organizational Structure",
   ];
 
   const basicIncluded = new Set<string>();
