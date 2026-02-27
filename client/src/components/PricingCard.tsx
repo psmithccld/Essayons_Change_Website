@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, X } from "lucide-react";
+import { Check, X, Crown } from "lucide-react";
 import { Link } from "wouter";
 
 interface PricingFeature {
@@ -21,6 +21,8 @@ interface PricingCardProps {
   features: PricingFeature[];
   highlighted?: boolean;
   minSeats?: string;
+  isEnterprise?: boolean;
+  customBadge?: string;
 }
 
 export default function PricingCard({ 
@@ -34,21 +36,36 @@ export default function PricingCard({
   specs,
   features, 
   highlighted = false,
-  minSeats
+  minSeats,
+  isEnterprise = false,
+  customBadge,
 }: PricingCardProps) {
+  const isCustomPrice = price === "Custom";
+
   return (
     <Card className={highlighted ? "border-primary shadow-lg" : ""} data-testid={`card-pricing-${title.toLowerCase()}`}>
       <CardHeader className="text-center pb-4">
+        {isEnterprise && (
+          <div className="flex justify-center mb-2">
+            <Crown className="h-6 w-6 text-amber-500" />
+          </div>
+        )}
         <CardTitle className="text-2xl mb-4">{title}</CardTitle>
         <div className="mb-4">
           <span className="text-4xl font-bold">{price}</span>
-          <span className="text-muted-foreground">/{period}</span>
+          {!isCustomPrice && (
+            <span className="text-muted-foreground">/{period}</span>
+          )}
         </div>
         <div className="flex flex-wrap gap-2 justify-center">
           <Badge variant="destructive">Active</Badge>
+          {customBadge && (
+            <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">{customBadge}</Badge>
+          )}
           <Badge variant="secondary">{seats}</Badge>
           <Badge variant="secondary">{fileSize}</Badge>
           <Badge variant="secondary">{storage}</Badge>
+          {orgs && <Badge variant="secondary">{orgs}</Badge>}
         </div>
         {minSeats && (
           <p className="text-xs text-muted-foreground mt-2">{minSeats}</p>
