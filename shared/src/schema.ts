@@ -83,6 +83,31 @@ export const insertAttachmentSchema = createInsertSchema(attachments).omit({
 export type InsertAttachment = z.infer<typeof insertAttachmentSchema>;
 export type Attachment = typeof attachments.$inferSelect;
 
+// Website Cards table for dynamic content cards across the site
+export const websiteCards = pgTable("website_cards", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  section: varchar("section", { length: 255 }).notNull(),
+  title: varchar("title", { length: 500 }).notNull(),
+  subtitle: varchar("subtitle", { length: 500 }),
+  body: text("body"),
+  imageUrl: varchar("image_url", { length: 1000 }),
+  ctaText: varchar("cta_text", { length: 255 }),
+  ctaUrl: varchar("cta_url", { length: 1000 }),
+  displayOrder: integer("display_order").notNull().default(0),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertWebsiteCardSchema = createInsertSchema(websiteCards).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+export type InsertWebsiteCard = z.infer<typeof insertWebsiteCardSchema>;
+export type WebsiteCard = typeof websiteCards.$inferSelect;
+
 // Contact Messages table for contact form submissions
 export const contactMessages = pgTable("contact_messages", {
   id: serial("id").primaryKey(),
