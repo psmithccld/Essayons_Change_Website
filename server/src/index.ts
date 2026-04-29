@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import { loginHandler, logoutHandler, getCurrentUserHandler, requireAuth } from '../auth';
+import superAdminWebhookRouter from './super-admin-webhook';
 import {
   listContentHandler,
   getContentHandler,
@@ -130,6 +131,9 @@ async function configureSession() {
 // Apply session middleware asynchronously
 const sessionMiddleware = await configureSession();
 app.use(sessionMiddleware);
+
+// Super-admin webhook routes (HMAC-authenticated, raw body parsing handled inside router)
+app.use('/api/super-admin/webhook', superAdminWebhookRouter);
 
 // Basic API endpoint
 app.get('/api/status', (_req, res) => {

@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, text, timestamp, boolean, integer, jsonb } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -107,6 +107,22 @@ export const insertWebsiteCardSchema = createInsertSchema(websiteCards).omit({
 });
 export type InsertWebsiteCard = z.infer<typeof insertWebsiteCardSchema>;
 export type WebsiteCard = typeof websiteCards.$inferSelect;
+
+// Products Cache table for synced product data from super-admin webhook
+export const productsCache = pgTable("products_cache", {
+  id: serial("id").primaryKey(),
+  productName: varchar("product_name", { length: 255 }).notNull().unique(),
+  productData: jsonb("product_data").notNull(),
+  lastSyncedAt: timestamp("last_synced_at").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertProductsCacheSchema = createInsertSchema(productsCache).omit({
+  id: true,
+  createdAt: true,
+});
+export type InsertProductsCache = z.infer<typeof insertProductsCacheSchema>;
+export type ProductsCache = typeof productsCache.$inferSelect;
 
 // Contact Messages table for contact form submissions
 export const contactMessages = pgTable("contact_messages", {

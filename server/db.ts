@@ -59,6 +59,32 @@ CREATE TABLE IF NOT EXISTS contact_messages (
   status VARCHAR(50) NOT NULL DEFAULT 'new',
   created_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
+
+-- Create website_cards table
+CREATE TABLE IF NOT EXISTS website_cards (
+  id SERIAL PRIMARY KEY,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  section VARCHAR(255) NOT NULL,
+  title VARCHAR(500) NOT NULL,
+  subtitle VARCHAR(500),
+  body TEXT,
+  image_url VARCHAR(1000),
+  cta_text VARCHAR(255),
+  cta_url VARCHAR(1000),
+  display_order INTEGER NOT NULL DEFAULT 0,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+-- Create products_cache table
+CREATE TABLE IF NOT EXISTS products_cache (
+  id SERIAL PRIMARY KEY,
+  product_name VARCHAR(255) NOT NULL UNIQUE,
+  product_data JSONB NOT NULL,
+  last_synced_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
 `;
 
 try {
