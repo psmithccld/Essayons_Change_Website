@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Zap, ArrowLeft } from "lucide-react";
 import { gtag } from "@/lib/gtag";
 
 const SUBSCRIBE_URL = "https://app.essayonschange.com/api/public/subscribe";
@@ -44,78 +45,101 @@ export default function GameGate({ gameName, gameDescription, sourcePage, onProc
   }
 
   return (
-    <div className="container py-8">
-      <Button
-        variant="outline"
-        onClick={onBack}
-        className="mb-6"
-        data-testid="button-gate-back"
-      >
-        Back to Games
-      </Button>
+    <div className="min-h-[calc(100vh-5rem)] flex flex-col">
+      <div className="container pt-6">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          data-testid="button-gate-back"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Games
+        </button>
+      </div>
 
-      <div className="max-w-lg mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">{gameName}</CardTitle>
-            <CardDescription>{gameDescription}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            <p className="text-sm text-muted-foreground">
-              Enter your details to receive personalized insights based on your results.
-            </p>
-
-            <form onSubmit={handleSubmit} noValidate className="space-y-4" aria-label="Pre-game signup">
-              <div className="space-y-2">
-                <Label htmlFor="gate-firstname">First Name</Label>
-                <Input
-                  id="gate-firstname"
-                  type="text"
-                  placeholder="Your first name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  autoComplete="given-name"
-                  required
-                  data-testid="input-gate-firstname"
-                />
+      <div className="flex-1 flex items-center justify-center container py-10">
+        <div className="w-full max-w-md">
+          <Card className="overflow-hidden shadow-lg">
+            <div className="bg-primary px-7 py-8 space-y-3">
+              <div className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-primary-foreground/60" />
+                <span className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/60">
+                  Leadership Challenge
+                </span>
               </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="gate-email">Email Address</Label>
-                <Input
-                  id="gate-email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  required
-                  data-testid="input-gate-email"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={!canSubmit}
-                data-testid="button-gate-submit"
-              >
-                {submitting ? "Starting..." : "Play Now"}
-              </Button>
-            </form>
-
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={onProceed}
-                className="text-sm text-muted-foreground underline-offset-2 hover:underline"
-                data-testid="button-gate-skip"
-              >
-                Skip, just play
-              </button>
+              <h2 className="text-2xl font-bold text-primary-foreground leading-snug">
+                {gameName}
+              </h2>
+              <p className="text-sm text-primary-foreground/75 leading-relaxed">
+                {gameDescription}
+              </p>
             </div>
-          </CardContent>
-        </Card>
+
+            <CardContent className="px-7 py-7 space-y-6">
+              <p className="text-sm text-muted-foreground">
+                Enter your details and we will send your personalized results straight to your inbox.
+              </p>
+
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="space-y-4"
+                aria-label="Pre-game signup"
+              >
+                <div className="space-y-1.5">
+                  <Label htmlFor="gate-firstname">First Name</Label>
+                  <Input
+                    id="gate-firstname"
+                    type="text"
+                    placeholder="Your first name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    autoComplete="given-name"
+                    required
+                    data-testid="input-gate-firstname"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="gate-email">Email Address</Label>
+                  <Input
+                    id="gate-email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                    data-testid="input-gate-email"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full gap-2"
+                  disabled={!canSubmit}
+                  data-testid="button-gate-submit"
+                >
+                  <Zap className="w-4 h-4" />
+                  {submitting ? "Starting..." : "Play Now"}
+                </Button>
+              </form>
+
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={onProceed}
+                  className="text-xs text-muted-foreground underline-offset-2 hover:underline"
+                  data-testid="button-gate-skip"
+                >
+                  Skip, just play
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
