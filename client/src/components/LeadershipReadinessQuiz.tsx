@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import GameLeadCapture from "@/components/GameLeadCapture";
+import GameCompletionPanel from "@/components/GameCompletionPanel";
 import { gtag } from "@/lib/gtag";
 
 const CATS = ["WHO", "WHAT", "WHEN", "WHERE", "WHY"] as const;
@@ -253,6 +253,27 @@ export default function LeadershipReadinessQuiz() {
   );
 }
 
+function getReadinessInsight(overall: number): string {
+  if (overall >= 4.2) {
+    return "Your scores reflect a leader who operates with intention across all five dimensions. Research consistently shows that leaders who understand their 'why' and can adapt across context, timing, and relationships are the ones who make change stick. Your next step is turning this awareness into documented practices your team can see and trust.";
+  }
+  if (overall >= 3.2) {
+    return "You have a solid foundation to build from. The leaders who grow fastest pick one dimension and go deep rather than spreading development energy thin. Look at your lowest category score and start there. Small, consistent improvements in a single area compound faster than trying to move everything at once.";
+  }
+  return "Early awareness is a competitive advantage. Most leaders do not discover their readiness gaps until they are mid-way through a failed initiative. You now have a head start. Change management skills are learnable and your scores can look very different in 90 days with deliberate practice.";
+}
+
+function getReadinessLinkedIn(overall: number): string {
+  const score = overall.toFixed(2);
+  if (overall >= 4.2) {
+    return `I just scored ${score}/5 on the Leadership Readiness Quiz from Essayons Change Management.\n\nStrong readiness across all five leadership dimensions (Who, What, When, Where, Why) reflects years of intentional practice.\n\nTake the quiz and see where you stand: https://essayonschange.com/games\n\n#LeadershipDevelopment #ChangeManagement`;
+  }
+  if (overall >= 3.2) {
+    return `I just took the Leadership Readiness Quiz from Essayons Change Management and scored ${score}/5.\n\nKnowing your readiness gaps before a change initiative starts is a competitive advantage.\n\nTake the quiz: https://essayonschange.com/games\n\n#LeadershipDevelopment #ChangeManagement`;
+  }
+  return `I just took the Leadership Readiness Quiz from Essayons Change Management.\n\nAwareness is the first step in leadership growth. Take the quiz and discover your readiness score: https://essayonschange.com/games\n\n#LeadershipDevelopment #ChangeManagement`;
+}
+
 function ResultsPanel({ results, onReset }: { results: Results; onReset: () => void }) {
   const { avgs, overall } = results;
 
@@ -300,9 +321,10 @@ function ResultsPanel({ results, onReset }: { results: Results; onReset: () => v
         ))}
       </div>
 
-      <GameLeadCapture
-        sourcePage="game-readiness-quiz"
-        resultLine={`Your overall readiness score: ${overall.toFixed(2)} / 5`}
+      <GameCompletionPanel
+        insight={getReadinessInsight(overall)}
+        linkedInText={getReadinessLinkedIn(overall)}
+        sourcePage="game_readiness_quiz_completion"
       />
 
       <div>

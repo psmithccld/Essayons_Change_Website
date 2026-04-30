@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import GameLeadCapture from "@/components/GameLeadCapture";
+import GameCompletionPanel from "@/components/GameCompletionPanel";
 import { gtag } from "@/lib/gtag";
 
 const SKILL_LABELS: Record<string, string> = {
@@ -498,6 +498,65 @@ export default function LeadershipToolboxGame() {
     return <SetupScreen onStart={startGame} />;
   }
 
+  if (winner) {
+    const humanWon = winner === "You";
+    const humanPlayer = players[0];
+    const insight = humanWon
+      ? "Reaching the Leadership Summit is not just a game outcome. It reflects real skills: active listening, relationship management, staying motivated through setbacks, and knowing when to take calculated risks. The patterns you practiced here map directly to how high-performing leaders navigate organizational change."
+      : "In leadership development, the journey matters as much as the finish line. Every tile you passed, every card you drew, and every challenge you faced involved real skills that change management demands. The board resets. Your leadership development does not.";
+    const linkedInText = humanWon
+      ? `I just reached the Leadership Summit in the Essayons Leadership Toolbox Board Game!\n\nBuilding real leadership skills takes active listening, relationship management, and staying motivated under pressure.\n\nTry the game yourself: https://essayonschange.com/games\n\n#LeadershipDevelopment #ChangeManagement`
+      : `I played the Essayons Leadership Toolbox Board Game today.\n\nEvery challenge on the board reflects a real leadership skill. Try it yourself and see how your change management toolkit stacks up: https://essayonschange.com/games\n\n#LeadershipDevelopment #ChangeManagement`;
+
+    return (
+      <div className="max-w-2xl mx-auto p-8 space-y-6">
+        <div className="text-center space-y-2">
+          <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Game Over</p>
+          <h2 className="text-4xl font-bold" data-testid="text-winner">{winner} Wins!</h2>
+          <p className="text-muted-foreground">The Leadership Summit has been reached.</p>
+        </div>
+
+        <Card>
+          <CardContent className="p-4">
+            <h3 className="font-semibold mb-3 text-sm">Final Scores</h3>
+            <ul className="space-y-2">
+              {[...players].sort((a, b) => b.points - a.points).map((p) => (
+                <li key={p.name} className="flex items-center gap-2">
+                  <span className="inline-block w-3 h-3 rounded-full shrink-0" style={{ background: p.color }} />
+                  <span className="font-medium">{p.name}</span>
+                  {p.name === winner && (
+                    <span className="text-xs font-semibold text-primary">Winner</span>
+                  )}
+                  <span className="ml-auto text-sm text-muted-foreground">{p.points} pts</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        {humanPlayer && (
+          <div className="text-sm text-muted-foreground text-center">
+            You finished at tile {humanPlayer.position} with {humanPlayer.points} points.
+          </div>
+        )}
+
+        <GameCompletionPanel
+          insight={insight}
+          linkedInText={linkedInText}
+          sourcePage="game_board_game_completion"
+        />
+
+        <Button
+          variant="outline"
+          onClick={() => setGameStarted(false)}
+          data-testid="button-play-again"
+        >
+          Play Again
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-6xl mx-auto p-4" data-testid="game-board">
       <header className="flex flex-wrap items-center justify-between mb-4 gap-2">
@@ -523,39 +582,25 @@ export default function LeadershipToolboxGame() {
               <CardTitle className="flex flex-wrap items-center gap-2">Turn</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              {winner ? (
-                <div className="space-y-3">
-                  <p className="text-lg font-semibold text-center" data-testid="text-winner">{winner} Wins!</p>
-                  <GameLeadCapture sourcePage="game-board-game" />
-                  <div className="text-center">
-                    <Button onClick={() => setGameStarted(false)} size="sm" data-testid="button-play-again">
-                      Play Again
-                    </Button>
-                  </div>
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-3 h-3 rounded-full" style={{ background: active?.color }} />
+                <span className="font-medium">{active?.name}</span>
+                {active?.isAI && aiThinking && (
+                  <span className="text-xs text-muted-foreground ml-auto">Thinking...</span>
+                )}
+              </div>
+              {!active?.isAI && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button onClick={makeTurn} size="sm" data-testid="button-roll">
+                    Roll Dice
+                  </Button>
+                  {rolled && <span className="text-sm text-muted-foreground">Rolled: {rolled}</span>}
                 </div>
-              ) : (
-                <>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-block w-3 h-3 rounded-full" style={{ background: active?.color }} />
-                    <span className="font-medium">{active?.name}</span>
-                    {active?.isAI && aiThinking && (
-                      <span className="text-xs text-muted-foreground ml-auto">Thinking...</span>
-                    )}
-                  </div>
-                  {!active?.isAI && (
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Button onClick={makeTurn} size="sm" data-testid="button-roll">
-                        Roll Dice
-                      </Button>
-                      {rolled && <span className="text-sm text-muted-foreground">Rolled: {rolled}</span>}
-                    </div>
-                  )}
-                  {active?.isAI && (
-                    <div className="text-sm text-muted-foreground">
-                      {aiThinking ? "AI is thinking..." : rolled ? `Rolled: ${rolled}` : ""}
-                    </div>
-                  )}
-                </>
+              )}
+              {active?.isAI && (
+                <div className="text-sm text-muted-foreground">
+                  {aiThinking ? "AI is thinking..." : rolled ? `Rolled: ${rolled}` : ""}
+                </div>
               )}
             </CardContent>
           </Card>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Check } from "lucide-react";
-import GameLeadCapture from "@/components/GameLeadCapture";
+import GameCompletionPanel from "@/components/GameCompletionPanel";
 import { gtag } from "@/lib/gtag";
 
 const STYLES = [
@@ -259,6 +259,20 @@ export default function LeadershipStyleQuiz() {
   );
 }
 
+const STYLE_INSIGHTS: Record<LeadershipStyle, string> = {
+  Authentic: "Authentic leaders build the psychological safety that makes change initiatives actually land. Your commitment to transparency and consistency creates the trust that teams need to take risks during uncertain transitions. In change management, this is the rarest and most valuable currency.",
+  Servant: "Servant leaders excel at sustaining change because they remove barriers for their team rather than just issuing directives. Your focus on developing others creates the internal capability that makes transformation durable long after the project closes.",
+  Transformational: "Transformational leaders are the engine of large-scale change. You are wired to articulate a compelling future and pull people toward it. The opportunity is to pair your vision with strong project discipline and clear accountability structures to turn inspiration into lasting results.",
+  Transactional: "Transactional leaders bring the clarity and accountability that change efforts desperately need. You know how to set expectations and follow through. To maximize impact, pair your operational rigor with a compelling narrative that gives the change meaning beyond the metrics.",
+  Democratic: "Democratic leaders create the buy-in that makes change durable. When people help shape a solution, they defend it. Your instinct to include diverse voices is a structural advantage in stakeholder-heavy change initiatives where resistance is the primary risk.",
+  Authoritarian: "Directive leaders can move fast in a crisis, and sometimes fast is exactly what a change initiative needs. The key is knowing when to shift modes. Use your decisiveness to set direction, then create space for your team to own the execution and adapt as the situation evolves.",
+  "Laissez-Faire": "Leaders who give their teams genuine autonomy often unlock higher engagement and creativity. In a change context, this works best when paired with clear boundaries and deliberate check-ins. Think of your approach as empowerment with guardrails rather than hands-off management.",
+};
+
+function getStyleLinkedIn(topStyle: LeadershipStyle): string {
+  return `My leadership style is ${topStyle}.\n\nI just took the Essayons Leadership Style Quiz and learned how my approach to leading people and driving change aligns with proven leadership models.\n\nWhat is your style? Take the quiz: https://essayonschange.com/games\n\n#LeadershipDevelopment #ChangeManagement`;
+}
+
 interface ResultsPanelProps {
   results: {
     avgs: Record<LeadershipStyle, number>;
@@ -328,9 +342,10 @@ function ResultsPanel({ results, onReset }: ResultsPanelProps) {
         </div>
       </div>
 
-      <GameLeadCapture
-        sourcePage="game-style-quiz"
-        resultLine={`Your leadership style: ${topStyle}`}
+      <GameCompletionPanel
+        insight={STYLE_INSIGHTS[topStyle]}
+        linkedInText={getStyleLinkedIn(topStyle)}
+        sourcePage="game_style_quiz_completion"
       />
 
       <Button
