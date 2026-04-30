@@ -1,6 +1,6 @@
 import { useState } from "react";
 import GameCard from "@/components/GameCard";
-import GameGate from "@/components/GameGate";
+import GameGate, { GATE_SESSION_KEY } from "@/components/GameGate";
 import { gtag } from "@/lib/gtag";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
 import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
@@ -47,6 +47,7 @@ type ActiveView = "list" | "board-game" | "quiz" | "style-quiz";
 interface PendingGame {
   view: ActiveView;
   name: string;
+  description: string;
   sourcePage: string;
 }
 
@@ -54,8 +55,13 @@ export default function Games() {
   const [activeView, setActiveView] = useState<ActiveView>("list");
   const [pendingGame, setPendingGame] = useState<PendingGame | null>(null);
 
-  function openGate(view: ActiveView, name: string, sourcePage: string) {
-    setPendingGame({ view, name, sourcePage });
+  function openGate(view: ActiveView, name: string, description: string, sourcePage: string) {
+    if (sessionStorage.getItem(GATE_SESSION_KEY) === "true") {
+      gtag.gameStart(name);
+      setActiveView(view);
+      return;
+    }
+    setPendingGame({ view, name, description, sourcePage });
   }
 
   function proceedToGame() {
@@ -73,6 +79,7 @@ export default function Games() {
     return (
       <GameGate
         gameName={pendingGame.name}
+        gameDescription={pendingGame.description}
         sourcePage={pendingGame.sourcePage}
         onProceed={proceedToGame}
         onBack={cancelGate}
@@ -167,7 +174,12 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => openGate("board-game", "Leadership Toolbox Board Game", "pre-game-board-game")}
+                onClick={() => openGate(
+                  "board-game",
+                  "Leadership Toolbox Board Game",
+                  "Build leadership skills through strategic play on a 30-tile board.",
+                  "game_board_game"
+                )}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-play-game"
@@ -200,7 +212,12 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => openGate("quiz", "Leadership Readiness Quiz", "pre-game-readiness-quiz")}
+                onClick={() => openGate(
+                  "quiz",
+                  "Leadership Readiness Quiz",
+                  "Measure your leadership readiness across the 5 Ws framework.",
+                  "game_readiness_quiz"
+                )}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-take-quiz"
@@ -233,7 +250,12 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => openGate("style-quiz", "Leadership Style Quiz", "pre-game-style-quiz")}
+                onClick={() => openGate(
+                  "style-quiz",
+                  "Leadership Style Quiz",
+                  "Discover your dominant leadership style from 7 proven models.",
+                  "game_style_quiz"
+                )}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-take-style-quiz"

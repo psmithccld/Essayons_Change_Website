@@ -6,31 +6,37 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { gtag } from "@/lib/gtag";
 
 const SUBSCRIBE_URL = "https://app.essayonschange.com/api/public/subscribe";
+export const GATE_SESSION_KEY = "gameGateSubmitted";
 
 interface GameGateProps {
   gameName: string;
+  gameDescription: string;
   sourcePage: string;
   onProceed: () => void;
   onBack: () => void;
 }
 
-export default function GameGate({ gameName, sourcePage, onProceed, onBack }: GameGateProps) {
+export default function GameGate({ gameName, gameDescription, sourcePage, onProceed, onBack }: GameGateProps) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  const canSubmit = firstName.trim().length > 0 && email.trim().length > 0 && !submitting;
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!canSubmit) return;
     setSubmitting(true);
     try {
-      const body: Record<string, string> = { email, sourcePage };
-      if (firstName.trim()) body.firstName = firstName.trim();
       const res = await fetch(SUBSCRIBE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ email, firstName: firstName.trim(), sourcePage }),
       });
-      if (res.ok) gtag.newsletterSignup(sourcePage);
+      if (res.ok) {
+        gtag.newsletterSignup(sourcePage);
+        sessionStorage.setItem(GATE_SESSION_KEY, "true");
+      }
     } catch {
       // best-effort: proceed regardless
     }
@@ -51,48 +57,50 @@ export default function GameGate({ gameName, sourcePage, onProceed, onBack }: Ga
       <div className="max-w-lg mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Ready to play?</CardTitle>
-            <CardDescription>
-              Enter your email to receive insights based on your {gameName} results. Takes 10 seconds and you can skip anytime.
-            </CardDescription>
+            <CardTitle className="text-2xl">{gameName}</CardTitle>
+            <CardDescription>{gameDescription}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
+            <p className="text-sm text-muted-foreground">
+              Enter your details to receive personalized insights based on your results.
+            </p>
+
             <form onSubmit={handleSubmit} noValidate className="space-y-4" aria-label="Pre-game signup">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="sm:w-40 space-y-1">
-                  <Label htmlFor="gate-firstname" className="sr-only">First name</Label>
-                  <Input
-                    id="gate-firstname"
-                    type="text"
-                    placeholder="First name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    autoComplete="given-name"
-                    data-testid="input-gate-firstname"
-                  />
-                </div>
-                <div className="flex-1 space-y-1">
-                  <Label htmlFor="gate-email" className="sr-only">Email address</Label>
-                  <Input
-                    id="gate-email"
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="email"
-                    required
-                    data-testid="input-gate-email"
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="gate-firstname">First Name</Label>
+                <Input
+                  id="gate-firstname"
+                  type="text"
+                  placeholder="Your first name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  autoComplete="given-name"
+                  required
+                  data-testid="input-gate-firstname"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="gate-email">Email Address</Label>
+                <Input
+                  id="gate-email"
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  required
+                  data-testid="input-gate-email"
+                />
               </div>
 
               <Button
                 type="submit"
                 className="w-full"
-                disabled={submitting || !email.trim()}
+                disabled={!canSubmit}
                 data-testid="button-gate-submit"
               >
-                {submitting ? "Starting..." : "Start Playing"}
+                {submitting ? "Starting..." : "Play Now"}
               </Button>
             </form>
 
