@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import GameLeadCapture from "@/components/GameLeadCapture";
+import { gtag } from "@/lib/gtag";
 
 const SKILL_LABELS: Record<string, string> = {
   activeListening: "Active Listening",
@@ -218,6 +219,13 @@ export default function LeadershipToolboxGame() {
       });
     }
   }, [players, current, gameStarted, winner]);
+
+  // Fire GA4 game_complete when a winner is declared
+  useEffect(() => {
+    if (winner) {
+      gtag.gameComplete("Leadership Toolbox Board Game", { winner });
+    }
+  }, [winner]);
 
   // Process card queue when it changes
   useEffect(() => {

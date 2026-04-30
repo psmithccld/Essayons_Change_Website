@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import GameLeadCapture from "@/components/GameLeadCapture";
+import { gtag } from "@/lib/gtag";
 
 const CATS = ["WHO", "WHAT", "WHEN", "WHERE", "WHY"] as const;
 type Category = typeof CATS[number];
@@ -144,6 +145,14 @@ export default function LeadershipReadinessQuiz() {
     setAnswers(QUESTIONS.reduce((acc, q) => ({ ...acc, [q.id]: 0 }), {}));
     setSubmitted(false);
   }
+
+  useEffect(() => {
+    if (submitted && results) {
+      gtag.gameComplete("Leadership Readiness Quiz", {
+        overall_score: parseFloat(results.overall.toFixed(2)),
+      });
+    }
+  }, [submitted, results]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">

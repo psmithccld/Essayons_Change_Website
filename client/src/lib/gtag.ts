@@ -18,4 +18,6 @@ export const gtag = {
   pricingView: () => trackEvent("pricing_view"),
   signinClick: () => trackEvent("signin_click"),
   gameStart: (gameName: string) => trackEvent("game_start", { game_name: gameName }),
+  gameComplete: (gameName: string, params?: Record<string, string | number>) =>
+    trackEvent("game_complete", { game_name: gameName, ...params }),
 };

@@ -1,9 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Check } from "lucide-react";
 import GameLeadCapture from "@/components/GameLeadCapture";
+import { gtag } from "@/lib/gtag";
 
 const STYLES = [
   "Authentic",
@@ -160,6 +161,12 @@ export default function LeadershipStyleQuiz() {
     setAnswers({});
     setSubmitted(false);
   }
+
+  useEffect(() => {
+    if (submitted && results) {
+      gtag.gameComplete("Leadership Style Quiz", { top_style: results.topStyle });
+    }
+  }, [submitted, results]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
