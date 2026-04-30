@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import logoImage from "@assets/image_1758211685824_1761593188026.png";
+import EmailCaptureForm from "@/components/EmailCaptureForm";
 
 export default function Footer() {
   return (
@@ -58,7 +59,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
+        <div className="mt-8 border-t pt-8 space-y-3">
+          <p className="text-sm font-medium text-foreground">
+            Let us change the way you change. Get new insights delivered to your inbox.
+          </p>
+          <EmailCaptureForm sourcePage="footer" />
+        </div>
+
+        <div className="mt-6 border-t pt-6 text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} Essayons Change LLC. All rights reserved.
         </div>
       </div>

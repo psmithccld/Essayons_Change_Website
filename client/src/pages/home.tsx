@@ -3,6 +3,7 @@ import FeatureGrid from "@/components/FeatureGrid";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import EmailCaptureForm from "@/components/EmailCaptureForm";
 
 export default function Home() {
   return (
@@ -41,6 +42,21 @@ export default function Home() {
             </Link>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Email capture — homepage dedicated section */}
+      <section className="bg-primary py-16 px-4" data-testid="section-homepage-subscribe">
+        <div className="max-w-2xl mx-auto text-center space-y-6">
+          <div className="space-y-3">
+            <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Reduce Resistance. Lead Change That Sticks.
+            </h2>
+            <p className="text-base text-white/80 leading-relaxed">
+              Join leaders who are closing the gap between strategy and execution. Most change fails not because of bad strategy, but because resistance goes unaddressed. Get research-backed insights that help you change that.
+            </p>
+          </div>
+          <EmailCaptureForm sourcePage="homepage" />
+        </div>
       </section>
     </div>
   );

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContentRenderer } from "@/components/ContentRenderer";
 import { YouTubeEmbed } from "@/components/YouTubeEmbed";
+import EmailCaptureForm from "@/components/EmailCaptureForm";
 interface Attachment {
   id: number;
   kind: string;
@@ -181,6 +182,13 @@ export default function ContentDetail({ contentType }: ContentDetailProps) {
 
         {/* Content body */}
         <ContentRenderer content={content.body} data-testid="content-body" />
+
+        {/* Email capture — blog posts only */}
+        {contentType === "blog" && (
+          <div className="pt-4" data-testid="section-blog-subscribe">
+            <EmailCaptureForm sourcePage="blog" />
+          </div>
+        )}
       </div>
     </div>
   );
