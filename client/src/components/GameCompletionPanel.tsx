@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Linkedin, Copy, Check } from "lucide-react";
+import { gtag } from "@/lib/gtag";
 
 const SUBSCRIBE_URL = "https://app.essayonschange.com/api/public/subscribe";
 export const EC_GAME_EMAIL_KEY = "ec_game_email";
@@ -62,7 +63,7 @@ export default function GameCompletionPanel({ insight, linkedInText, sourcePage 
       <Button
         variant="outline"
         className="w-full gap-2"
-        onClick={() => setShowLinkedIn(true)}
+        onClick={() => { gtag.gameShareClicked(sourcePage); setShowLinkedIn(true); }}
         data-testid="button-share-linkedin"
       >
         <Linkedin className="w-4 h-4" />

@@ -28,4 +28,6 @@ export const gtag = {
     trackEvent("game_gate_skipped", { source_page: sourcePage }),
   gameCompleted: (gameName: string, score: string | number) =>
     trackEvent("game_completed", { game_name: gameName, score }),
+  gameShareClicked: (gameName: string) =>
+    trackEvent("game_share_clicked", { game_name: gameName }),
 };
