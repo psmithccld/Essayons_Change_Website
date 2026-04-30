@@ -220,10 +220,12 @@ export default function LeadershipToolboxGame() {
     }
   }, [players, current, gameStarted, winner]);
 
-  // Fire GA4 game_complete when a winner is declared
+  // Fire GA4 game_complete and game_completed when a winner is declared
   useEffect(() => {
     if (winner) {
       gtag.gameComplete("Leadership Toolbox Board Game", { winner });
+      const humanPoints = players[0]?.points ?? 0;
+      gtag.gameCompleted("Leadership Toolbox Board Game", humanPoints);
     }
   }, [winner]);
 

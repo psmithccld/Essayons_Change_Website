@@ -57,6 +57,7 @@ export default function Games() {
 
   function openGate(view: ActiveView, name: string, description: string, sourcePage: string) {
     if (sessionStorage.getItem(GATE_SESSION_KEY) === "true") {
+      gtag.gameGateSkipped(sourcePage);
       gtag.gameStart(name);
       setActiveView(view);
       return;

@@ -165,6 +165,7 @@ export default function LeadershipStyleQuiz() {
   useEffect(() => {
     if (submitted && results) {
       gtag.gameComplete("Leadership Style Quiz", { top_style: results.topStyle });
+      gtag.gameCompleted("Leadership Style Quiz", results.topStyle);
     }
   }, [submitted, results]);
 

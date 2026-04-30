@@ -20,4 +20,12 @@ export const gtag = {
   gameStart: (gameName: string) => trackEvent("game_start", { game_name: gameName }),
   gameComplete: (gameName: string, params?: Record<string, string | number>) =>
     trackEvent("game_complete", { game_name: gameName, ...params }),
+  gameGateShown: (sourcePage: string) =>
+    trackEvent("game_gate_shown", { source_page: sourcePage }),
+  gameGateCompleted: (sourcePage: string) =>
+    trackEvent("game_gate_completed", { source_page: sourcePage }),
+  gameGateSkipped: (sourcePage: string) =>
+    trackEvent("game_gate_skipped", { source_page: sourcePage }),
+  gameCompleted: (gameName: string, score: string | number) =>
+    trackEvent("game_completed", { game_name: gameName, score }),
 };

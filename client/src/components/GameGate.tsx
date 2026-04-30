@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,6 +24,10 @@ export default function GameGate({ gameName, gameDescription, sourcePage, onProc
 
   const canSubmit = firstName.trim().length > 0 && email.trim().length > 0 && !submitting;
 
+  useEffect(() => {
+    gtag.gameGateShown(sourcePage);
+  }, [sourcePage]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
@@ -36,6 +40,7 @@ export default function GameGate({ gameName, gameDescription, sourcePage, onProc
       });
       if (res.ok) {
         gtag.newsletterSignup(sourcePage);
+        gtag.gameGateCompleted(sourcePage);
         sessionStorage.setItem(GATE_SESSION_KEY, "true");
       }
     } catch (err) {

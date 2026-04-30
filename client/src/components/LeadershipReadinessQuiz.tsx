@@ -151,6 +151,7 @@ export default function LeadershipReadinessQuiz() {
       gtag.gameComplete("Leadership Readiness Quiz", {
         overall_score: parseFloat(results.overall.toFixed(2)),
       });
+      gtag.gameCompleted("Leadership Readiness Quiz", parseFloat(results.overall.toFixed(2)));
     }
   }, [submitted, results]);
 
