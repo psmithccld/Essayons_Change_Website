@@ -1,5 +1,6 @@
 import { useState } from "react";
 import GameCard from "@/components/GameCard";
+import GameGate from "@/components/GameGate";
 import { gtag } from "@/lib/gtag";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
 import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
@@ -43,8 +44,41 @@ const upcomingGames = [
 
 type ActiveView = "list" | "board-game" | "quiz" | "style-quiz";
 
+interface PendingGame {
+  view: ActiveView;
+  name: string;
+  sourcePage: string;
+}
+
 export default function Games() {
   const [activeView, setActiveView] = useState<ActiveView>("list");
+  const [pendingGame, setPendingGame] = useState<PendingGame | null>(null);
+
+  function openGate(view: ActiveView, name: string, sourcePage: string) {
+    setPendingGame({ view, name, sourcePage });
+  }
+
+  function proceedToGame() {
+    if (!pendingGame) return;
+    gtag.gameStart(pendingGame.name);
+    setActiveView(pendingGame.view);
+    setPendingGame(null);
+  }
+
+  function cancelGate() {
+    setPendingGame(null);
+  }
+
+  if (pendingGame) {
+    return (
+      <GameGate
+        gameName={pendingGame.name}
+        sourcePage={pendingGame.sourcePage}
+        onProceed={proceedToGame}
+        onBack={cancelGate}
+      />
+    );
+  }
 
   if (activeView === "board-game") {
     return (
@@ -55,7 +89,7 @@ export default function Games() {
           className="mb-4"
           data-testid="button-back-to-games"
         >
-          ← Back to Games
+          Back to Games
         </Button>
         <LeadershipToolboxGame />
       </div>
@@ -71,7 +105,7 @@ export default function Games() {
           className="mb-4"
           data-testid="button-back-to-games"
         >
-          ← Back to Games
+          Back to Games
         </Button>
         <LeadershipReadinessQuiz />
       </div>
@@ -87,7 +121,7 @@ export default function Games() {
           className="mb-4"
           data-testid="button-back-to-games"
         >
-          ← Back to Games
+          Back to Games
         </Button>
         <LeadershipStyleQuiz />
       </div>
@@ -109,13 +143,13 @@ export default function Games() {
 
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold">Featured Experiences</h2>
-        
+
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
           <Card>
             <CardHeader>
               <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
                 <Gamepad2 className="w-6 h-6" />
-                Leadership Toolbox – Board Game
+                Leadership Toolbox - Board Game
               </CardTitle>
               <CardDescription>
                 Play an interactive board game to build leadership skills and practice change management concepts
@@ -133,7 +167,7 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => { setActiveView("board-game"); gtag.gameStart("Leadership Toolbox Board Game"); }}
+                onClick={() => openGate("board-game", "Leadership Toolbox Board Game", "pre-game-board-game")}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-play-game"
@@ -166,7 +200,7 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => { setActiveView("quiz"); gtag.gameStart("Leadership Readiness Quiz"); }}
+                onClick={() => openGate("quiz", "Leadership Readiness Quiz", "pre-game-readiness-quiz")}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-take-quiz"
@@ -199,7 +233,7 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => { setActiveView("style-quiz"); gtag.gameStart("Leadership Style Quiz"); }}
+                onClick={() => openGate("style-quiz", "Leadership Style Quiz", "pre-game-style-quiz")}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-take-style-quiz"
