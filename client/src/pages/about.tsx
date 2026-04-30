@@ -26,10 +26,10 @@ export default function About() {
               Essayons Change was created to bridge that gap.
             </p>
             <p className="text-base text-muted-foreground">
-              Leveraging principles from Project Management Information Systems (PMIS), the Change Management Information System (CMIS) connects people, purpose, and performance. CMIS integrates those affected by change as active stakeholders in each initiative — ensuring alignment, engagement, and measurable progress.
+              Leveraging principles from Project Management Information Systems (PMIS), the Change Management Information System (CMIS) connects people, purpose, and performance. CMIS integrates those affected by change as active stakeholders in each initiative, ensuring alignment, engagement, and measurable progress.
             </p>
             <p className="text-base text-muted-foreground">
-              Our name, drawn from the Army Engineer Corps' motto "Essayons" — Let Us Try, reflects our philosophy of adaptive, evidence-based leadership and the relentless pursuit of improvement through understanding.
+              Our name is drawn from the Army Engineer Corps' motto "Essayons," meaning Let Us Try. It reflects our philosophy of adaptive, evidence-based leadership and the relentless pursuit of improvement through understanding.
             </p>
           </div>
           <div className="flex items-center justify-center">
@@ -98,7 +98,7 @@ export default function About() {
                       Phil Smith is a leadership consultant, educator, and doctoral researcher focused on organizational readiness for change. A U.S. Army veteran with over 20 years of experience in project and organizational leadership, he brings a unique perspective that integrates military precision, academic research, and practical management application.
                     </p>
                     <p>
-                      His work bridges theory and practice — developing frameworks and systems that help leaders design, measure, and sustain transformational change.
+                      His work bridges theory and practice, developing frameworks and systems that help leaders design, measure, and sustain transformational change.
                     </p>
                   </div>
                 </div>
@@ -128,7 +128,7 @@ export default function About() {
                   </div>
                   <div className="space-y-3 text-muted-foreground">
                     <p>
-                      Dan Rausch is a business development leader with over 20 years of experience in sales, recruiting, and strategic partnerships across engineering, construction, and professional services. He brings a people-centered approach to growth—building authentic relationships that translate vision into opportunity and drive measurable results.
+                      Dan Rausch is a business development leader with over 20 years of experience in sales, recruiting, and strategic partnerships across engineering, construction, and professional services. He brings a people-centered approach to growth, building authentic relationships that translate vision into opportunity and drive measurable results.
                     </p>
                   </div>
                 </div>

@@ -36,8 +36,8 @@ export default function Terms() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">2. Intellectual Property Rights</h2>
           <p>
-            All content, materials, and intellectual property on this site and within CMIS — including but not limited to text, 
-            graphics, logos, icons, software code, digital products, videos, and publications — are the property of Essayons Change LLC 
+            All content, materials, and intellectual property on this site and within CMIS (including but not limited to text,
+            graphics, logos, icons, software code, digital products, videos, and publications) are the property of Essayons Change LLC
             or its licensors and are protected by copyright, trademark, and other laws.
           </p>
           <p className="mt-4">You may view, download, or print materials for personal, non-commercial use only.</p>

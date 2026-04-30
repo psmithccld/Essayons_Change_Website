@@ -31,7 +31,7 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="text-2xl">Centralized Change Management</CardTitle>
             <CardDescription className="text-base">
-              Initiative management, RAIDs, stakeholder maps, readiness surveys, and an AI coach — all connected to help your teams deliver and sustain change.
+              Initiative management, RAIDs, stakeholder maps, readiness surveys, and an AI coach: all connected to help your teams deliver and sustain change.
             </CardDescription>
           </CardHeader>
           <CardContent>

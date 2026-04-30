@@ -13,14 +13,14 @@ const slides = [
     id: 1,
     image: slide1Image,
     headline: "Visualize and Lead the Change Process",
-    subtext: "Map organizational and individual actions through every phase of change — from identifying needs to reinforcing success.",
+    subtext: "Map organizational and individual actions through every phase of change, from identifying needs to reinforcing success.",
     layout: "single"
   },
   {
     id: 2,
     image: slide2Image,
     headline: "Track and Manage Risks in Real Time",
-    subtext: "Identify, prioritize, and assign risks, actions, and issues across initiatives — all in one connected workspace.",
+    subtext: "Identify, prioritize, and assign risks, actions, and issues across initiatives, all in one connected workspace.",
     layout: "single"
   },
   {

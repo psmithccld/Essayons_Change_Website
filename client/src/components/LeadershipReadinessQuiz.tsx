@@ -77,9 +77,9 @@ const QUESTIONS: Question[] = [
 ];
 
 const FEEDBACK = {
-  high: "Strong foundation—sustain by coaching others and stress-testing assumptions during change.",
-  medium: "Solid base—identify 1–2 specific habits to sharpen this dimension over the next sprint.",
-  low: "Growth opportunity—choose one small practice to apply this week to move the needle.",
+  high: "Strong foundation. Sustain it by coaching others and stress-testing assumptions during change.",
+  medium: "Solid base. Identify 1-2 specific habits to sharpen this dimension over the next sprint.",
+  low: "Growth opportunity. Choose one small practice to apply this week to move the needle.",
 };
 
 function bucketFeedback(avg: number): string {
