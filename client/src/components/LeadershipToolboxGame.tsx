@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import GameLeadCapture from "@/components/GameLeadCapture";
 
 const SKILL_LABELS: Record<string, string> = {
   activeListening: "Active Listening",
@@ -515,11 +516,14 @@ export default function LeadershipToolboxGame() {
             </CardHeader>
             <CardContent className="space-y-3">
               {winner ? (
-                <div className="text-center space-y-2">
-                  <p className="text-lg font-semibold">🎉 {winner} Wins!</p>
-                  <Button onClick={() => setGameStarted(false)} size="sm">
-                    Play Again
-                  </Button>
+                <div className="space-y-3">
+                  <p className="text-lg font-semibold text-center" data-testid="text-winner">{winner} Wins!</p>
+                  <GameLeadCapture sourcePage="game-board-game" />
+                  <div className="text-center">
+                    <Button onClick={() => setGameStarted(false)} size="sm" data-testid="button-play-again">
+                      Play Again
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <>

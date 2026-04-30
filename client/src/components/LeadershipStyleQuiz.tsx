@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Check } from "lucide-react";
+import GameLeadCapture from "@/components/GameLeadCapture";
 
 const STYLES = [
   "Authentic",
@@ -319,6 +320,11 @@ function ResultsPanel({ results, onReset }: ResultsPanelProps) {
           ))}
         </div>
       </div>
+
+      <GameLeadCapture
+        sourcePage="game-style-quiz"
+        resultLine={`Your leadership style: ${topStyle}`}
+      />
 
       <Button
         onClick={onReset}

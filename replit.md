@@ -84,6 +84,8 @@ The website includes:
 - **Leadership Readiness Quiz**: A 10-question self-assessment based on the "5 Ws of Leadership," providing personalized feedback and actionable tips.
 - **Leadership Style Quiz**: A 14-question assessment to identify dominant leadership styles from 7 models, providing detailed results and descriptions.
 
+**Games as Lead Funnel (Sprint 5)**: Each game/quiz result screen includes a `GameLeadCapture` component (`client/src/components/GameLeadCapture.tsx`) that presents a first-name + email signup form. It posts to `POST https://app.essayonschange.com/api/public/subscribe` with `{ email, firstName, sourcePage }` where `sourcePage` is `"game-readiness-quiz"`, `"game-style-quiz"`, or `"game-board-game"`. A "No thanks" link dismisses the card. A `newsletter_signup` GA4 event fires on success. Results remain visible above the form so the capture feels like a value-add rather than a gate.
+
 ### YouTube Video Embedding
 The website supports two methods for embedding YouTube videos in blog posts and tutorials:
 

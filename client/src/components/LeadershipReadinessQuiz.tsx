@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import GameLeadCapture from "@/components/GameLeadCapture";
 
 const CATS = ["WHO", "WHAT", "WHEN", "WHERE", "WHY"] as const;
 type Category = typeof CATS[number];
@@ -289,6 +290,11 @@ function ResultsPanel({ results, onReset }: { results: Results; onReset: () => v
           </Card>
         ))}
       </div>
+
+      <GameLeadCapture
+        sourcePage="game-readiness-quiz"
+        resultLine={`Your overall readiness score: ${overall.toFixed(2)} / 5`}
+      />
 
       <div>
         <Button onClick={onReset} variant="outline" data-testid="button-take-again">
