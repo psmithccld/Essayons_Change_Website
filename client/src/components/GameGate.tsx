@@ -37,8 +37,8 @@ export default function GameGate({ gameName, gameDescription, sourcePage, onProc
         gtag.newsletterSignup(sourcePage);
         sessionStorage.setItem(GATE_SESSION_KEY, "true");
       }
-    } catch {
-      // best-effort: proceed regardless
+    } catch (err) {
+      console.error("[GameGate] Subscribe failed, proceeding anyway:", err);
     }
     onProceed();
   }
