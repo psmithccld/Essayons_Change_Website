@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import PricingCard from "@/components/PricingCard";
+import { gtag } from "@/lib/gtag";
 
 export default function Pricing() {
+  useEffect(() => {
+    gtag.pricingView();
+  }, []);
   const allFeatures = [
     "Communications",
     "Reporting",

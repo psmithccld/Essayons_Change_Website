@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { gtag } from "@/lib/gtag";
 
 const SUBSCRIBE_URL = "https://app.essayonschange.com/api/public/subscribe";
 const SUCCESS_MESSAGE = "You are in. Watch your inbox for insights that actually move the needle.";
@@ -35,6 +36,7 @@ export default function EmailCaptureForm({ sourcePage }: EmailCaptureFormProps) 
 
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
+      gtag.newsletterSignup(sourcePage);
     } catch {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again shortly.");

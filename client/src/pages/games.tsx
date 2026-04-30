@@ -1,5 +1,6 @@
 import { useState } from "react";
 import GameCard from "@/components/GameCard";
+import { gtag } from "@/lib/gtag";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
 import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
 import LeadershipStyleQuiz from "@/components/LeadershipStyleQuiz";
@@ -132,7 +133,7 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => setActiveView("board-game")}
+                onClick={() => { setActiveView("board-game"); gtag.gameStart("Leadership Toolbox Board Game"); }}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-play-game"
@@ -165,7 +166,7 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => setActiveView("quiz")}
+                onClick={() => { setActiveView("quiz"); gtag.gameStart("Leadership Readiness Quiz"); }}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-take-quiz"
@@ -198,7 +199,7 @@ export default function Games() {
               </div>
 
               <Button
-                onClick={() => setActiveView("style-quiz")}
+                onClick={() => { setActiveView("style-quiz"); gtag.gameStart("Leadership Style Quiz"); }}
                 size="lg"
                 className="w-full gap-2"
                 data-testid="button-take-style-quiz"

@@ -3,6 +3,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/image_1758211685824_1761593188026.png";
+import { gtag } from "@/lib/gtag";
 
 const navItems = [
   { path: "/", label: "Home" },
@@ -14,6 +15,11 @@ const navItems = [
   { path: "/pricing", label: "Pricing" },
   { path: "/contact", label: "Contact" },
 ];
+
+function handleNavClick(label: string) {
+  if (label === "Contact") gtag.contactClick();
+  if (label === "Pricing") gtag.pricingView();
+}
 
 export default function Header() {
   const [location] = useLocation();
@@ -35,6 +41,7 @@ export default function Header() {
               <Button
                 variant={location === item.path ? "secondary" : "ghost"}
                 size="sm"
+                onClick={() => handleNavClick(item.label)}
                 data-testid={`link-${item.label.toLowerCase()}`}
               >
                 {item.label}
@@ -44,8 +51,17 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a href="https://app.essayonschange.com" target="_blank" rel="noopener noreferrer" data-testid="link-app">
-            <Button variant="default" size="sm">
+          <a
+            href="https://app.essayonschange.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="link-app"
+          >
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => gtag.signinClick()}
+            >
               Sign In
             </Button>
           </a>
@@ -70,7 +86,10 @@ export default function Header() {
                 <Button
                   variant={location === item.path ? "secondary" : "ghost"}
                   className="w-full justify-start"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleNavClick(item.label);
+                  }}
                   data-testid={`mobile-link-${item.label.toLowerCase()}`}
                 >
                   {item.label}

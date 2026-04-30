@@ -72,10 +72,11 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: imgSrcDirectives,
-      connectSrc: connectSrcDirectives,
+      imgSrc: [...imgSrcDirectives, "https://www.googletagmanager.com", "https://www.google-analytics.com"],
+      connectSrc: [...connectSrcDirectives, "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://www.googletagmanager.com"],
       frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com", "https://www.youtube-nocookie.com", "https://youtube-nocookie.com"],
     },
   },
