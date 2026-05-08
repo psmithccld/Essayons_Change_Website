@@ -53,6 +53,7 @@ function Router() {
                 <Route path="/pricing" component={Pricing} />
                 <Route path="/privacy" component={Privacy} />
                 <Route path="/terms" component={Terms} />
+                <Route path="/investor" component={Investor} />
                 <Route component={NotFound} />
               </Switch>
             </main>
