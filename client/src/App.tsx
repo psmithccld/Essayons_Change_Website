@@ -14,6 +14,7 @@ import Contact from "@/pages/contact";
 import Games from "@/pages/games";
 import Offerings from "@/pages/offerings";
 import Privacy from "@/pages/privacy";
+import Investor from "@/pages/investor";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
 import AdminLogin from "@/pages/admin-login";
