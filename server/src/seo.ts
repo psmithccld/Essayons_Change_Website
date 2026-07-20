@@ -1,0 +1,210 @@
+/**
+ * Server-side SEO metadata injection.
+ *
+ * The client is a Vite/React SPA served from a single index.html, so every
+ * route previously emitted identical <title>/<meta> tags. This module rewrites
+ * those tags per-route in the HTML before it is sent, which means crawlers and
+ * social scrapers (LinkedIn, X, Slack) receive correct metadata without
+ * executing JavaScript.
+ */
+
+const SITE_NAME = "Essayons Change";
+const BASE_URL = "https://www.essayonschange.com";
+const DEFAULT_IMAGE = `${BASE_URL}/favicon.png`;
+
+export interface PageMeta {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+}
+
+const DEFAULT_DESCRIPTION =
+  "Essayons Change combines research-driven frameworks with practical tools to help organizations design, measure, and sustain transformational change.";
+
+/**
+ * Static route metadata. Titles lead with the page's specific value and end
+ * with the brand; descriptions are written to earn the click, not to keyword-stuff.
+ */
+export const STATIC_META: Record<string, PageMeta> = {
+  "/": {
+    title: "Essayons Change | Change Management Information System",
+    description:
+      "Make organizational change measurable and predictable. Essayons Change connects readiness, communication, and execution in one system built on doctoral research.",
+    path: "/",
+  },
+  "/about": {
+    title: "About Essayons Change | Research-Driven Change Management",
+    description:
+      "Founded to close the gap between individual understanding and organizational intent. Meet the team behind the Change Management Information System.",
+    path: "/about",
+  },
+  "/blog": {
+    title: "Insights & Resources | Essayons Change",
+    description:
+      "Practical guidance and research on change execution, adoption risk, readiness, and why change initiatives fail. Written for leaders running real transformations.",
+    path: "/blog",
+  },
+  "/tutorials": {
+    title: "Tutorials | Essayons Change",
+    description:
+      "Step-by-step guides for running change initiatives with the Change Management Information System, from readiness surveys to stakeholder engagement.",
+    path: "/tutorials",
+  },
+  "/games": {
+    title: "Interactive Assessments & Learning | Essayons Change",
+    description:
+      "Assess your leadership readiness and change management style with free interactive tools, including the Leadership Readiness Quiz and Leadership Style Quiz.",
+    path: "/games",
+  },
+  "/offerings": {
+    title: "Offerings | Change Management Software & Advisory",
+    description:
+      "Explore the Change Management Information System, advisory services, and enterprise solutions for organizations running concurrent change initiatives.",
+    path: "/offerings",
+  },
+  "/pricing": {
+    title: "Pricing | Essayons Change",
+    description:
+      "Commercial and enterprise plans for the Change Management Information System. Find the tier that fits your organization's change portfolio.",
+    path: "/pricing",
+  },
+  "/contact": {
+    title: "Contact Essayons Change",
+    description:
+      "Talk with our team about making change measurable in your organization. Request a demo of the Change Management Information System.",
+    path: "/contact",
+  },
+  "/privacy": {
+    title: "Privacy Policy | Essayons Change",
+    description: "How Essayons Change collects, uses, and protects your information.",
+    path: "/privacy",
+  },
+  "/terms": {
+    title: "Terms of Use | Essayons Change",
+    description: "The terms governing use of the Essayons Change website and services.",
+    path: "/terms",
+  },
+};
+
+/** Routes that should never be indexed. */
+export const NOINDEX_PREFIXES = ["/admin", "/investor"];
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Trim to a clean length on a word boundary for meta descriptions. */
+export function truncate(text: string, max = 160): string {
+  const clean = text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 80 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.\s]+$/, "") + "…";
+}
+
+function organizationJsonLd(): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    legalName: "Essayons Change, LLC",
+    url: BASE_URL,
+    logo: DEFAULT_IMAGE,
+    description: DEFAULT_DESCRIPTION,
+    email: "psmith@essayonschange.com",
+    telephone: "+1-240-446-1093",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Emmitsburg",
+      addressRegion: "MD",
+      postalCode: "21727",
+      addressCountry: "US",
+    },
+    sameAs: ["https://www.linkedin.com/company/essayons-change/"],
+  });
+}
+
+function articleJsonLd(meta: PageMeta): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: meta.title,
+    description: meta.description,
+    url: `${BASE_URL}${meta.path}`,
+    ...(meta.publishedTime ? { datePublished: meta.publishedTime } : {}),
+    author: { "@type": "Organization", name: SITE_NAME },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: { "@type": "ImageObject", url: DEFAULT_IMAGE },
+    },
+  });
+}
+
+/**
+ * Rewrite the <title>/<meta> block of index.html for a specific route.
+ * Falls back to defaults so an unknown route still produces valid markup.
+ */
+export function injectMeta(html: string, meta: PageMeta, noindex = false): string {
+  const url = `${BASE_URL}${meta.path === "/" ? "/" : meta.path}`;
+  const image = meta.image || DEFAULT_IMAGE;
+  const type = meta.type || "website";
+
+  const title = escapeHtml(meta.title);
+  const description = escapeHtml(truncate(meta.description));
+
+  const tags = [
+    `<title>${title}</title>`,
+    `<meta name="description" content="${description}">`,
+    `<link rel="canonical" href="${url}">`,
+    noindex
+      ? `<meta name="robots" content="noindex, nofollow">`
+      : `<meta name="robots" content="index, follow, max-image-preview:large">`,
+    `<meta property="og:type" content="${type}">`,
+    `<meta property="og:site_name" content="${SITE_NAME}">`,
+    `<meta property="og:title" content="${title}">`,
+    `<meta property="og:description" content="${description}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:image" content="${image}">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:title" content="${title}">`,
+    `<meta name="twitter:description" content="${description}">`,
+    `<meta name="twitter:image" content="${image}">`,
+    meta.publishedTime
+      ? `<meta property="article:published_time" content="${escapeHtml(meta.publishedTime)}">`
+      : "",
+    `<script type="application/ld+json">${
+      type === "article" ? articleJsonLd(meta) : organizationJsonLd()
+    }</script>`,
+  ]
+    .filter(Boolean)
+    .join("\n    ");
+
+  // Remove the build-time title/description so they cannot duplicate.
+  let out = html
+    .replace(/<title>[\s\S]*?<\/title>/i, "")
+    .replace(/<meta\s+name=["']description["'][^>]*>/i, "");
+
+  // Insert immediately before </head> so tags win over anything earlier.
+  return out.replace(/<\/head>/i, `  ${tags}\n  </head>`);
+}
+
+/** Resolve metadata for a static route, or null if it is not a known static page. */
+export function getStaticMeta(pathname: string): PageMeta | null {
+  const normalized =
+    pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  return STATIC_META[normalized] || null;
+}
+
+export function isNoindexPath(pathname: string): boolean {
+  return NOINDEX_PREFIXES.some((p) => pathname.startsWith(p));
+}
+
+export { BASE_URL, SITE_NAME, DEFAULT_DESCRIPTION };
