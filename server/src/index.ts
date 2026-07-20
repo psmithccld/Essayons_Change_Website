@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -22,6 +23,16 @@ import { ObjectStorageService, ObjectNotFoundError } from '../objectStorage';
 import { ObjectPermission } from '../objectAcl';
 import { getUncachableSendGridClient } from '../sendgrid';
 import { z } from 'zod';
+import {
+  getStaticMeta,
+  isNoindexPath,
+  injectMeta,
+  truncate,
+  BASE_URL,
+  STATIC_META,
+  DEFAULT_DESCRIPTION,
+  type PageMeta,
+} from './seo';
 
 // Inline validation schema to avoid importing from shared/schema which requires Drizzle packages
 const insertContactMessageSchema = z.object({
@@ -449,12 +460,116 @@ app.get('/app', (_req, res) => {
 
 // Serve static client build when present (production)
 const clientDist = path.join(process.cwd(), '..', 'client', 'dist');
-app.use(express.static(clientDist));
-app.get('*', (req, res) => {
-  // In case the client dev server is used, we only serve index.html when dist exists.
-  res.sendFile(path.join(clientDist, 'index.html'), (err) => {
+
+// robots.txt - served before static/catch-all so it returns text, not the SPA shell
+app.get('/robots.txt', (_req, res) => {
+  res.type('text/plain').send(
+    [
+      'User-agent: *',
+      'Allow: /',
+      'Disallow: /admin',
+      'Disallow: /investor',
+      '',
+      `Sitemap: ${BASE_URL}/sitemap.xml`,
+      '',
+    ].join('\n')
+  );
+});
+
+// sitemap.xml - static routes plus published blog/tutorial content
+app.get('/sitemap.xml', async (_req, res) => {
+  try {
+    const urls: { loc: string; lastmod?: string; priority: string }[] = Object.values(
+      STATIC_META
+    ).map((m) => ({
+      loc: `${BASE_URL}${m.path}`,
+      priority: m.path === '/' ? '1.0' : '0.8',
+    }));
+
+    try {
+      const items = await storage.listContent(undefined, undefined);
+      for (const item of items.filter(isContentPublishable)) {
+        const prefix = item.type === 'tutorial' ? '/tutorials' : '/blog';
+        urls.push({
+          loc: `${BASE_URL}${prefix}/${item.slug}`,
+          lastmod: (item.updatedAt || item.publishedAt || undefined)?.toISOString?.().slice(0, 10),
+          priority: '0.7',
+        });
+      }
+    } catch (err) {
+      console.error('Sitemap content lookup failed:', err);
+    }
+
+    const body = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      ...urls.map(
+        (u) =>
+          `  <url><loc>${u.loc}</loc>${
+            u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''
+          }<priority>${u.priority}</priority></url>`
+      ),
+      '</urlset>',
+      '',
+    ].join('\n');
+
+    res.type('application/xml').send(body);
+  } catch (error) {
+    console.error('Sitemap error:', error);
+    res.status(500).type('text/plain').send('Sitemap unavailable');
+  }
+});
+
+app.use(express.static(clientDist, { index: false }));
+
+/** Build metadata for a blog/tutorial detail route from the database. */
+async function resolveContentMeta(pathname: string): Promise<PageMeta | null> {
+  const match = pathname.match(/^\/(blog|tutorials)\/([^/]+)$/);
+  if (!match) return null;
+
+  const [, section, slug] = match;
+  try {
+    const item = await storage.getContentBySlug(decodeURIComponent(slug));
+    if (!item || !isContentPublishable(item)) return null;
+
+    return {
+      title: `${item.title} | Essayons Change`,
+      description: truncate(item.summary || item.body || DEFAULT_DESCRIPTION),
+      path: `/${section}/${item.slug}`,
+      image: item.heroImageUrl || undefined,
+      type: 'article',
+      publishedTime: item.publishedAt ? new Date(item.publishedAt).toISOString() : undefined,
+    };
+  } catch (error) {
+    console.error('Content meta lookup failed:', error);
+    return null;
+  }
+}
+
+app.get('*', async (req, res) => {
+  const indexPath = path.join(clientDist, 'index.html');
+
+  fs.readFile(indexPath, 'utf8', async (err, html) => {
+    // If the build is absent (e.g. running the client dev server), fall back.
     if (err) {
-      res.status(404).send('Not found');
+      return res.status(404).send('Not found');
+    }
+
+    try {
+      const pathname = req.path;
+      const noindex = isNoindexPath(pathname);
+      const meta =
+        getStaticMeta(pathname) ||
+        (await resolveContentMeta(pathname)) || {
+          title: 'Essayons Change | Change Management Information System',
+          description: DEFAULT_DESCRIPTION,
+          path: pathname,
+        };
+
+      res.type('html').send(injectMeta(html, meta, noindex));
+    } catch (error) {
+      console.error('Meta injection failed:', error);
+      res.type('html').send(html);
     }
   });
 });
