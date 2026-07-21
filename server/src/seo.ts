@@ -30,9 +30,9 @@ const DEFAULT_DESCRIPTION =
  */
 export const STATIC_META: Record<string, PageMeta> = {
   "/": {
-    title: "Essayons Change | Change Management Information System",
+    title: "Change Management & Leadership Consulting | Essayons Change",
     description:
-      "Make organizational change measurable and predictable. Essayons Change connects readiness, communication, and execution in one system built on doctoral research.",
+      "Fractional change management, readiness assessments, and the CMIS platform for mid-market and PE-backed organizations. Serving Greater St. Louis and nationwide.",
     path: "/",
   },
   "/about": {
@@ -60,9 +60,9 @@ export const STATIC_META: Record<string, PageMeta> = {
     path: "/games",
   },
   "/offerings": {
-    title: "Offerings | Change Management Software & Advisory",
+    title: "Fractional Change Management & Consulting | Essayons Change",
     description:
-      "Explore the Change Management Information System, advisory services, and enterprise solutions for organizations running concurrent change initiatives.",
+      "Embedded change leadership without a full-time hire. Fractional engagements, change readiness assessments, and the CMIS system of record for organizational change.",
     path: "/offerings",
   },
   "/pricing": {
@@ -72,9 +72,9 @@ export const STATIC_META: Record<string, PageMeta> = {
     path: "/pricing",
   },
   "/contact": {
-    title: "Contact Essayons Change",
+    title: "Schedule a Consultation | Essayons Change",
     description:
-      "Talk with our team about making change measurable in your organization. Request a demo of the Change Management Information System.",
+      "Talk with a change management consultant about your organization's transformation. Serving the Greater St. Louis area, Northwest Indiana, Evansville, and nationwide.",
     path: "/contact",
   },
   "/privacy": {
