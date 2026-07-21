@@ -90,7 +90,7 @@ export default function About() {
                       Phil Smith, Ph.D., PMP
                     </h3>
                     <p className="text-lg text-muted-foreground" data-testid="text-team-member-phil-role">
-                      Founder & President
+                      Founder & Chief Executive Officer
                     </p>
                   </div>
                   <div className="space-y-3 text-muted-foreground">
