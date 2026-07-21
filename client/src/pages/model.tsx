@@ -290,8 +290,8 @@ export default function Model() {
           <h2 className="text-3xl font-bold tracking-tight">Where does this framework come from?</h2>
           <p className="text-base text-muted-foreground">
             The model comes out of a phenomenological study of employee experiences during
-            disruptive organizational change in construction companies, conducted for a Doctor of
-            Management at National University. The research examined how integrated communication
+            disruptive organizational change in construction companies, conducted for a Ph.D. in
+            Organizational Leadership at National University. The research examined how integrated communication
             and organizational guidance through Commander's Intent shape employee experience and
             change acceptance.
           </p>
