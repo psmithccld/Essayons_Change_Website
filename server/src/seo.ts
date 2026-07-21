@@ -107,9 +107,9 @@ export const STATIC_META: Record<string, PageMeta> = {
     path: "/offerings",
   },
   "/pricing": {
-    title: "Pricing | Essayons Change",
+    title: "How Engagements Are Structured | Essayons Change",
     description:
-      "Commercial and enterprise plans for the Change Management Information System. Find the tier that fits your organization's change portfolio.",
+      "Fractional retainers, fixed-fee readiness assessments, and CMIS licensing. How we scope change management engagements and what shapes the cost.",
     path: "/pricing",
   },
   "/contact": {
