@@ -112,21 +112,39 @@ export function truncate(text: string, max = 160): string {
 function organizationJsonLd(): string {
   return JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ProfessionalService",
     name: SITE_NAME,
-    legalName: "Essayons Change, LLC",
+    legalName: "Essayons Change Corp",
     url: BASE_URL,
     logo: DEFAULT_IMAGE,
+    image: DEFAULT_IMAGE,
     description: DEFAULT_DESCRIPTION,
     email: "psmith@essayonschange.com",
     telephone: "+1-240-446-1093",
+    priceRange: "$$$",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Emmitsburg",
-      addressRegion: "MD",
-      postalCode: "21727",
+      addressLocality: "Worden",
+      addressRegion: "IL",
       addressCountry: "US",
     },
+    // Metros served. Google uses areaServed to associate the practice with
+    // regional queries even without a storefront in each city.
+    areaServed: [
+      { "@type": "City", name: "St. Louis", address: { "@type": "PostalAddress", addressRegion: "MO", addressCountry: "US" } },
+      { "@type": "City", name: "Munster", address: { "@type": "PostalAddress", addressRegion: "IN", addressCountry: "US" } },
+      { "@type": "City", name: "Evansville", address: { "@type": "PostalAddress", addressRegion: "IN", addressCountry: "US" } },
+      { "@type": "Country", name: "United States" },
+    ],
+    knowsAbout: [
+      "Change Management",
+      "Organizational Change Management",
+      "Change Leadership",
+      "Leadership Development",
+      "Organizational Readiness",
+      "Stakeholder Engagement",
+      "Change Management Information System",
+    ],
     sameAs: ["https://www.linkedin.com/company/essayons-change/"],
   });
 }
