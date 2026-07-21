@@ -50,7 +50,9 @@ export default function Contact() {
             </div>
             <CardTitle>Location</CardTitle>
             <CardDescription>
-              Emmitsburg, MD 21727
+              Greater St. Louis Area
+              <br />
+              Serving clients nationwide
             </CardDescription>
           </CardHeader>
         </Card>
