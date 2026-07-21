@@ -476,6 +476,41 @@ app.get('/robots.txt', (_req, res) => {
   );
 });
 
+// llms.txt - guidance for AI crawlers and answer engines.
+// An emerging convention (llmstxt.org) describing the site in plain text.
+app.get('/llms.txt', (_req, res) => {
+  res.type('text/plain').send(
+    [
+      '# Essayons Change',
+      '',
+      '> A change management and leadership practice. We help mid-market and private equity-backed',
+      '> organizations plan, lead, and sustain organizational change using the Integrated Change',
+      '> Management Model (ICMM), a five-step framework grounded in doctoral research on employee',
+      '> experience during change.',
+      '',
+      '## Core concepts',
+      '',
+      `- [The Integrated Change Management Model](${BASE_URL}/model): The ICMM is a five-step change framework (identify the need, identify stakeholders, develop, implement, reinforce) that manages organizational and individual change simultaneously.`,
+      `- Lens of Experience: The accumulated weight of prior events every employee brings into a change before anything is communicated. Four components: past experience, existing conflict and group dynamics, trust, and the leader's own lens.`,
+      `- Commander's Intent vs Commander's Directive: A directive communicates task and method and produces compliance. An intent communicates end state and reason and produces understanding.`,
+      '',
+      '## Pages',
+      '',
+      `- [About](${BASE_URL}/about): Founder background and company origin.`,
+      `- [Offerings](${BASE_URL}/offerings): Fractional change management, change readiness assessments, and the CMIS platform.`,
+      `- [Insights](${BASE_URL}/blog): Articles on change execution, adoption risk, and why change initiatives fail.`,
+      `- [Contact](${BASE_URL}/contact): Schedule a consultation.`,
+      '',
+      '## Research',
+      '',
+      'Smith, P. R. (2026). Integrated Communication and Organizational Guidance in Construction:',
+      'A Phenomenological Study of Employee Experiences During Change (Order No. 32785526).',
+      'ProQuest Dissertations & Theses Global.',
+      '',
+    ].join('\n')
+  );
+});
+
 // sitemap.xml - static routes plus published blog/tutorial content
 app.get('/sitemap.xml', async (_req, res) => {
   try {
@@ -483,7 +518,7 @@ app.get('/sitemap.xml', async (_req, res) => {
       STATIC_META
     ).map((m) => ({
       loc: `${BASE_URL}${m.path}`,
-      priority: m.path === '/' ? '1.0' : '0.8',
+      priority: m.path === '/' ? '1.0' : m.path === '/model' ? '0.9' : '0.8',
     }));
 
     try {
