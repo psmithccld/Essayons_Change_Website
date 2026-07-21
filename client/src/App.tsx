@@ -13,6 +13,7 @@ import Tutorials from "@/pages/tutorials";
 import Contact from "@/pages/contact";
 import Games from "@/pages/games";
 import Offerings from "@/pages/offerings";
+import Model from "@/pages/model";
 import Privacy from "@/pages/privacy";
 import Investor from "@/pages/investor";
 import Terms from "@/pages/terms";
@@ -49,6 +50,7 @@ function Router() {
                 </Route>
                 <Route path="/contact" component={Contact} />
                 <Route path="/games" component={Games} />
+                <Route path="/model" component={Model} />
                 <Route path="/offerings" component={Offerings} />
                 <Route path="/pricing" component={Pricing} />
                 <Route path="/privacy" component={Privacy} />
