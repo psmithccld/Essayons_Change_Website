@@ -1,6 +1,8 @@
 import ContactForm from "@/components/ContactForm";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, CalendarCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CONSULTATION_URL } from "@/lib/booking";
 
 export default function Contact() {
   return (
@@ -10,8 +12,17 @@ export default function Contact() {
           Contact Us
         </h1>
         <p className="text-lg text-muted-foreground">
-          Have questions about our Change Management Information System? We're here to help.
+          Tell us about the change you are working through. The fastest way to start is a
+          30-minute introductory call.
         </p>
+        <div className="pt-2">
+          <Button size="lg" className="gap-2" asChild data-testid="button-contact-consultation">
+            <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
+              <CalendarCheck className="w-4 h-4" />
+              Schedule a Consultation
+            </a>
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3 max-w-6xl mx-auto">
