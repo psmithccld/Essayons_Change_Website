@@ -87,15 +87,15 @@ export default function About() {
                 <div className="flex-1 space-y-4">
                   <div>
                     <h3 className="text-2xl font-bold" data-testid="text-team-member-phil-name">
-                      Phil Smith, PMP, Ph.D. Candidate
+                      Phil Smith, Ph.D., PMP
                     </h3>
                     <p className="text-lg text-muted-foreground" data-testid="text-team-member-phil-role">
-                      Founder & President
+                      Founder & Chief Executive Officer
                     </p>
                   </div>
                   <div className="space-y-3 text-muted-foreground">
                     <p>
-                      Phil Smith is a leadership consultant, educator, and doctoral researcher focused on organizational readiness for change. A U.S. Army veteran with over 20 years of experience in project and organizational leadership, he brings a unique perspective that integrates military precision, academic research, and practical management application.
+                      Phil Smith is a leadership consultant, educator, and organizational researcher focused on readiness for change. He holds a Ph.D. in Organizational Leadership, and his published dissertation examined how communication and organizational guidance shape employee experience during disruptive change in construction. A U.S. Army veteran with over 20 years of experience in project and organizational leadership, he brings a perspective that integrates military precision, academic research, and practical management application.
                     </p>
                     <p>
                       His work bridges theory and practice, developing frameworks and systems that help leaders design, measure, and sustain transformational change.
