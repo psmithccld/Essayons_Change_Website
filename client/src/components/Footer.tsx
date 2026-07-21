@@ -12,10 +12,11 @@ export default function Footer() {
               <img src={logoImage} alt="Essayons Change logo" className="h-10 object-contain" />
             </div>
             <div className="mt-4 text-sm font-medium">
-              Essayons Change, LLC
+              Essayons Change Corp
             </div>
             <div className="mt-2 text-sm text-muted-foreground">
-              <div>Emmitsburg, MD 21727</div>
+              <div>Greater St. Louis Area</div>
+              <div>Serving St. Louis, MO &middot; Munster, IN &middot; Evansville, IN</div>
               <div className="mt-2">psmith@essayonschange.com</div>
               <div>240-446-1093</div>
             </div>
@@ -67,7 +68,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-6 border-t pt-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Essayons Change LLC. All rights reserved.
+          © {new Date().getFullYear()} Essayons Change Corp. All rights reserved.
         </div>
       </div>
     </footer>
