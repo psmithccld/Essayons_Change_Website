@@ -4,12 +4,12 @@ export default function Privacy() {
       <h1 className="text-4xl font-bold mb-2" data-testid="text-privacy-title">Privacy Policy</h1>
       <p className="text-sm text-muted-foreground mb-8">
         Effective Date: October 27, 2025<br />
-        Last Updated: October 27, 2025
+        Last Updated: July 21, 2026
       </p>
 
       <div className="prose prose-slate max-w-none space-y-6">
         <p>
-          Essayons Change LLC ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. 
+          Essayons Change Corp ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. 
           This Privacy Policy explains how we collect, use, disclose, and safeguard information when you visit our website 
           www.essayonschange.com, use our services, or interact with our content.
         </p>
@@ -130,7 +130,9 @@ export default function Privacy() {
           <h2 className="text-2xl font-semibold mb-4">11. Contact Us</h2>
           <p>If you have questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
           <div className="mt-4 pl-4 border-l-4 border-primary">
-            <p className="font-semibold">Essayons Change LLC</p>
+            <p className="font-semibold">Essayons Change Corp</p>
+            <p>A Delaware corporation</p>
+            <p>Greater St. Louis Area</p>
             <p>Email: <a href="mailto:psmith@essayonschange.com" className="text-primary hover:underline">psmith@essayonschange.com</a></p>
             <p>Website: <a href="https://www.essayonschange.com" className="text-primary hover:underline">www.essayonschange.com</a></p>
           </div>
@@ -139,3 +141,4 @@ export default function Privacy() {
     </div>
   );
 }
+
