@@ -8,6 +8,7 @@ import { gtag } from "@/lib/gtag";
 const navItems = [
   { path: "/", label: "Home" },
   { path: "/about", label: "About" },
+  { path: "/model", label: "The Model" },
   { path: "/blog", label: "Blog" },
   { path: "/tutorials", label: "Tutorials" },
   { path: "/games", label: "Learning" },
