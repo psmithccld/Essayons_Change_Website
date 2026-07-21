@@ -332,7 +332,7 @@ export default function Investor() {
             <Card>
               <CardContent className="pt-6 space-y-2">
                 <div className="font-semibold text-xl text-foreground">Phil Smith</div>
-                <div className="text-sm text-primary font-medium">Founder & CEO · PMP | PhD Candidate, Organizational Leadership</div>
+                <div className="text-sm text-primary font-medium">Founder & CEO · Ph.D., PMP</div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Enterprise operator who designed and built CMIS from doctoral research in organizational leadership and change implementation science. Owns product, architecture, and founder-led sales.
                 </p>
@@ -376,7 +376,7 @@ export default function Investor() {
             </Button>
           </div>
           <p className="text-sm text-primary-foreground/60 pt-2">
-            psmith@essayonschange.com · Phil Smith, PMP · 240-446-1093
+            psmith@essayonschange.com · Phil Smith, Ph.D., PMP · 240-446-1093
           </p>
         </section>
 
