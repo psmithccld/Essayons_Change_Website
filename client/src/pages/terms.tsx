@@ -6,12 +6,12 @@ export default function Terms() {
       <h1 className="text-4xl font-bold mb-2" data-testid="text-terms-title">Terms of Use</h1>
       <p className="text-sm text-muted-foreground mb-8">
         Effective Date: October 27, 2025<br />
-        Last Updated: October 27, 2025
+        Last Updated: July 21, 2026
       </p>
 
       <div className="prose prose-slate max-w-none space-y-6">
         <p>
-          Welcome to Essayons Change LLC ("Essayons Change," "we," "our," or "us").
+          Welcome to Essayons Change Corp ("Essayons Change," "we," "our," or "us").
         </p>
         <p>
           These Terms of Use ("Terms") govern your access to and use of our website www.essayonschange.com, 
@@ -37,16 +37,16 @@ export default function Terms() {
           <h2 className="text-2xl font-semibold mb-4">2. Intellectual Property Rights</h2>
           <p>
             All content, materials, and intellectual property on this site and within CMIS (including but not limited to text,
-            graphics, logos, icons, software code, digital products, videos, and publications) are the property of Essayons Change LLC
+            graphics, logos, icons, software code, digital products, videos, and publications) are the property of Essayons Change Corp
             or its licensors and are protected by copyright, trademark, and other laws.
           </p>
           <p className="mt-4">You may view, download, or print materials for personal, non-commercial use only.</p>
           <p className="mt-4">
             You may not modify, distribute, reproduce, sell, or create derivative works from any material without express written 
-            consent from Essayons Change LLC.
+            consent from Essayons Change Corp.
           </p>
           <p className="mt-4">
-            "Essayons Change," "CMIS," and the Essayons Change logo are trademarks of Essayons Change LLC. Unauthorized use is prohibited.
+            "Essayons Change," "CMIS," and the Essayons Change logo are trademarks of Essayons Change Corp. Unauthorized use is prohibited.
           </p>
         </section>
 
@@ -61,7 +61,7 @@ export default function Terms() {
             Users should consult qualified professionals before making decisions based on the information provided.
           </p>
           <p className="mt-4">
-            Essayons Change LLC assumes no responsibility for actions taken in reliance on the information contained on this 
+            Essayons Change Corp assumes no responsibility for actions taken in reliance on the information contained on this 
             site or through the Services.
           </p>
         </section>
@@ -88,7 +88,7 @@ export default function Terms() {
             provide accurate payment information and comply with any applicable payment terms.
           </p>
           <p className="mt-4">
-            Payments are processed securely by third-party providers (e.g., Stripe, PayPal). Essayons Change LLC does not 
+            Payments are processed securely by third-party providers (e.g., Stripe, PayPal). Essayons Change Corp does not 
             store credit card details.
           </p>
           <p className="mt-4">Refunds, if applicable, will be handled according to the terms provided at the point of purchase.</p>
@@ -111,7 +111,7 @@ export default function Terms() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">7. External Links</h2>
           <p>
-            Our website may contain links to third-party websites or resources. Essayons Change LLC has no control over, 
+            Our website may contain links to third-party websites or resources. Essayons Change Corp has no control over, 
             and assumes no responsibility for, the content, privacy policies, or practices of any third-party sites.
           </p>
           <p className="mt-4">Links are provided for convenience and do not imply endorsement.</p>
@@ -122,7 +122,7 @@ export default function Terms() {
           <p>To the fullest extent permitted by law:</p>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              Essayons Change LLC and its affiliates shall not be liable for any indirect, incidental, consequential, or 
+              Essayons Change Corp and its affiliates shall not be liable for any indirect, incidental, consequential, or 
               punitive damages arising from your use or inability to use the Services.
             </li>
             <li>
@@ -139,7 +139,7 @@ export default function Terms() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">9. Indemnification</h2>
           <p>
-            You agree to defend, indemnify, and hold harmless Essayons Change LLC, its affiliates, officers, employees, and partners 
+            You agree to defend, indemnify, and hold harmless Essayons Change Corp, its affiliates, officers, employees, and partners 
             from any claims, damages, losses, or expenses arising from your violation of these Terms or misuse of the Services.
           </p>
         </section>
@@ -158,11 +158,17 @@ export default function Terms() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">11. Governing Law</h2>
           <p>
-            These Terms are governed by and construed in accordance with the laws of the State of Maryland, without regard to 
-            conflict-of-law principles.
+            These Terms are governed by and construed in accordance with the laws of the State of Delaware, without regard to
+            conflict-of-law principles. Essayons Change Corp is incorporated in the State of Delaware.
           </p>
           <p className="mt-4">
-            You agree to submit to the exclusive jurisdiction of courts located in that state for any disputes arising under these Terms.
+            You agree to submit to the exclusive jurisdiction of the state and federal courts located in Delaware for any disputes
+            arising under these Terms.
+          </p>
+          <p className="mt-4">
+            Nothing in this section limits any mandatory consumer protection rights you may have under the laws of your state or
+            country of residence. If you are a consumer and the law of your jurisdiction provides rights that cannot be waived by
+            agreement, those rights continue to apply and this section is applied only to the extent permitted by that law.
           </p>
         </section>
 
@@ -178,7 +184,9 @@ export default function Terms() {
           <h2 className="text-2xl font-semibold mb-4">13. Contact Us</h2>
           <p>If you have questions or concerns about these Terms or the Services, contact us at:</p>
           <div className="mt-4 pl-4 border-l-4 border-primary">
-            <p className="font-semibold">Essayons Change LLC</p>
+            <p className="font-semibold">Essayons Change Corp</p>
+            <p>A Delaware corporation</p>
+            <p>Greater St. Louis Area</p>
             <p>Email: <a href="mailto:psmith@essayonschange.com" className="text-primary hover:underline">psmith@essayonschange.com</a></p>
             <p>Website: <a href="https://www.essayonschange.com" className="text-primary hover:underline">www.essayonschange.com</a></p>
           </div>
