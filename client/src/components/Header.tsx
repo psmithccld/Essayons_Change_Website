@@ -13,7 +13,7 @@ const navItems = [
   { path: "/tutorials", label: "Tutorials" },
   { path: "/games", label: "Learning" },
   { path: "/offerings", label: "Offerings" },
-  { path: "/pricing", label: "Pricing" },
+  { path: "/pricing", label: "Engagements" },
   { path: "/contact", label: "Contact" },
 ];
 
