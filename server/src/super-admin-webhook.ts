@@ -98,7 +98,10 @@ router.post('/content', validateSignature, async (req, res) => {
       const contentType = entity === 'blog_post' ? 'blog' : 'video';
 
       if (action === 'create') {
-        const created = await storage.createContent({ ...data, type: contentType });
+        // Drop the sender's own primary key (a UUID); this table assigns its
+        // own auto-increment serial id.
+        const { id: _dropId, ...createFields } = data;
+        const created = await storage.createContent({ ...createFields, type: contentType });
         console.log(`[WEBHOOK] Created ${entity}: ${created.id}`);
         return res.json({ success: true, id: created.id });
       }
@@ -112,8 +115,20 @@ router.post('/content', validateSignature, async (req, res) => {
           ? await storage.getContentById(identifier)
           : await storage.getContentBySlug(identifier);
 
+        // Upsert semantics: a "push" of a post that has never reached the
+        // website should create it rather than fail. This makes Push idempotent
+        // (create on first push, update thereafter) without the sender having
+        // to track per-record push state.
+        //
+        // The sender's `id` is its own primary key (a UUID) and must not be
+        // written into this table, whose `id` is a local auto-increment serial.
+        // We drop it and let the website assign its own id; `slug` is the stable
+        // cross-system key used to match on subsequent pushes.
         if (!existing) {
-          return res.status(404).json({ error: `${entity} not found` });
+          const { id: _dropId, ...createFields } = data;
+          const created = await storage.createContent({ ...createFields, type: contentType });
+          console.log(`[WEBHOOK] Created (via update upsert) ${entity}: ${created.id}`);
+          return res.json({ success: true, id: created.id, created: true });
         }
 
         const { id: _id, slug: _slug, ...updates } = data;
