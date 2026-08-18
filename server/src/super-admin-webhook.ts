@@ -155,26 +155,29 @@ router.post('/content', validateSignature, async (req, res) => {
       }
 
       if (action === 'update') {
-        const identifier = data.id || data.slug;
-        if (!identifier) {
-          return res.status(400).json({ error: 'data.id or data.slug required for update' });
+        // Match existing records by slug, the stable cross-system key. The
+        // sender's numeric-less UUID `id` is its own primary key and does NOT
+        // correspond to this table's serial id, so we must not look up by it.
+        // (A previous version did `data.id || data.slug`, which always used the
+        // UUID and therefore never matched, causing every update to fall into
+        // the create branch and collide on the unique slug constraint.)
+        const slug = typeof data.slug === 'string' ? data.slug : undefined;
+        const numericId = typeof data.id === 'number' ? data.id : undefined;
+
+        if (!slug && numericId === undefined) {
+          return res.status(400).json({ error: 'data.slug (or numeric data.id) required for update' });
         }
-        const existing = typeof identifier === 'number'
-          ? await storage.getContentById(identifier)
-          : await storage.getContentBySlug(identifier);
+
+        const existing = numericId !== undefined
+          ? await storage.getContentById(numericId)
+          : await storage.getContentBySlug(slug as string);
 
         // Upsert semantics: a "push" of a post that has never reached the
-        // website should create it rather than fail. This makes Push idempotent
-        // (create on first push, update thereafter) without the sender having
-        // to track per-record push state.
-        //
-        // The sender's `id` is its own primary key (a UUID) and must not be
-        // written into this table, whose `id` is a local auto-increment serial.
-        // We drop it and let the website assign its own id; `slug` is the stable
-        // cross-system key used to match on subsequent pushes.
+        // website creates it; a push of one that already exists updates it in
+        // place. This makes Push idempotent and safe to re-run.
         if (!existing) {
           const created = await storage.createContent(mapContentFields(data, contentType));
-          console.log(`[WEBHOOK] Created (via update upsert) ${entity}: ${created.id}`);
+          console.log(`[WEBHOOK] Created (via upsert) ${entity}: ${created.id}`);
           return res.json({ success: true, id: created.id, created: true });
         }
 
@@ -185,13 +188,17 @@ router.post('/content', validateSignature, async (req, res) => {
       }
 
       if (action === 'delete') {
-        const identifier = data.id || data.slug;
-        if (!identifier) {
-          return res.status(400).json({ error: 'data.id or data.slug required for delete' });
+        // Match by slug (or numeric id), same as update — not the sender UUID.
+        const slug = typeof data.slug === 'string' ? data.slug : undefined;
+        const numericId = typeof data.id === 'number' ? data.id : undefined;
+
+        if (!slug && numericId === undefined) {
+          return res.status(400).json({ error: 'data.slug (or numeric data.id) required for delete' });
         }
-        const existing = typeof identifier === 'number'
-          ? await storage.getContentById(identifier)
-          : await storage.getContentBySlug(identifier);
+
+        const existing = numericId !== undefined
+          ? await storage.getContentById(numericId)
+          : await storage.getContentBySlug(slug as string);
 
         if (!existing) {
           return res.status(404).json({ error: `${entity} not found` });
