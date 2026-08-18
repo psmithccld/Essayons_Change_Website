@@ -26,7 +26,15 @@ function validateSignature(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ error: 'Missing x-super-admin-signature header' });
   }
 
-  const rawBody = req.body as Buffer;
+  const rawBody = req.body;
+  // Guard: the raw-body parser must have produced a Buffer. If some upstream
+  // middleware parsed the body first, fail cleanly instead of throwing an
+  // unhandled TypeError (which surfaces as an opaque HTML 500).
+  if (!Buffer.isBuffer(rawBody)) {
+    console.error('[WEBHOOK] Expected raw Buffer body but received', typeof rawBody);
+    return res.status(500).json({ error: 'Webhook body was not received as a raw buffer' });
+  }
+
   const expected = crypto
     .createHmac('sha256', secret)
     .update(rawBody)
