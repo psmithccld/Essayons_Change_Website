@@ -78,6 +78,57 @@ router.get('/health', (_req, res) => {
 });
 
 // ---------------------------------------------------------------------------
+// Map an incoming content record (from the app's Super Admin) onto the columns
+// this website's `content` table actually has.
+//
+// The sender and this site use different field names and types:
+//   - sender `excerpt`          -> website `summary`
+//   - sender `featuredImageUrl` -> website `heroImageUrl`
+//   - sender `publishDate`      -> website `publishedAt`   (string -> Date)
+//   - sender `type: "blog_post"`-> website `type: "blog"`  (handled by caller)
+// Fields the website has no column for (tags, youtubeEmbedId, websiteContentId,
+// lastPushedAt, the sender's own id/createdAt/updatedAt) are dropped. Timestamp
+// values arrive as ISO strings and must be Date objects for Drizzle, otherwise
+// it throws "value.toISOString is not a function".
+// ---------------------------------------------------------------------------
+function toDate(value: unknown): Date | undefined {
+  if (!value) return undefined;
+  if (value instanceof Date) return value;
+  if (typeof value === 'string' || typeof value === 'number') {
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? undefined : d;
+  }
+  return undefined;
+}
+
+function mapContentFields(
+  data: Record<string, any>,
+  contentType: 'blog' | 'video',
+): Record<string, any> {
+  const mapped: Record<string, any> = {
+    type: contentType,
+    title: data.title,
+    slug: data.slug,
+    body: data.body,
+    summary: data.summary ?? data.excerpt ?? null,
+    status: data.status ?? 'published',
+    heroImageUrl: data.heroImageUrl ?? data.featuredImageUrl ?? null,
+  };
+
+  const publishedAt = toDate(data.publishedAt ?? data.publishDate);
+  if (publishedAt) mapped.publishedAt = publishedAt;
+
+  const scheduledPublishAt = toDate(data.scheduledPublishAt ?? data.scheduledPublishDate);
+  if (scheduledPublishAt) mapped.scheduledPublishAt = scheduledPublishAt;
+
+  // Drop keys that ended up undefined so DB defaults apply.
+  for (const key of Object.keys(mapped)) {
+    if (mapped[key] === undefined) delete mapped[key];
+  }
+  return mapped;
+}
+
+// ---------------------------------------------------------------------------
 // POST /webhook/content
 // Payload: { action: 'create'|'update'|'delete', entity: 'blog_post'|'video'|'website_card', data: {...} }
 // ---------------------------------------------------------------------------
@@ -98,10 +149,7 @@ router.post('/content', validateSignature, async (req, res) => {
       const contentType = entity === 'blog_post' ? 'blog' : 'video';
 
       if (action === 'create') {
-        // Drop the sender's own primary key (a UUID); this table assigns its
-        // own auto-increment serial id.
-        const { id: _dropId, ...createFields } = data;
-        const created = await storage.createContent({ ...createFields, type: contentType });
+        const created = await storage.createContent(mapContentFields(data, contentType));
         console.log(`[WEBHOOK] Created ${entity}: ${created.id}`);
         return res.json({ success: true, id: created.id });
       }
@@ -125,13 +173,12 @@ router.post('/content', validateSignature, async (req, res) => {
         // We drop it and let the website assign its own id; `slug` is the stable
         // cross-system key used to match on subsequent pushes.
         if (!existing) {
-          const { id: _dropId, ...createFields } = data;
-          const created = await storage.createContent({ ...createFields, type: contentType });
+          const created = await storage.createContent(mapContentFields(data, contentType));
           console.log(`[WEBHOOK] Created (via update upsert) ${entity}: ${created.id}`);
           return res.json({ success: true, id: created.id, created: true });
         }
 
-        const { id: _id, slug: _slug, ...updates } = data;
+        const updates = mapContentFields(data, contentType);
         const updated = await storage.updateContent(existing.id, updates);
         console.log(`[WEBHOOK] Updated ${entity}: ${existing.id}`);
         return res.json({ success: true, id: existing.id, updated });
