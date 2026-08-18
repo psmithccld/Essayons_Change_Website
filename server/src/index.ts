@@ -96,7 +96,14 @@ app.use(cors({
   origin: true,
   credentials: true,
 }));
-app.use(express.json());
+// Skip global JSON parsing for the super-admin webhook: it needs the raw body
+// buffer for HMAC signature verification, which its own router-level
+// express.raw() provides. Parsing here first would consume the stream and
+// leave the raw parser with nothing, breaking signature checks.
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/super-admin/webhook')) return next();
+  return express.json()(req, res, next);
+});
 app.use(cookieParser());
 
 // Configure session store - use PostgreSQL in production, memory in development
