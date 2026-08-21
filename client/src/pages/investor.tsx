@@ -22,10 +22,9 @@ const differentiators = [
 ];
 
 const fundingUses = [
-  { category: "Product & Platform", percentage: "40%", description: "Platform hardening and enterprise scalability for early customers." },
-  { category: "Go-to-Market", percentage: "30%", description: "Founder-led PE outreach and acquisition of 12–15 paying logos." },
-  { category: "Team & Operations", percentage: "20%", description: "Key hires in customer success and engineering." },
-  { category: "Market Education", percentage: "10%", description: "Category positioning and advisory firm partnerships." },
+  { category: "Marketing", percentage: "55%", description: "Demand generation, category education, and pipeline development to reach $600K contracted ARR." },
+  { category: "Product Support & Operations", percentage: "25%", description: "Platform hardening, enterprise readiness, and customer success for early customers." },
+  { category: "Founder-Led Commercialization", percentage: "20%", description: "Founder-led selling, partner enablement, and lean core operations." },
 ];
 
 export default function Investor() {
@@ -81,8 +80,8 @@ export default function Investor() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { value: "$120B", label: "Total Addressable Market" },
-              { value: "70%", label: "Change Initiatives That Fail" },
-              { value: "$2–3T", label: "Enterprise Value at Risk Annually" },
+              { value: "Live", label: "Production-Ready Platform" },
+              { value: "1", label: "Founding Partner Signed" },
               { value: "$20M", label: "ARR Target (3–5 Year)" },
             ].map((stat) => (
               <div key={stat.label} className="text-center space-y-1">
@@ -102,20 +101,24 @@ export default function Investor() {
             <div className="space-y-5">
               <div className="inline-block text-xs font-semibold uppercase tracking-widest text-primary">The Problem</div>
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                Change Fails at the Execution Layer
+                Adoption Risk Is Visible Too Late
               </h2>
               <p className="text-base text-muted-foreground leading-relaxed">
-                Organizations spend $3–4 trillion annually on transformation and lose $2–3 trillion of that to execution failure.
-                Leaders lack real-time visibility into adoption risk. Teams lack timely guidance. And the tools they use —
-                project software, spreadsheets, static frameworks — were never built to manage human adoption.
+                Organizations have systems for financial transactions, projects, and people. The human execution of change
+                is still managed through spreadsheets, email, meetings, and slide decks. Leadership decisions are not
+                consistently translated into role-level guidance, and readiness, resistance, and adoption signals stay
+                fragmented or anecdotal until schedules, costs, or value-creation milestones have already slipped.
+              </p>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                The issue is not the absence of strategy. It is the absence of timely change-execution intelligence.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 pt-2">
               {[
-                { label: "Annual global transformation spend", value: "$3–4 Trillion" },
-                { label: "Annual change support tool spend", value: "$80–120 Billion" },
-                { label: "Initiatives failing to meet objectives", value: "~70%" },
-                { label: "Enterprise value at risk annually", value: "$2–3 Trillion" },
+                { label: "Project systems own tasks, owners, and dates", value: "Not adoption" },
+                { label: "HR systems own people and org records", value: "Not readiness" },
+                { label: "Methodologies provide guidance and advisory support", value: "Not a record" },
+                { label: "System of record for change execution", value: "Missing" },
               ].map((item) => (
                 <Card key={item.label} className="border-border">
                   <CardContent className="pt-4 pb-4 flex items-center justify-between">
@@ -132,7 +135,7 @@ export default function Investor() {
             {[
               { label: "TAM", value: "$120B", desc: "Global enterprise transformation & change support spend." },
               { label: "SAM", value: "$20B", desc: "Mid-market & PE-backed organizations with the highest execution risk and clearest ROI for CMIS." },
-              { label: "SOM", value: "$20M ARR", desc: "3–5 year beachhead via PE portfolio expansion — 140–180 customers at $15K blended ACV." },
+              { label: "SOM", value: "$20M ARR", desc: "3–5 year obtainable segment via mid-market and PE portfolio expansion at $15K blended ACV." },
             ].map((item) => (
               <Card key={item.label} className="bg-primary/5 border-primary/20">
                 <CardContent className="pt-6 space-y-2">
@@ -150,7 +153,7 @@ export default function Investor() {
           <div className="space-y-4 max-w-3xl">
             <div className="inline-block text-xs font-semibold uppercase tracking-widest text-primary">The Solution</div>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              CMIS — Change Management Intelligence System
+              CMIS — Change Management Information System
             </h2>
             <p className="text-base text-muted-foreground leading-relaxed">
               CMIS is the system of record for organizational change execution — identifying adoption risk before value is lost,
@@ -178,9 +181,9 @@ export default function Investor() {
           <div className="grid gap-6 md:grid-cols-3">
             <Card className="border-primary/30 bg-primary/5">
               <CardContent className="pt-6 space-y-1">
-                <div className="text-xs font-semibold uppercase tracking-widest text-primary">Platform Status</div>
-                <div className="font-semibold text-foreground">Live & Production-Ready</div>
-                <p className="text-sm text-muted-foreground">Built, tested, and stable. Actively used to manage our own launch.</p>
+                <div className="text-xs font-semibold uppercase tracking-widest text-primary">Platform & Traction</div>
+                <div className="font-semibold text-foreground">Live · First Partner Signed</div>
+                <p className="text-sm text-muted-foreground">Built, tested, and stable. First Founding Partner agreement signed, with the Partner Program and deal registration live.</p>
               </CardContent>
             </Card>
             <Card className="border-primary/30 bg-primary/5">
@@ -194,45 +197,24 @@ export default function Investor() {
               <CardContent className="pt-6 space-y-1">
                 <div className="text-xs font-semibold uppercase tracking-widest text-primary">Revenue Model</div>
                 <div className="font-semibold text-foreground">$15K Blended ACV · 75–80% GM</div>
-                <p className="text-sm text-muted-foreground">Annual contracts. Founding Member program: 15 seats, $12–18K, targeting 12–15 logos in year one.</p>
+                <p className="text-sm text-muted-foreground">Commercial $12–18K annual contracts. Enterprise $50K–$750K. Partner channel at 25–35% first-year and 15% renewal commission, with EC owning the customer contract.</p>
               </CardContent>
             </Card>
           </div>
         </section>
 
         {/* Go-to-Market */}
-        <section className="grid gap-12 lg:grid-cols-2 items-center">
-          <div className="space-y-5">
-            <div className="inline-block text-xs font-semibold uppercase tracking-widest text-primary">Go-to-Market</div>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              PE Relationships as the Growth Engine
-            </h2>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              One PE firm relationship opens portfolio-wide deployment across dozens of companies. Private equity
-              increasingly demands predictable execution to protect value creation — CMIS directly addresses that need.
-              Advisory firm partnerships serve as a secondary channel for accelerated market entry.
-            </p>
-          </div>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Year 1 Sales Funnel</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm text-muted-foreground">
-              <div className="grid grid-cols-3 gap-4 border-b border-border pb-4">
-                {[
-                  { label: "PE Portfolio Targets", value: "100" },
-                  { label: "Discovery Calls", value: "40" },
-                  { label: "Closed Customers", value: "10" },
-                ].map((m) => (
-                  <div key={m.label} className="text-center">
-                    <div className="text-2xl font-bold text-primary">{m.value}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{m.label}</div>
-                  </div>
-                ))}
-              </div>
-              <p>Target: 12–15 total logos in 12 months across PE and advisory channels.</p>
-            </CardContent>
-          </Card>
+        <section className="space-y-5 max-w-3xl">
+          <div className="inline-block text-xs font-semibold uppercase tracking-widest text-primary">Go-to-Market</div>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            Relationship-Led Now. Partner and Portfolio Leverage Next.
+          </h2>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            Near-term acquisition runs on warm introductions and pain-driven targeting around active organizational
+            change, converted through discovery conversations and live product demonstrations. Long-term leverage comes
+            from a certified Partner network, enterprise and divisional expansion, and private equity portfolio reach,
+            where one firm relationship opens deployment across multiple companies.
+          </p>
         </section>
 
         {/* Competitive Landscape */}
@@ -306,7 +288,9 @@ export default function Investor() {
             <div className="inline-block text-xs font-semibold uppercase tracking-widest text-primary">Use of Funds</div>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">$1,000,000 Seed Round</h2>
             <p className="text-base text-muted-foreground">
-              15 months of runway. Target: $175–225K MRR and 140–180 customers before a priced institutional round.
+              15-month commercialization plan: reach $600K contracted ARR, achieve self-sustaining core operations, and
+              build a repeatable direct and Partner GTM. Allocation reflects invested capital; founder salaries run lean
+              from close and shift to recurring gross profit as ARR scales.
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -359,6 +343,11 @@ export default function Investor() {
         {/* CTA */}
         <section className="bg-primary text-primary-foreground rounded-2xl p-10 md:p-16 text-center space-y-6">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Ready to Go Deeper?</h2>
+          <p className="text-base md:text-lg text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
+            $1M seed commercialization round. $9.8M pre-money target, priced equity, Regulation D Rule 506(c).
+            Seeking an anchor investor and strategic co-investors with B2B SaaS, enterprise GTM, private equity, or
+            worktech experience.
+          </p>
           <p className="text-base md:text-lg text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
             Access our full investor data room or schedule a conversation directly with our founder.
           </p>
