@@ -68,6 +68,12 @@ if (r2PublicDomain) {
 // Also allow R2 public dev URLs for uploads
 connectSrcDirectives.push("https://*.r2.dev");
 
+// Allow the marketing site to POST subscriber signups (games/quizzes, newsletter)
+// to the CMIS app. Without this, the browser's Content-Security-Policy blocks the
+// cross-origin fetch to the app domain and captures fail silently.
+const appUrlForCsp = APP_URL || 'https://app.essayonschange.com';
+connectSrcDirectives.push(appUrlForCsp);
+
 // Build img-src directives for displaying R2 images
 const imgSrcDirectives: string[] = ["'self'", "data:", "blob:"];
 if (r2AccountId) {
