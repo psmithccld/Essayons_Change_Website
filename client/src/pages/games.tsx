@@ -5,16 +5,12 @@ import { gtag } from "@/lib/gtag";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
 import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
 import LeadershipStyleQuiz from "@/components/LeadershipStyleQuiz";
-import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play, ClipboardCheck, Compass } from "lucide-react";
+import ChangeReadinessQuiz from "@/components/ChangeReadinessQuiz";
+import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play, ClipboardCheck, Compass, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const upcomingGames = [
-  {
-    icon: Gamepad2,
-    title: "Change Readiness Quiz",
-    description: "Interactive assessment to evaluate your organization's readiness for transformation and identify improvement areas.",
-  },
   {
     icon: Brain,
     title: "Leadership Scenarios",
@@ -42,7 +38,7 @@ const upcomingGames = [
   },
 ];
 
-type ActiveView = "list" | "board-game" | "quiz" | "style-quiz";
+type ActiveView = "list" | "board-game" | "quiz" | "style-quiz" | "change-readiness-quiz";
 
 interface PendingGame {
   view: ActiveView;
@@ -132,6 +128,22 @@ export default function Games() {
           Back to Games
         </Button>
         <LeadershipStyleQuiz />
+      </div>
+    );
+  }
+
+  if (activeView === "change-readiness-quiz") {
+    return (
+      <div className="container py-8">
+        <Button
+          variant="outline"
+          onClick={() => setActiveView("list")}
+          className="mb-4"
+          data-testid="button-back-to-games"
+        >
+          Back to Games
+        </Button>
+        <ChangeReadinessQuiz />
       </div>
     );
   }
@@ -263,6 +275,44 @@ export default function Games() {
               >
                 <Compass className="w-5 h-5" />
                 Discover Your Style
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
+                <Layers className="w-6 h-6" />
+                Change Readiness Quiz
+              </CardTitle>
+              <CardDescription>
+                Self-assessment based on the four pillars of the Essayons Change Method to evaluate your organization's readiness and find its most likely point of failure
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-sm">What You'll Discover:</h3>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Score four pillars: Lens of Experience, Trust, Stakeholder Clarity, and Intent</li>
+                  <li>See which pillar is your weakest before a change begins</li>
+                  <li>Get a full breakdown of what your results mean for your organization</li>
+                  <li>12 questions, 5 minutes to complete</li>
+                </ul>
+              </div>
+
+              <Button
+                onClick={() => openGate(
+                  "change-readiness-quiz",
+                  "Change Readiness Quiz",
+                  "Evaluate your organization's readiness across the four pillars of the Essayons Change Method.",
+                  "game_change_readiness_quiz"
+                )}
+                size="lg"
+                className="w-full gap-2"
+                data-testid="button-take-change-readiness-quiz"
+              >
+                <Layers className="w-5 h-5" />
+                Take Quiz
               </Button>
             </CardContent>
           </Card>
