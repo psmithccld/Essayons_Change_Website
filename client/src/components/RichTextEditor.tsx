@@ -8,7 +8,6 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
 import {
   Bold,
   Italic,
@@ -26,14 +25,11 @@ import {
   AlignRight,
   Link as LinkIcon,
   Image as ImageIcon,
-  Upload,
   Undo,
   Redo,
   Minus,
-  Loader2,
 } from 'lucide-react';
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { apiRequest } from '@/lib/queryClient';
+import { useState, useCallback, useEffect } from 'react';
 
 interface RichTextEditorProps {
   value: string;
@@ -48,10 +44,6 @@ export default function RichTextEditor({ value, onChange, placeholder, className
   const [showImageInput, setShowImageInput] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [imageAlt, setImageAlt] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadError, setUploadError] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
     extensions: [
@@ -98,12 +90,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
 
   const addLink = useCallback(() => {
     if (linkUrl && editor) {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange('link')
-        .setLink({ href: linkUrl })
-        .run();
+      editor.chain().focus().extendMarkRange('link').setLink({ href: linkUrl }).run();
       setLinkUrl('');
       setShowLinkInput(false);
     }
@@ -123,84 +110,6 @@ export default function RichTextEditor({ value, onChange, placeholder, className
       setShowImageInput(false);
     }
   }, [editor, imageUrl, imageAlt]);
-
-  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || !editor) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      setUploadError('Only image files are allowed');
-      return;
-    }
-
-    // Validate file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      setUploadError('File size must be less than 10MB');
-      return;
-    }
-
-    setIsUploading(true);
-    setUploadProgress(0);
-    setUploadError(null);
-
-    try {
-      // Step 1: Get presigned URL from server
-      setUploadProgress(10);
-      const response = await apiRequest('POST', '/api/admin/upload/presigned-url', {
-        filename: file.name,
-        contentType: file.type,
-        fileSize: file.size,
-      });
-
-      const data = await response.json() as { presignedUrl: string; publicUrl: string };
-      const { presignedUrl, publicUrl } = data;
-
-      // Step 2: Upload file directly to R2
-      setUploadProgress(30);
-      console.log('[Upload] Uploading to presigned URL:', presignedUrl.substring(0, 100) + '...');
-      
-      try {
-        const uploadResponse = await fetch(presignedUrl, {
-          method: 'PUT',
-          body: file,
-          headers: {
-            'Content-Type': file.type,
-          },
-        });
-
-        if (!uploadResponse.ok) {
-          const errorText = await uploadResponse.text();
-          console.error('[Upload] R2 upload failed:', uploadResponse.status, errorText);
-          throw new Error(`Failed to upload file to storage: ${uploadResponse.status}`);
-        }
-        
-        console.log('[Upload] R2 upload successful');
-      } catch (uploadError) {
-        console.error('[Upload] R2 fetch error:', uploadError);
-        throw new Error('Failed to upload to storage. Please check R2 CORS configuration.');
-      }
-
-      setUploadProgress(90);
-
-      // Step 3: Insert image into editor
-      editor.chain().focus().setImage({ src: publicUrl, alt: file.name }).run();
-      
-      setUploadProgress(100);
-      setShowImageInput(false);
-      
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    } catch (error) {
-      console.error('Upload error:', error);
-      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
-    } finally {
-      setIsUploading(false);
-      setUploadProgress(0);
-    }
-  }, [editor]);
 
   if (!editor) {
     return null;
@@ -417,7 +326,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           variant="ghost"
           size="sm"
           onClick={() => setShowImageInput(!showImageInput)}
-          title="Insert Image"
+          title="Insert Image by URL"
           data-testid="button-insert-image"
         >
           <ImageIcon className="w-4 h-4" />
@@ -447,80 +356,33 @@ export default function RichTextEditor({ value, onChange, placeholder, className
 
       {showImageInput && (
         <div className="p-3 border-b bg-muted/30 space-y-3" data-testid="image-input-panel">
-          <div className="flex gap-4 items-start">
-            <div className="flex-1 space-y-2">
-              <Label className="text-sm font-medium">Upload from computer</Label>
-              <div className="flex gap-2 items-center">
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  data-testid="input-file-upload"
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isUploading}
-                  data-testid="button-upload-image"
-                >
-                  {isUploading ? (
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  ) : (
-                    <Upload className="w-4 h-4 mr-2" />
-                  )}
-                  {isUploading ? 'Uploading...' : 'Choose File'}
-                </Button>
-              </div>
-              {isUploading && (
-                <Progress value={uploadProgress} className="h-2" data-testid="upload-progress" />
-              )}
-              {uploadError && (
-                <p className="text-sm text-destructive" data-testid="upload-error">{uploadError}</p>
-              )}
-            </div>
-            
-            <div className="text-muted-foreground self-center">or</div>
-            
-            <div className="flex-1 space-y-2">
-              <Label className="text-sm font-medium">Insert from URL</Label>
-              <div className="flex gap-2 items-center">
-                <Input
-                  id="image-url"
-                  type="url"
-                  placeholder="https://example.com/image.jpg"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  className="flex-1"
-                  data-testid="input-inline-image-url"
-                />
-              </div>
-              <div className="flex gap-2 items-center">
-                <Input
-                  id="image-alt"
-                  type="text"
-                  placeholder="Alt text (optional)"
-                  value={imageAlt}
-                  onChange={(e) => setImageAlt(e.target.value)}
-                  className="flex-1"
-                  data-testid="input-inline-image-alt"
-                />
-                <Button type="button" size="sm" onClick={addImage} disabled={!imageUrl} data-testid="button-confirm-image">
-                  Insert
-                </Button>
-              </div>
-            </div>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Insert image from URL</Label>
+            <Input
+              id="image-url"
+              type="url"
+              placeholder="https://example.com/image.jpg"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              className="flex-1"
+              data-testid="input-inline-image-url"
+            />
+            <Input
+              id="image-alt"
+              type="text"
+              placeholder="Alt text (optional)"
+              value={imageAlt}
+              onChange={(e) => setImageAlt(e.target.value)}
+              className="flex-1"
+              data-testid="input-inline-image-alt"
+            />
           </div>
-          
-          <div className="flex justify-end">
-            <Button type="button" variant="ghost" size="sm" onClick={() => {
-              setShowImageInput(false);
-              setUploadError(null);
-            }} data-testid="button-cancel-image">
+          <div className="flex justify-end gap-2">
+            <Button type="button" variant="ghost" size="sm" onClick={() => setShowImageInput(false)} data-testid="button-cancel-image">
               Cancel
+            </Button>
+            <Button type="button" size="sm" onClick={addImage} disabled={!imageUrl} data-testid="button-confirm-image">
+              Insert
             </Button>
           </div>
         </div>
