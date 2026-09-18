@@ -20,7 +20,7 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Link href="/pricing">
+            <Link href="/offerings">
               <Button size="lg" data-testid="button-get-started">
                 Get Started with CMIS
               </Button>
