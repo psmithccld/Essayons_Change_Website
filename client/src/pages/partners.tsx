@@ -13,6 +13,7 @@ const partners = [
     company: "Roslen Global",
     logo: roslenLogo,
     email: "guillermo@roslenglobal.com",
+    website: "https://roslenglobal.com/",
     credential: "Essayons Change Certified Practitioner",
   },
 ];
@@ -49,12 +50,29 @@ export default function Partners() {
               <CardContent className="pt-6">
                 <div className="flex flex-col gap-6 items-center text-center">
                   <div className="flex h-32 items-center justify-center">
-                    <img
-                      src={partner.logo}
-                      alt={`${partner.company} logo`}
-                      className="max-h-32 w-auto object-contain"
-                      data-testid={`img-partner-logo-${partner.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    />
+                    {partner.website ? (
+                      <a
+                        href={partner.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-opacity hover:opacity-80"
+                        data-testid={`link-partner-website-${partner.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      >
+                        <img
+                          src={partner.logo}
+                          alt={`${partner.company} logo`}
+                          className="max-h-32 w-auto object-contain"
+                          data-testid={`img-partner-logo-${partner.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        src={partner.logo}
+                        alt={`${partner.company} logo`}
+                        className="max-h-32 w-auto object-contain"
+                        data-testid={`img-partner-logo-${partner.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      />
+                    )}
                   </div>
                   <div className="flex-1 space-y-3">
                     <div>
@@ -64,9 +82,20 @@ export default function Partners() {
                       >
                         {partner.name}
                       </h3>
-                      <p className="text-lg text-muted-foreground">
-                        {partner.company}
-                      </p>
+                      {partner.website ? (
+                        <a
+                          href={partner.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {partner.company}
+                        </a>
+                      ) : (
+                        <p className="text-lg text-muted-foreground">
+                          {partner.company}
+                        </p>
+                      )}
                     </div>
                     <div className="flex items-center justify-center gap-2 text-sm font-medium text-primary">
                       <BadgeCheck className="h-4 w-4" />
