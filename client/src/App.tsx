@@ -16,6 +16,7 @@ import Offerings from "@/pages/offerings";
 import Model from "@/pages/model";
 import Privacy from "@/pages/privacy";
 import Investor from "@/pages/investor";
+import Partners from "@/pages/partners";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
 import AdminLogin from "@/pages/admin-login";
@@ -52,6 +53,7 @@ function Router() {
                 <Route path="/games" component={Games} />
                 <Route path="/model" component={Model} />
                 <Route path="/offerings" component={Offerings} />
+                <Route path="/partners" component={Partners} />
                 <Route path="/pricing" component={Pricing} />
                 <Route path="/privacy" component={Privacy} />
                 <Route path="/terms" component={Terms} />
