@@ -106,6 +106,12 @@ export const STATIC_META: Record<string, PageMeta> = {
       "Embedded change leadership without a full-time hire. Fractional engagements, change readiness assessments, and the CMIS system of record for organizational change.",
     path: "/offerings",
   },
+  "/partners": {
+    title: "Certified Partners | Essayons Change",
+    description:
+      "Meet the certified practitioners delivering the Essayons Change methodology and CMIS platform, and learn how to become an Essayons Change Certified Practitioner.",
+    path: "/partners",
+  },
   "/pricing": {
     title: "How Engagements Are Structured | Essayons Change",
     description:
