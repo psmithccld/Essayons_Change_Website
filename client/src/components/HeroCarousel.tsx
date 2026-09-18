@@ -129,7 +129,7 @@ export default function HeroCarousel() {
               </p>
 
               <div className="flex flex-wrap gap-3 justify-center pt-4">
-                <Link href="/pricing">
+                <Link href="/offerings">
                   <Button size="lg" data-testid="button-get-started">
                     Get Started with CMIS
                   </Button>
