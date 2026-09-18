@@ -1,5 +1,4 @@
 import { ExternalLink, Mail, BookOpen, Users, Mic, Users2, ClipboardCheck, LayoutDashboard, CalendarCheck } from 'lucide-react';
-import { Link } from 'wouter';
 import { CONSULTATION_URL } from '@/lib/booking';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -64,6 +63,17 @@ export default function Offerings() {
             licensing rates when the engagement concludes, so your team keeps the system of record
             and the history behind it.
           </p>
+          <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+            <p className="text-sm font-semibold">
+              How it's priced: <span className="font-normal text-muted-foreground">Monthly retainer</span>
+            </p>
+            <p className="text-sm font-semibold">What shapes the cost:</p>
+            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+              <li>Number and complexity of concurrent initiatives</li>
+              <li>Size of the affected population</li>
+              <li>Depth of involvement, from advisory to embedded</li>
+            </ul>
+          </div>
           <Button className="gap-2" asChild data-testid="button-fractional-contact">
             <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
               <CalendarCheck className="w-4 h-4" />
@@ -101,6 +111,17 @@ export default function Offerings() {
             This is often the right first engagement. It is bounded, it produces something you can
             act on immediately, and it tells us both whether a longer engagement makes sense.
           </p>
+          <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+            <p className="text-sm font-semibold">
+              How it's priced: <span className="font-normal text-muted-foreground">Fixed-fee project</span>
+            </p>
+            <p className="text-sm font-semibold">What shapes the cost:</p>
+            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+              <li>Organization size and number of business units</li>
+              <li>Stakeholder groups surveyed and interviewed</li>
+              <li>Depth of analysis and reporting</li>
+            </ul>
+          </div>
           <Button variant="outline" className="gap-2" asChild data-testid="button-readiness-contact">
             <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
               <CalendarCheck className="w-4 h-4" />
@@ -139,19 +160,23 @@ export default function Offerings() {
             Available on its own or included with a fractional engagement, which is how most
             organizations get the most out of it.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" className="gap-2" asChild data-testid="button-cmis-demo">
-              <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
-                <CalendarCheck className="w-4 h-4" />
-                Request a Demo
-              </a>
-            </Button>
-            <Link href="/pricing">
-              <Button variant="ghost" data-testid="button-cmis-pricing">
-                View Pricing
-              </Button>
-            </Link>
+          <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+            <p className="text-sm font-semibold">
+              How it's priced: <span className="font-normal text-muted-foreground">Annual license</span>
+            </p>
+            <p className="text-sm font-semibold">What shapes the cost:</p>
+            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+              <li>Number of users and business units</li>
+              <li>Commercial or enterprise tier requirements</li>
+              <li>Integration and support needs</li>
+            </ul>
           </div>
+          <Button variant="outline" className="gap-2" asChild data-testid="button-cmis-demo">
+            <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
+              <CalendarCheck className="w-4 h-4" />
+              Request a Demo
+            </a>
+          </Button>
         </CardContent>
       </Card>
 
@@ -250,6 +275,17 @@ export default function Offerings() {
             <li>Building shared understanding and intent in complex environments</li>
             <li>Leading teams through disruption and uncertainty</li>
           </ul>
+          <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+            <p className="text-sm font-semibold">
+              How it's priced: <span className="font-normal text-muted-foreground">Per engagement</span>
+            </p>
+            <p className="text-sm font-semibold">What shapes the cost:</p>
+            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+              <li>Format: keynote, workshop, or multi-session training</li>
+              <li>Length and audience size</li>
+              <li>Location and travel requirements</li>
+            </ul>
+          </div>
           <Button 
             variant="outline" 
             asChild 
@@ -263,6 +299,27 @@ export default function Offerings() {
           </Button>
         </CardContent>
       </Card>
+
+      <div className="border-t border-border" />
+
+      {/* What to Expect */}
+      <div className="max-w-3xl mx-auto space-y-4 text-center">
+        <h2 className="text-2xl font-bold tracking-tight">What to Expect</h2>
+        <p className="text-base text-muted-foreground">
+          The first conversation is 30 minutes and costs nothing. We talk through the change you are
+          working on, what has already been tried, and where it is getting stuck. If there is a fit,
+          you receive a written proposal with defined scope and a fixed price before any work
+          begins. If there is not a fit, we will tell you that directly.
+        </p>
+        <div className="pt-2">
+          <Button size="lg" className="gap-2" asChild data-testid="button-offerings-expect-consult">
+            <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
+              <CalendarCheck className="w-4 h-4" />
+              Schedule a Consultation
+            </a>
+          </Button>
+        </div>
+      </div>
 
     </div>
   );
