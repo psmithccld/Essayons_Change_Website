@@ -15,6 +15,7 @@ import Offerings from "@/pages/offerings";
 import Model from "@/pages/model";
 import Privacy from "@/pages/privacy";
 import Investor from "@/pages/investor";
+import DataRoom from "@/pages/dataroom";
 import Partners from "@/pages/partners";
 import Terms from "@/pages/terms";
 import NotFound from "@/pages/not-found";
@@ -59,6 +60,7 @@ function Router() {
                 <Route path="/privacy" component={Privacy} />
                 <Route path="/terms" component={Terms} />
                 <Route path="/investor" component={Investor} />
+                <Route path="/dataroom" component={DataRoom} />
                 <Route component={NotFound} />
               </Switch>
             </main>
