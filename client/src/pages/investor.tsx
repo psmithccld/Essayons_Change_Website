@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLocation } from "wouter";
 
 const differentiators = [
   {
@@ -28,8 +29,11 @@ const fundingUses = [
 ];
 
 export default function Investor() {
+  const [, setLocation] = useLocation();
+
   const handleDataRoomClick = () => {
-    window.open("https://wefindinvestors.app/data-room/30554b62729630b87ee22a910eb94556f05ccd4d82b2817c", "_blank");
+    setLocation("/dataroom");
+    window.scrollTo(0, 0);
   };
 
   const handleCalendlyClick = () => {
