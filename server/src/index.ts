@@ -8,6 +8,7 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import { loginHandler, logoutHandler, getCurrentUserHandler, requireAuth } from '../auth';
 import superAdminWebhookRouter from './super-admin-webhook';
+import dataroomRouter from './dataroom';
 import {
   listContentHandler,
   getContentHandler,
@@ -159,6 +160,9 @@ app.use(sessionMiddleware);
 
 // Super-admin webhook routes (HMAC-authenticated, raw body parsing handled inside router)
 app.use('/api/super-admin/webhook', superAdminWebhookRouter);
+
+// Investor data room (private R2 bucket, access-code gated)
+app.use('/api/dataroom', dataroomRouter);
 
 // Basic API endpoint
 app.get('/api/status', (_req, res) => {
@@ -482,6 +486,7 @@ app.get('/robots.txt', (_req, res) => {
       'Allow: /',
       'Disallow: /admin',
       'Disallow: /investor',
+      'Disallow: /dataroom',
       '',
       `Sitemap: ${BASE_URL}/sitemap.xml`,
       '',
