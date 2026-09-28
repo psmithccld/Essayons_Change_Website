@@ -137,7 +137,7 @@ export const STATIC_META: Record<string, PageMeta> = {
 };
 
 /** Routes that should never be indexed. */
-export const NOINDEX_PREFIXES = ["/admin", "/investor"];
+export const NOINDEX_PREFIXES = ["/admin", "/investor", "/dataroom"];
 
 function escapeHtml(value: string): string {
   return value
