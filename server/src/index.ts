@@ -9,6 +9,8 @@ import dotenv from 'dotenv';
 import { loginHandler, logoutHandler, getCurrentUserHandler, requireAuth } from '../auth';
 import superAdminWebhookRouter from './super-admin-webhook';
 import dataroomRouter from './dataroom';
+import dataroomRouter from './dataroom';
+import downloadRouter from './download';
 import {
   listContentHandler,
   getContentHandler,
@@ -163,6 +165,9 @@ app.use('/api/super-admin/webhook', superAdminWebhookRouter);
 
 // Investor data room (private R2 bucket, access-code gated)
 app.use('/api/dataroom', dataroomRouter);
+
+// Public installer download (11-Row Plan desktop app, served from R2)
+app.use('/download', downloadRouter);
 
 // Basic API endpoint
 app.get('/api/status', (_req, res) => {
