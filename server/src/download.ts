@@ -1,26 +1,24 @@
 /**
  * Public download route for the 11-Row Plan desktop installer.
  *
- * Serves the Windows installer from a Cloudflare R2 bucket through a
- * short-lived signed URL, under the website's own domain. Unlike the
- * investor data room, this route is PUBLIC (no access code): anyone with
- * the link can download, which is what the Microsoft Store Package URL
- * field needs.
+ * Streams the Windows installer from a Cloudflare R2 bucket through the
+ * server, under the website's own domain. The Microsoft Store Package URL
+ * field requires a direct download with NO redirect, so this route pipes
+ * the file bytes itself rather than 302-redirecting to a signed R2 URL.
  *
  * Resulting URL: https://www.essayonschange.com/download/11-row-plan
  *
  * Environment variables (R2 credentials are already set on Render):
  *   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
  *   INSTALLER_BUCKET_NAME   default "11-rowplan"
- *   INSTALLER_KEY           default "11-Row Plan_0.1.0_x64-setup.exe"
- *                           (the exact object key in the bucket; set this
- *                            if you rename or version-bump the installer)
+ *   INSTALLER_KEY           the exact object key in the bucket
+ *                           (set on Render to: 11-row-plan-0.1.0-x64-setup.exe)
  */
 import { Router } from 'express';
+import type { Readable } from 'stream';
 
 const BUCKET = process.env.INSTALLER_BUCKET_NAME || '11-rowplan';
-const INSTALLER_KEY = process.env.INSTALLER_KEY || '11-Row Plan_0.1.0_x64-setup.exe';
-const SIGNED_URL_TTL_SEC = 300;
+const INSTALLER_KEY = process.env.INSTALLER_KEY || '11-row-plan-0.1.0-x64-setup.exe';
 
 async function getR2Client() {
   const accountId = process.env.R2_ACCOUNT_ID;
@@ -39,40 +37,36 @@ async function getR2Client() {
 
 const router = Router();
 
-// Public download: signs a URL for the installer and 302-redirects to it.
-// Microsoft Store (and anyone else) can point straight at this path.
+// Public download: streams the installer bytes directly (no redirect),
+// so the Microsoft Store Package URL check passes.
 router.get('/11-row-plan', async (_req, res) => {
   try {
-    const { GetObjectCommand, HeadObjectCommand } = await import('@aws-sdk/client-s3');
-    const { getSignedUrl } = await import('@aws-sdk/s3-request-presigner');
+    const { GetObjectCommand } = await import('@aws-sdk/client-s3');
     const r2 = await getR2Client();
 
-    // Confirm the object exists so a bad key returns 404, not an R2 error page.
-    try {
-      await r2.send(new HeadObjectCommand({ Bucket: BUCKET, Key: INSTALLER_KEY }));
-    } catch {
-      console.error(`[DOWNLOAD] Installer not found: ${BUCKET}/${INSTALLER_KEY}`);
+    const obj = await r2.send(
+      new GetObjectCommand({ Bucket: BUCKET, Key: INSTALLER_KEY })
+    );
+
+    if (!obj.Body) {
+      console.error(`[DOWNLOAD] Empty body: ${BUCKET}/${INSTALLER_KEY}`);
       return res.status(404).send('Installer not found.');
     }
 
-    // Always download (attachment), with a clean, URL-safe filename.
-    const downloadName = '11-row-plan-setup.exe';
+    res.setHeader('Content-Type', 'application/vnd.microsoft.portable-executable');
+    res.setHeader('Content-Disposition', 'attachment; filename="11-row-plan-setup.exe"');
+    if (obj.ContentLength != null) {
+      res.setHeader('Content-Length', String(obj.ContentLength));
+    }
+    res.setHeader('Cache-Control', 'no-store');
 
-    const url = await getSignedUrl(
-      r2,
-      new GetObjectCommand({
-        Bucket: BUCKET,
-        Key: INSTALLER_KEY,
-        ResponseContentDisposition: `attachment; filename="${downloadName}"`,
-        ResponseContentType: 'application/vnd.microsoft.portable-executable',
-      }),
-      { expiresIn: SIGNED_URL_TTL_SEC }
-    );
-
-    console.log(`[DOWNLOAD] Installer served: ${BUCKET}/${INSTALLER_KEY}`);
-    res.set('Cache-Control', 'no-store');
-    return res.redirect(302, url);
-  } catch (error) {
+    console.log(`[DOWNLOAD] Streaming installer: ${BUCKET}/${INSTALLER_KEY}`);
+    (obj.Body as Readable).pipe(res);
+  } catch (error: any) {
+    if (error?.name === 'NoSuchKey' || error?.$metadata?.httpStatusCode === 404) {
+      console.error(`[DOWNLOAD] Installer not found: ${BUCKET}/${INSTALLER_KEY}`);
+      return res.status(404).send('Installer not found.');
+    }
     console.error('[DOWNLOAD] Error:', error);
     return res.status(500).send('Could not serve the installer.');
   }
