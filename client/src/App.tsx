@@ -23,6 +23,7 @@ import AdminLogin from "@/pages/admin-login";
 import AdminDashboard from "@/pages/admin-dashboard";
 import AdminContentEditor from "@/pages/admin-content-editor";
 import ContentDetail from "@/pages/content-detail";
+import Thanks from "@/pages/thanks";
 
 function Router() {
   return (
@@ -58,6 +59,7 @@ function Router() {
                   <Redirect to="/offerings" />
                 </Route>
                 <Route path="/privacy" component={Privacy} />
+                <Route path="/thanks" component={Thanks} />
                 <Route path="/terms" component={Terms} />
                 <Route path="/investor" component={Investor} />
                 <Route path="/dataroom" component={DataRoom} />
