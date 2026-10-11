@@ -4,7 +4,7 @@ export default function Privacy() {
       <h1 className="text-4xl font-bold mb-2" data-testid="text-privacy-title">Privacy Policy</h1>
       <p className="text-sm text-muted-foreground mb-8">
         Effective Date: October 27, 2025<br />
-        Last Updated: July 21, 2026
+        Last Updated: October 10, 2026
       </p>
 
       <div className="prose prose-slate max-w-none space-y-6">
@@ -127,7 +127,43 @@ export default function Privacy() {
         </section>
 
         <section className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">11. Contact Us</h2>
+                    <h2 className="text-2xl font-semibold mb-4">11. The 11-Row Plan Application</h2>
+          <p>
+            In addition to our website, we offer the 11-Row Plan desktop application. When you create an
+            account and use the app, we collect and process the following:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 mt-4">
+            <li>
+              <strong>Account Data:</strong> your email address and authentication credentials, stored
+              securely with our backend provider, Supabase. We use these to sign you in and associate your
+              data with your account.
+            </li>
+            <li>
+              <strong>Application Content:</strong> the tasks, lines of effort, notes, stakeholder records,
+              and communications you create in the app are stored in your account so the app can function.
+              This content belongs to you and is not shared except as described in this Policy.
+            </li>
+            <li>
+              <strong>AI Processing:</strong> certain features (note review, voice-profile drafting, and
+              communication drafting) send the text you choose to process to our AI provider, Anthropic, to
+              generate results. This content is processed through Anthropic's API and is{" "}
+              <strong>not used to train AI models</strong>. We send only the content needed to perform the
+              feature you request and do not retain it beyond what is necessary to provide the result.
+            </li>
+            <li>
+              <strong>Payments:</strong> subscriptions and token purchases are processed by Stripe, our
+              payment provider. We do not receive or store your full card details; Stripe handles payment
+              information directly under its own security and privacy practices.
+            </li>
+            <li>
+              <strong>Token and Usage Data:</strong> we track your subscription tier and AI token usage to
+              operate billing and enforce plan limits.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4">12. Contact Us</h2>
           <p>If you have questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
           <div className="mt-4 pl-4 border-l-4 border-primary">
             <p className="font-semibold">Essayons Change Corp</p>
