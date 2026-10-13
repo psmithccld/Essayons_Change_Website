@@ -1,5 +1,5 @@
 import { ExternalLink, Mail, BookOpen, Users, Mic, Users2, ClipboardCheck, LayoutDashboard, CalendarCheck } from 'lucide-react';
-import { CONSULTATION_URL } from '@/lib/booking';
+import { CONSULTATION_URL, DEMO_URL } from '@/lib/booking';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -172,7 +172,7 @@ export default function Offerings() {
             </ul>
           </div>
           <Button variant="outline" className="gap-2" asChild data-testid="button-cmis-demo">
-            <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
+            <a href={DEMO_URL} target="_blank" rel="noopener noreferrer">
               <CalendarCheck className="w-4 h-4" />
               Request a Demo
             </a>
