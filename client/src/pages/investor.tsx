@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLocation } from "wouter";
+import { INVESTOR_URL } from "@/lib/booking";
 
 const differentiators = [
   {
@@ -36,8 +37,8 @@ export default function Investor() {
     window.scrollTo(0, 0);
   };
 
-  const handleCalendlyClick = () => {
-    window.open("https://calendly.com/psmith-essayonschange/investor", "_blank");
+  const handleBookingClick = () => {
+    window.open(INVESTOR_URL, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -68,7 +69,7 @@ export default function Investor() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={handleCalendlyClick}
+                onClick={handleBookingClick}
                 className="font-semibold text-base px-8 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
               >
                 Schedule a Meeting
@@ -362,7 +363,7 @@ export default function Investor() {
             <Button
               size="lg"
               variant="outline"
-              onClick={handleCalendlyClick}
+              onClick={handleBookingClick}
               className="font-semibold text-base px-10 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10"
             >
               Schedule a Call
