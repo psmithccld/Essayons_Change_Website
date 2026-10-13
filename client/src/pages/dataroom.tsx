@@ -6,11 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { FileText, FileSpreadsheet, Presentation, File as FileIcon, Download, Eye, Lock, LogOut } from "lucide-react";
+import { INVESTOR_URL } from "@/lib/booking";
 
 type DataRoomFile = { key: string; name: string; size: number; lastModified: string | null };
 type Category = { name: string; files: DataRoomFile[] };
-
-const CALENDLY_URL = "https://calendly.com/psmith-essayonschange/investor";
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -215,7 +214,7 @@ export default function DataRoom() {
                 the founder directly.
               </p>
               <div className="flex flex-col gap-3">
-                <Button variant="outline" onClick={() => window.open(CALENDLY_URL, "_blank")}>
+                <Button variant="outline" onClick={() => window.open(INVESTOR_URL, "_blank", "noopener,noreferrer")}>
                   Schedule a Call
                 </Button>
                 <Button variant="ghost" asChild>
@@ -244,7 +243,7 @@ export default function DataRoom() {
                 </p>
               </div>
               <div className="flex gap-3">
-                <Button variant="outline" onClick={() => window.open(CALENDLY_URL, "_blank")}>
+                <Button variant="outline" onClick={() => window.open(INVESTOR_URL, "_blank", "noopener,noreferrer")}>
                   Schedule a Call
                 </Button>
                 <Button variant="ghost" onClick={handleLogout}>
