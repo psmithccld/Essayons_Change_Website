@@ -6,6 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import dotenv from 'dotenv';
+import { pathToFileURL } from 'url';
 import { loginHandler, logoutHandler, getCurrentUserHandler, requireAuth } from '../auth';
 import superAdminWebhookRouter from './super-admin-webhook';
 import dataroomRouter from './dataroom';
@@ -34,6 +35,8 @@ import {
   BASE_URL,
   STATIC_META,
   DEFAULT_DESCRIPTION,
+  REDIRECTS,
+  SITEMAP_EXCLUDE,
   type PageMeta,
 } from './seo';
 
@@ -92,11 +95,13 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com"],
+      // snap.licdn.com / px.ads.linkedin.com: the LinkedIn Insight tag in index.html,
+      // which this policy previously blocked.
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://snap.licdn.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: [...imgSrcDirectives, "https://www.googletagmanager.com", "https://www.google-analytics.com"],
-      connectSrc: [...connectSrcDirectives, "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://www.googletagmanager.com"],
+      imgSrc: [...imgSrcDirectives, "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://px.ads.linkedin.com"],
+      connectSrc: [...connectSrcDirectives, "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://www.googletagmanager.com", "https://px.ads.linkedin.com"],
       frameSrc: ["'self'", "https://www.youtube.com", "https://youtube.com", "https://www.youtube-nocookie.com", "https://youtube-nocookie.com"],
     },
   },
@@ -483,6 +488,18 @@ app.get('/app', (_req, res) => {
 // Serve static client build when present (production)
 const clientDist = path.join(process.cwd(), '..', 'client', 'dist');
 
+// Permanent redirects for renamed routes (for example /model -> /method), so
+// search engines transfer existing rankings and old links keep working.
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+  const normalized =
+    req.path.length > 1 && req.path.endsWith('/') ? req.path.slice(0, -1) : req.path;
+  const target = REDIRECTS[normalized];
+  if (!target) return next();
+  const query = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+  return res.redirect(301, `${target}${query}`);
+});
+
 // robots.txt - served before static/catch-all so it returns text, not the SPA shell
 app.get('/robots.txt', (_req, res) => {
   res.type('text/plain').send(
@@ -507,15 +524,15 @@ app.get('/llms.txt', (_req, res) => {
       '# Essayons Change',
       '',
       '> A change management and leadership practice. We help mid-market and private equity-backed',
-      '> organizations plan, lead, and sustain organizational change using the Integrated Change',
-      '> Management Model (ICMM), a five-step framework grounded in doctoral research on employee',
-      '> experience during change.',
+      '> organizations plan, lead, and sustain organizational change using the Essayons Change Method,',
+      '> a research-based framework grounded in doctoral research on employee experience during change.',
       '',
       '## Core concepts',
       '',
-      `- [The Integrated Change Management Model](${BASE_URL}/model): The ICMM is a five-step change framework (identify the need, identify stakeholders, develop, implement, reinforce) that manages organizational and individual change simultaneously.`,
+      `- [The Essayons Change Method](${BASE_URL}/method): A change management framework in three layers. The Lens of Experience diagnoses what people bring into a change; the Integrated Change Management Model (ICMM) sets out five execution steps (identify the need, identify stakeholders, develop, implement, reinforce) with organizational and individual tracks; Commander's Intent governs how leaders communicate.`,
       `- Lens of Experience: The accumulated weight of prior events every employee brings into a change before anything is communicated. Four components: past experience, existing conflict and group dynamics, trust, and the leader's own lens.`,
       `- Commander's Intent vs Commander's Directive: A directive communicates task and method and produces compliance. An intent communicates end state and reason and produces understanding.`,
+      `- [Change Readiness Quiz](${BASE_URL}/change-readiness-quiz): A free 12-statement self-assessment scoring the four pillars of the Essayons Change Method: Lens of Experience, Trust Climate, Stakeholder Clarity, and Intent vs. Directive.`,
       '',
       '## Pages',
       '',
@@ -539,10 +556,17 @@ app.get('/sitemap.xml', async (_req, res) => {
   try {
     const urls: { loc: string; lastmod?: string; priority: string }[] = Object.values(
       STATIC_META
-    ).map((m) => ({
-      loc: `${BASE_URL}${m.path}`,
-      priority: m.path === '/' ? '1.0' : m.path === '/model' ? '0.9' : '0.8',
-    }));
+    )
+      .filter((m) => !SITEMAP_EXCLUDE.includes(m.path))
+      .map((m) => ({
+        loc: `${BASE_URL}${m.path}`,
+        priority:
+          m.path === '/'
+            ? '1.0'
+            : m.path === '/method' || m.path === '/change-readiness-quiz'
+              ? '0.9'
+              : '0.8',
+      }));
 
     try {
       const items = await storage.listContent(undefined, undefined);
@@ -604,6 +628,63 @@ async function resolveContentMeta(pathname: string): Promise<PageMeta | null> {
   }
 }
 
+// Server-side rendering of the public pages (client/dist-ssr, built by the
+// client "build" script). Loaded once; if the bundle is missing or fails to
+// load, pages fall back to the plain client-rendered shell.
+type SsrRender = (url: string, initialData?: Record<string, unknown>) => string;
+let ssrRenderPromise: Promise<SsrRender | null> | null = null;
+
+function loadSsrRender(): Promise<SsrRender | null> {
+  if (!ssrRenderPromise) {
+    const ssrEntry = path.join(process.cwd(), '..', 'client', 'dist-ssr', 'entry-server.js');
+    ssrRenderPromise = fs.existsSync(ssrEntry)
+      ? import(pathToFileURL(ssrEntry).href)
+          .then((mod) => (typeof mod.render === 'function' ? (mod.render as SsrRender) : null))
+          .catch((error) => {
+            console.error('[SSR] Failed to load server render bundle:', error);
+            return null;
+          })
+      : Promise.resolve(null);
+  }
+  return ssrRenderPromise;
+}
+
+/** Data a server render needs up front, keyed by the client's react-query key. */
+async function resolveSsrData(pathname: string): Promise<Record<string, unknown>> {
+  try {
+    const detail = pathname.match(/^\/(blog|tutorials)\/([^/]+)$/);
+    if (detail) {
+      const slug = decodeURIComponent(detail[2]);
+      const item = await storage.getContentBySlug(slug);
+      if (!item || !isContentPublishable(item)) return {};
+      const attachments = await storage.getAttachmentsByContentId(item.id);
+      return { [`/api/content/${slug}`]: JSON.parse(JSON.stringify({ ...item, attachments })) };
+    }
+    if (pathname === '/blog' || pathname === '/tutorials') {
+      const type = pathname === '/blog' ? 'blog' : 'tutorial';
+      const items = (await storage.listContent(type, undefined)).filter(isContentPublishable);
+      return {
+        [`/api/content?type=${type}&status=published`]: JSON.parse(JSON.stringify(items)),
+      };
+    }
+  } catch (error) {
+    console.error('[SSR] Data lookup failed:', error);
+  }
+  return {};
+}
+
+async function renderAppHtml(pathname: string, noindex: boolean): Promise<string | null> {
+  if (noindex) return null;
+  const render = await loadSsrRender();
+  if (!render) return null;
+  try {
+    return render(pathname, await resolveSsrData(pathname));
+  } catch (error) {
+    console.error(`[SSR] Render failed for ${pathname}:`, error);
+    return null;
+  }
+}
+
 app.get('*', async (req, res) => {
   const indexPath = path.join(clientDist, 'index.html');
 
@@ -624,7 +705,13 @@ app.get('*', async (req, res) => {
           path: pathname,
         };
 
-      res.type('html').send(injectMeta(html, meta, noindex));
+      let page = injectMeta(html, meta, noindex);
+      const appHtml = await renderAppHtml(pathname, noindex);
+      if (appHtml) {
+        page = page.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+      }
+
+      res.type('html').send(page);
     } catch (error) {
       console.error('Meta injection failed:', error);
       res.type('html').send(html);

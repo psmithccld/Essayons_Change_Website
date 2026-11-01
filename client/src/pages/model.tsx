@@ -85,17 +85,18 @@ export default function Model() {
       {/* Hero */}
       <section className="text-center max-w-3xl mx-auto space-y-4">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl" data-testid="heading-model">
-          The Integrated Change Management Model
+          The Essayons Change Method
         </h1>
         <p className="text-lg text-muted-foreground">
-          A five-step framework that holds the organizational and individual perspectives at the
-          same time, grounded in doctoral research on employee experience during change.
+          A research-based change management framework that holds the organizational and
+          individual perspectives at the same time, grounded in doctoral research on employee
+          experience during change.
         </p>
         <div className="pt-2">
           <Button size="lg" className="gap-2" asChild data-testid="button-model-consultation">
             <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
               <CalendarCheck className="w-4 h-4" />
-              Schedule a Consultation
+              Talk through your change (30 min)
             </a>
           </Button>
         </div>
@@ -104,21 +105,24 @@ export default function Model() {
       {/* Direct answer up front */}
       <section className="max-w-3xl mx-auto space-y-4">
         <h2 className="text-3xl font-bold tracking-tight">
-          What is the Integrated Change Management Model?
+          What is the Essayons Change Method?
         </h2>
         <p className="text-base text-muted-foreground">
-          The Integrated Change Management Model, or ICMM, is a five-step change framework that
-          manages the organizational and individual dimensions of change simultaneously rather than
-          choosing one at the expense of the other. The five steps are: identify the need to change,
-          identify the stakeholders, develop the change, implement the change, and reinforce the
-          change. At each step, the model requires leaders to address both what the organization
-          must do and what the people affected by the change need to understand.
+          The Essayons Change Method is a change management framework that manages the
+          organizational and individual dimensions of change simultaneously rather than choosing
+          one at the expense of the other. It works in three layers. The Lens of Experience
+          diagnoses what people bring into a change. The Integrated Change Management Model (ICMM)
+          sets out five execution steps: identify the need to change, identify the stakeholders,
+          develop the change, implement the change, and reinforce the change. Commander's Intent
+          governs how leaders communicate throughout. At each step, the Method requires leaders to
+          address both what the organization must do and what the people affected by the change
+          need to understand.
         </p>
         <p className="text-base text-muted-foreground">
           Most established change models do one dimension well. Process-driven models describe what
           the organization should do and treat adoption as a downstream consequence. Individually
           focused models describe how people move through transition and leave the operational work
-          unspecified. The ICMM was developed to close that gap, because in practice the two
+          unspecified. The Method was developed to close that gap, because in practice the two
           dimensions fail together.
         </p>
       </section>
@@ -155,7 +159,7 @@ export default function Model() {
                 <Compass className="h-5 w-5 text-primary" />
               </div>
               <CardTitle className="text-xl">The Five Steps</CardTitle>
-              <CardDescription className="text-base">The execution layer</CardDescription>
+              <CardDescription className="text-base">The execution layer (ICMM)</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
@@ -220,16 +224,26 @@ export default function Model() {
           Discovering group dynamics after the announcement is significantly more expensive than
           discovering them before.
         </p>
+        <div className="text-center">
+          <Link
+            href="/change-readiness-quiz"
+            className="inline-flex min-h-[46px] items-center rounded-md bg-primary px-5 text-base font-bold text-primary-foreground hover:bg-primary/90"
+            data-testid="button-model-quiz"
+          >
+            Score your four pillars in 5 minutes
+          </Link>
+        </div>
       </section>
 
       {/* Five steps */}
       <section className="space-y-6">
         <div className="max-w-3xl mx-auto space-y-4">
           <h2 className="text-3xl font-bold tracking-tight">
-            What are the five steps of the ICMM?
+            What are the five steps?
           </h2>
           <p className="text-base text-muted-foreground">
-            Each step carries two tracks that run in parallel. The organizational track is the work
+            The execution layer of the Method, the Integrated Change Management Model, has five
+            steps. Each step carries two tracks that run in parallel. The organizational track is the work
             the business must do. The individual track is what the people affected need in order to
             move with the change rather than around it.
           </p>
@@ -289,7 +303,7 @@ export default function Model() {
         <div className="max-w-3xl mx-auto space-y-4">
           <h2 className="text-3xl font-bold tracking-tight">Where does this framework come from?</h2>
           <p className="text-base text-muted-foreground">
-            The model comes out of a phenomenological study of employee experiences during
+            The Method comes out of a phenomenological study of employee experiences during
             disruptive organizational change in construction companies, conducted for a Ph.D. in
             Organizational Leadership at National University. The research examined how integrated communication
             and organizational guidance through Commander's Intent shape employee experience and
@@ -312,9 +326,9 @@ export default function Model() {
 
       {/* From model to practice */}
       <section className="max-w-3xl mx-auto space-y-4">
-        <h2 className="text-3xl font-bold tracking-tight">How does the model get used in practice?</h2>
+        <h2 className="text-3xl font-bold tracking-tight">How is the Method used in practice?</h2>
         <p className="text-base text-muted-foreground">
-          A framework that lives in a binder does not change anything. The ICMM is built into the
+          A framework that lives in a binder does not change anything. The Method is built into the
           Change Management Information System, our platform for running change as a measurable
           process. Each phase in the platform carries the organizational and individual work
           side by side, and readiness surveys, stakeholder sentiment, and adoption tracking make the
@@ -324,7 +338,7 @@ export default function Model() {
           <Button className="gap-2" asChild data-testid="button-model-consult">
             <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
               <CalendarCheck className="w-4 h-4" />
-              Schedule a Consultation
+              Talk through your change (30 min)
             </a>
           </Button>
           <Link href="/offerings">

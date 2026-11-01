@@ -34,10 +34,10 @@ export default function Offerings() {
       {/* Fractional Change Management */}
       <Card className="max-w-4xl mx-auto border-primary/40" data-testid="card-fractional">
         <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
+          <h2 className="flex flex-wrap items-center gap-2 text-2xl font-semibold leading-none tracking-tight">
             <Users2 className="w-6 h-6" />
             Fractional Change Management
-          </CardTitle>
+          </h2>
           <CardDescription className="text-base italic">
             An embedded change leader without a full-time hire.
           </CardDescription>
@@ -86,10 +86,10 @@ export default function Offerings() {
       {/* Change Readiness Assessment */}
       <Card className="max-w-4xl mx-auto" data-testid="card-readiness">
         <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
+          <h2 className="flex flex-wrap items-center gap-2 text-2xl font-semibold leading-none tracking-tight">
             <ClipboardCheck className="w-6 h-6" />
             Change Readiness Assessment
-          </CardTitle>
+          </h2>
           <CardDescription className="text-base italic">
             Know where you stand before you commit resources.
           </CardDescription>
@@ -134,10 +134,10 @@ export default function Offerings() {
       {/* CMIS Platform */}
       <Card className="max-w-4xl mx-auto" data-testid="card-cmis">
         <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
+          <h2 className="flex flex-wrap items-center gap-2 text-2xl font-semibold leading-none tracking-tight">
             <LayoutDashboard className="w-6 h-6" />
             Change Management Information System
-          </CardTitle>
+          </h2>
           <CardDescription className="text-base italic">
             The system of record for organizational change.
           </CardDescription>
@@ -185,10 +185,10 @@ export default function Offerings() {
       {/* Leadership Toolbox */}
       <Card className="max-w-4xl mx-auto" data-testid="card-leadership-toolbox">
         <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
+          <h2 className="flex flex-wrap items-center gap-2 text-2xl font-semibold leading-none tracking-tight">
             <BookOpen className="w-6 h-6" />
             Leadership Toolbox
-          </CardTitle>
+          </h2>
           <CardDescription className="text-base italic">
             Essential Skills and Strategies for Today's Leaders
           </CardDescription>
@@ -218,10 +218,10 @@ export default function Offerings() {
       {/* Consulting & Organizational Development */}
       <Card className="max-w-4xl mx-auto" data-testid="card-consulting">
         <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
+          <h2 className="flex flex-wrap items-center gap-2 text-2xl font-semibold leading-none tracking-tight">
             <Users className="w-6 h-6" />
             Consulting &amp; Organizational Development
-          </CardTitle>
+          </h2>
           <CardDescription className="text-base italic">
             Guiding organizations through complex change.
           </CardDescription>
@@ -239,7 +239,7 @@ export default function Offerings() {
             <li>Implementation and sustainment planning</li>
           </ul>
           <p className="text-sm font-semibold">
-            Availability: Limited project engagements opening for 2026.
+            Availability: Limited project capacity each quarter. Ask about current openings.
           </p>
           <Button 
             variant="outline" 
@@ -258,10 +258,10 @@ export default function Offerings() {
       {/* Speaking & Education */}
       <Card className="max-w-4xl mx-auto" data-testid="card-speaking">
         <CardHeader>
-          <CardTitle className="flex flex-wrap items-center gap-2 text-2xl">
+          <h2 className="flex flex-wrap items-center gap-2 text-2xl font-semibold leading-none tracking-tight">
             <Mic className="w-6 h-6" />
             Speaking &amp; Education
-          </CardTitle>
+          </h2>
           <CardDescription className="text-base italic">
             Translating research into actionable insight.
           </CardDescription>
@@ -292,7 +292,7 @@ export default function Offerings() {
             className="gap-2"
             data-testid="button-speaking-inquiry"
           >
-            <a href="mailto:psmith@essayonschange.com">
+            <a href={CONSULTATION_URL} target="_blank" rel="noopener noreferrer">
               <Mic className="w-4 h-4" />
               Inquire About Speaking Engagements
             </a>
