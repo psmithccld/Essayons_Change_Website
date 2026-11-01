@@ -1,42 +1,14 @@
 import { useState } from "react";
-import GameCard from "@/components/GameCard";
 import GameGate, { GATE_SESSION_KEY } from "@/components/GameGate";
 import { gtag } from "@/lib/gtag";
 import LeadershipToolboxGame from "@/components/LeadershipToolboxGame";
 import LeadershipReadinessQuiz from "@/components/LeadershipReadinessQuiz";
 import LeadershipStyleQuiz from "@/components/LeadershipStyleQuiz";
 import ChangeReadinessQuiz from "@/components/ChangeReadinessQuiz";
-import { Gamepad2, Brain, Users, Target, TrendingUp, CheckSquare, Play, ClipboardCheck, Compass, Layers } from "lucide-react";
+import { Gamepad2, Play, ClipboardCheck, Compass, Layers } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-const upcomingGames = [
-  {
-    icon: Brain,
-    title: "Leadership Scenarios",
-    description: "Gamified scenarios to practice change leadership skills in realistic situations with instant feedback.",
-  },
-  {
-    icon: Users,
-    title: "Stakeholder Mapping",
-    description: "Interactive tool to visualize and analyze stakeholder relationships, influence, and engagement strategies.",
-  },
-  {
-    icon: Target,
-    title: "Change Strategy Builder",
-    description: "Guided experience to craft comprehensive change strategies aligned with your organizational goals.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Impact Simulator",
-    description: "Simulate different change scenarios and visualize their potential impact on your organization.",
-  },
-  {
-    icon: CheckSquare,
-    title: "Change Champion Certification",
-    description: "Complete interactive challenges to earn certification as a change management champion.",
-  },
-];
 
 type ActiveView = "list" | "board-game" | "quiz" | "style-quiz" | "change-readiness-quiz";
 
@@ -152,10 +124,11 @@ export default function Games() {
     <div className="container py-12 space-y-12">
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-          Interactive Learning
+          Free Tools and Assessments
         </h1>
         <p className="text-lg text-muted-foreground">
-          Engage with interactive tools and gamified experiences designed to enhance your change management skills.
+          Free assessments and interactive tools to check your organization's readiness for change
+          and sharpen your leadership.
         </p>
       </div>
 
@@ -165,6 +138,40 @@ export default function Games() {
         <h2 className="text-2xl font-semibold">Featured Experiences</h2>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
+                <Layers className="w-6 h-6" />
+                Change Readiness Quiz
+              </CardTitle>
+              <CardDescription>
+                Self-assessment based on the four pillars of the Essayons Change Method to evaluate your organization's readiness and find its most likely point of failure
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-semibold text-sm">What You'll Discover:</h3>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Score four pillars: Lens of Experience, Trust, Stakeholder Clarity, and Intent</li>
+                  <li>See which pillar is your weakest before a change begins</li>
+                  <li>Get a full breakdown of what your results mean for your organization</li>
+                  <li>12 questions, 5 minutes to complete</li>
+                </ul>
+              </div>
+
+              <Button
+                asChild
+                size="lg"
+                className="w-full gap-2"
+                data-testid="button-take-change-readiness-quiz"
+              >
+                <Link href="/change-readiness-quiz">
+                  <Layers className="w-5 h-5" />
+                  Take Quiz
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
           <Card>
             <CardHeader>
               <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
@@ -279,60 +286,9 @@ export default function Games() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex flex-wrap items-center gap-2 text-xl">
-                <Layers className="w-6 h-6" />
-                Change Readiness Quiz
-              </CardTitle>
-              <CardDescription>
-                Self-assessment based on the four pillars of the Essayons Change Method to evaluate your organization's readiness and find its most likely point of failure
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <h3 className="font-semibold text-sm">What You'll Discover:</h3>
-                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                  <li>Score four pillars: Lens of Experience, Trust, Stakeholder Clarity, and Intent</li>
-                  <li>See which pillar is your weakest before a change begins</li>
-                  <li>Get a full breakdown of what your results mean for your organization</li>
-                  <li>12 questions, 5 minutes to complete</li>
-                </ul>
-              </div>
-
-              <Button
-                onClick={() => openGate(
-                  "change-readiness-quiz",
-                  "Change Readiness Quiz",
-                  "Evaluate your organization's readiness across the four pillars of the Essayons Change Method.",
-                  "game_change_readiness_quiz"
-                )}
-                size="lg"
-                className="w-full gap-2"
-                data-testid="button-take-change-readiness-quiz"
-              >
-                <Layers className="w-5 h-5" />
-                Take Quiz
-              </Button>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
-      <div className="border-t border-border" />
-
-      <section className="space-y-6">
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl font-semibold">Coming Soon</h2>
-          <p className="text-muted-foreground">Additional interactive learning experiences in development</p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {upcomingGames.map((game, index) => (
-            <GameCard key={index} {...game} />
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

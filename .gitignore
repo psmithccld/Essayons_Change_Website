@@ -3,6 +3,7 @@ node_modules/
 dist/
 build/
 client/dist/
+client/dist-ssr/
 server/dist/
 *.log
 .env

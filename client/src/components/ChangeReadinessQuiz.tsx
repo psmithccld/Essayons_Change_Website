@@ -276,12 +276,12 @@ function getReadinessInsight(overall: number): string {
 function getReadinessLinkedIn(overall: number): string {
   const score = overall.toFixed(2);
   if (overall >= 4.2) {
-    return `My organization scored ${score}/5 on the Change Readiness Quiz from Essayons Change.\n\nStrong readiness across all four pillars (the Lens of Experience, Trust, Stakeholder Clarity, and Intent) is what makes change actually hold.\n\nSee where your organization stands: https://essayonschange.com/games\n\n#ChangeManagement #Leadership`;
+    return `My organization scored ${score}/5 on the Change Readiness Quiz from Essayons Change.\n\nStrong readiness across all four pillars (the Lens of Experience, Trust, Stakeholder Clarity, and Intent) is what makes change actually hold.\n\nSee where your organization stands: https://www.essayonschange.com/change-readiness-quiz\n\n#ChangeManagement #Leadership`;
   }
   if (overall >= 3.2) {
-    return `I just took the Change Readiness Quiz from Essayons Change and scored ${score}/5.\n\nKnowing which pillar is your weakest before a change begins is a real advantage. Most organizations find out mid-initiative, when it is expensive.\n\nTake the quiz: https://essayonschange.com/games\n\n#ChangeManagement #Leadership`;
+    return `I just took the Change Readiness Quiz from Essayons Change and scored ${score}/5.\n\nKnowing which pillar is your weakest before a change begins is a real advantage. Most organizations find out mid-initiative, when it is expensive.\n\nTake the quiz: https://www.essayonschange.com/change-readiness-quiz\n\n#ChangeManagement #Leadership`;
   }
-  return `I just took the Change Readiness Quiz from Essayons Change.\n\nChange fails in the gap between what you design and what your people experience. Seeing that gap before you launch is the whole point.\n\nFind your readiness score: https://essayonschange.com/games\n\n#ChangeManagement #Leadership`;
+  return `I just took the Change Readiness Quiz from Essayons Change.\n\nChange fails in the gap between what you design and what your people experience. Seeing that gap before you launch is the whole point.\n\nFind your readiness score: https://www.essayonschange.com/change-readiness-quiz\n\n#ChangeManagement #Leadership`;
 }
 
 function ResultsPanel({ results, onReset }: { results: Results; onReset: () => void }) {

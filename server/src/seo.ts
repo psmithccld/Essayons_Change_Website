@@ -37,15 +37,42 @@ const DEFAULT_DESCRIPTION =
  */
 export const STATIC_META: Record<string, PageMeta> = {
   "/": {
-    title: "Change Management & Leadership Consulting | Essayons Change",
+    title: "Change Management Consulting & Readiness Assessment | Essayons Change",
     description:
-      "Fractional change management, readiness assessments, and the CMIS platform for mid-market and PE-backed organizations. Serving Greater St. Louis and nationwide.",
+      "Your change will be decided before you announce it. Research-based change management, readiness assessments and the CMIS platform for mid-market and PE-backed organizations.",
     path: "/",
+    faq: [
+      {
+        question: "What is change management?",
+        answer:
+          "Change management is the work of helping people understand, accept and adopt a change so the organization gets the result it planned. It runs alongside the project plan, not after it.",
+      },
+      {
+        question: "What does a change readiness assessment include?",
+        answer:
+          "A readiness profile across organizational and individual dimensions, stakeholder sentiment and influence analysis, adoption risks ranked by likelihood and impact, and prioritized actions to close the gaps before execution.",
+      },
+      {
+        question: "What is fractional change management?",
+        answer:
+          "An experienced change leader joins your team part time on a monthly retainer. You get senior judgment and execution discipline without the cost of a full-time hire.",
+      },
+      {
+        question: "How much does change management consulting cost?",
+        answer:
+          "Assessments are a fixed fee. Fractional work is a monthly retainer sized to the number of initiatives and people affected. CMIS is an annual license. The first 30-minute conversation costs nothing, and you receive a written, fixed-price proposal before any work begins.",
+      },
+      {
+        question: "How is CMIS different from project management software?",
+        answer:
+          "Project tools track tasks and dates. CMIS tracks adoption: readiness, stakeholder sentiment, communication and risk for each initiative, so you can act before a change stalls.",
+      },
+    ],
   },
   "/about": {
     title: "About Essayons Change | Research-Driven Change Management",
     description:
-      "Founded to close the gap between individual understanding and organizational intent. Meet the team behind the Change Management Information System.",
+      "A veteran-owned change management practice and platform built on doctoral research. Why Essayons Change exists, what we believe, and who you will work with.",
     path: "/about",
   },
   "/blog": {
@@ -61,26 +88,26 @@ export const STATIC_META: Record<string, PageMeta> = {
     path: "/tutorials",
   },
   "/games": {
-    title: "Interactive Assessments & Learning | Essayons Change",
+    title: "Free Change Management Tools & Assessments | Essayons Change",
     description:
-      "Assess your leadership readiness and change management style with free interactive tools, including the Leadership Readiness Quiz and Leadership Style Quiz.",
+      "Free tools for leaders: the Change Readiness Quiz, the Leadership Readiness Quiz, the Leadership Style Quiz and the Leadership Toolbox board game.",
     path: "/games",
   },
-  "/model": {
-    title: "The Integrated Change Management Model (ICMM) | Essayons Change",
+  "/method": {
+    title: "The Essayons Change Method | Change Management Framework",
     description:
-      "A five-step change framework that manages organizational and individual change at the same time. Built on doctoral research into employee experience during change.",
-    path: "/model",
+      "A research-based change management framework in three layers: the Lens of Experience, five execution steps, and Commander's Intent. Built on doctoral research into employee experience during change.",
+    path: "/method",
     faq: [
       {
-        question: "What is the Integrated Change Management Model?",
+        question: "What is the Essayons Change Method?",
         answer:
-          "The Integrated Change Management Model, or ICMM, is a five-step change framework that manages the organizational and individual dimensions of change simultaneously rather than choosing one at the expense of the other. The five steps are: identify the need to change, identify the stakeholders, develop the change, implement the change, and reinforce the change. At each step, the model requires leaders to address both what the organization must do and what the people affected by the change need to understand.",
+          "The Essayons Change Method is a change management framework that manages the organizational and individual dimensions of change simultaneously rather than choosing one at the expense of the other. It works in three layers. The Lens of Experience diagnoses what people bring into a change. The Integrated Change Management Model (ICMM) sets out five execution steps: identify the need to change, identify the stakeholders, develop the change, implement the change, and reinforce the change. Commander's Intent governs how leaders communicate throughout.",
       },
       {
-        question: "What are the five steps of the ICMM?",
+        question: "What are the five steps of the Essayons Change Method?",
         answer:
-          "Step 1 is identify the need to change. Step 2 is identify the stakeholders. Step 3 is develop the change. Step 4 is implement the change. Step 5 is reinforce the change. Each step runs an organizational track and an individual track in parallel, so the operational work and the human work advance together.",
+          "The execution layer of the Method, the Integrated Change Management Model, has five steps. Step 1 is identify the need to change. Step 2 is identify the stakeholders. Step 3 is develop the change. Step 4 is implement the change. Step 5 is reinforce the change. Each step runs an organizational track and an individual track in parallel, so the operational work and the human work advance together.",
       },
       {
         question: "What is the Lens of Experience?",
@@ -94,11 +121,17 @@ export const STATIC_META: Record<string, PageMeta> = {
           "A Commander's Directive communicates the task and the method: what to do and how to do it. A Commander's Intent communicates the end state and the reason for it: what success looks like and why it matters. A directive produces compliance, while an intent produces understanding. In organizational change, where conditions shift constantly, compliance is not enough because it does not survive contact with situations the plan did not anticipate.",
       },
       {
-        question: "How is the ICMM different from other change management models?",
+        question: "How is the Essayons Change Method different from other change management models?",
         answer:
-          "Most established change models address one dimension well. Process-driven models describe what the organization should do and treat adoption as a downstream consequence. Individually focused models describe how people move through transition but leave the operational work unspecified. The ICMM holds both dimensions at every step, because in practice the organizational and individual dimensions of a change fail together.",
+          "Most established change models address one dimension well. Process-driven models describe what the organization should do and treat adoption as a downstream consequence. Individually focused models describe how people move through transition but leave the operational work unspecified. The Essayons Change Method holds both dimensions at every step, because in practice the organizational and individual dimensions of a change fail together.",
       },
     ],
+  },
+  "/change-readiness-quiz": {
+    title: "Free Change Readiness Quiz: Find Your Weakest Pillar | Essayons Change",
+    description:
+      "Twelve statements, five minutes. Score your organization on the four pillars of the Essayons Change Method and see your most likely point of failure before the change begins.",
+    path: "/change-readiness-quiz",
   },
   "/offerings": {
     title: "Fractional Change Management & Consulting | Essayons Change",
@@ -112,16 +145,10 @@ export const STATIC_META: Record<string, PageMeta> = {
       "Meet the certified practitioners delivering the Essayons Change methodology and CMIS platform, and learn how to become an Essayons Change Certified Practitioner.",
     path: "/partners",
   },
-  "/pricing": {
-    title: "How Engagements Are Structured | Essayons Change",
-    description:
-      "Fractional retainers, fixed-fee readiness assessments, and CMIS licensing. How we scope change management engagements and what shapes the cost.",
-    path: "/pricing",
-  },
   "/contact": {
     title: "Schedule a Consultation | Essayons Change",
     description:
-      "Talk with a change management consultant about your organization's transformation. Serving the Greater St. Louis area, Northwest Indiana, Evansville, and nationwide.",
+      "Talk with a change management consultant about your organization's transformation. Based in the Greater St. Louis area and serving clients nationwide.",
     path: "/contact",
   },
   "/privacy": {
@@ -138,6 +165,18 @@ export const STATIC_META: Record<string, PageMeta> = {
 
 /** Routes that should never be indexed. */
 export const NOINDEX_PREFIXES = ["/admin", "/investor", "/dataroom"];
+
+/** Exact paths kept out of the index until they have content. */
+export const NOINDEX_EXACT = ["/tutorials"];
+
+/** Static routes left out of sitemap.xml (empty or not meant for search). */
+export const SITEMAP_EXCLUDE = ["/tutorials"];
+
+/** Permanent redirects for renamed or retired routes. */
+export const REDIRECTS: Record<string, string> = {
+  "/model": "/method",
+  "/pricing": "/offerings",
+};
 
 function escapeHtml(value: string): string {
   return value
@@ -284,7 +323,11 @@ export function getStaticMeta(pathname: string): PageMeta | null {
 }
 
 export function isNoindexPath(pathname: string): boolean {
-  return NOINDEX_PREFIXES.some((p) => pathname.startsWith(p));
+  const normalized =
+    pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  return (
+    NOINDEX_EXACT.includes(normalized) || NOINDEX_PREFIXES.some((p) => pathname.startsWith(p))
+  );
 }
 
 export { BASE_URL, SITE_NAME, DEFAULT_DESCRIPTION };
