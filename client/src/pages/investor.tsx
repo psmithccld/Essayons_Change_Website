@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLocation } from "wouter";
 import { INVESTOR_URL } from "@/lib/booking";
+import penfedVepSeal from "@assets/penfed_vep_alumni_seal.png";
+
+const PENFED_VEP_URL = "https://penfedfoundation.org/how-we-help/vep";
 
 const differentiators = [
   {
@@ -340,6 +343,36 @@ export default function Investor() {
               <CardContent className="pt-4 pb-4">
                 <span className="text-sm font-semibold text-foreground">Advisory: </span>
                 <span className="text-sm text-muted-foreground">Contract Software Developer (architecture, QA, scalability) · Enterprise CIO Advisor (IT governance, security, enterprise readiness)</span>
+              </CardContent>
+            </Card>
+            <Card className="md:col-span-2" data-testid="card-penfed-vep">
+              <CardContent className="flex flex-col items-center gap-6 pt-6 sm:flex-row">
+                <a
+                  href={PENFED_VEP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 transition-opacity hover:opacity-80"
+                  data-testid="link-penfed-vep-investor"
+                >
+                  <img
+                    src={penfedVepSeal}
+                    alt="Proud alumni of the PenFed Foundation Veteran Entrepreneur Program"
+                    width={138}
+                    height={144}
+                    className="h-36 w-auto"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="space-y-2 text-center sm:text-left">
+                  <div className="text-xs font-semibold uppercase tracking-widest text-primary">Accelerator</div>
+                  <div className="font-semibold text-foreground">
+                    PenFed Foundation Veteran Entrepreneur Program · 2026 Cohort
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Selected for the PenFed Foundation for Military Heroes accelerator for operating veteran-owned
+                    companies. The program focuses on strategy, mentorship, investor access and revenue growth.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>

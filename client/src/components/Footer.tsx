@@ -1,6 +1,9 @@
 import { Link } from "wouter";
 import logoImage from "@assets/image_1758211685824_1761593188026.png";
+import penfedVepBadge from "@assets/penfed_vep_alumni_horizontal.png";
 import EmailCaptureForm from "@/components/EmailCaptureForm";
+
+const PENFED_VEP_URL = "https://penfedfoundation.org/how-we-help/vep";
 
 export default function Footer() {
   return (
@@ -99,6 +102,28 @@ export default function Footer() {
             Let us change the way you change. One practical change leadership article a week.
           </p>
           <EmailCaptureForm sourcePage="footer" />
+        </div>
+
+        <div
+          className="mt-8 flex flex-wrap items-center justify-center gap-8 border-t pt-8"
+          data-testid="footer-affiliations"
+        >
+          <a
+            href={PENFED_VEP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-opacity hover:opacity-80"
+            data-testid="link-penfed-vep"
+          >
+            <img
+              src={penfedVepBadge}
+              alt="Proud alumni of the PenFed Foundation Veteran Entrepreneur Program"
+              width={244}
+              height={72}
+              className="h-16 w-auto md:h-[72px]"
+              loading="lazy"
+            />
+          </a>
         </div>
 
         <div className="mt-6 border-t pt-6 text-center text-sm text-muted-foreground">
