@@ -175,6 +175,8 @@ export default function About() {
                   PhD in Organizational Leadership from National University (2026). U.S. Army
                   veteran with more than 20 years in project and organizational leadership. Author
                   of <em>Leadership Toolbox</em> (2023) and a member of the ACMP Webinar Task Force.
+                  Selected for the PenFed Foundation Veteran Entrepreneur Program accelerator (2026
+                  cohort).
                 </p>
                 <div className="flex flex-wrap gap-5 text-[15px] font-semibold">
                   <Link href="/method" className="text-primary underline">
